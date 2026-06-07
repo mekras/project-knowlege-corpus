@@ -1,0 +1,7 @@
+interface:
+  display_name: "source-fact-extraction"
+  short_description: "Извлечение проверяемых фактов из первичных данных"
+  default_prompt: "Используй $source-fact-extraction, чтобы извлечь кандидаты из нормализованных первичных данных."
+
+policy:
+  allow_implicit_invocation: true

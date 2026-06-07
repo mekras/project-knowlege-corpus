@@ -1,0 +1,29 @@
+{
+  "skill_name": "primary-data-intake",
+  "cases": [
+    {
+      "id": "primary-data-intake-positive-new-material",
+      "prompt": "Прими этот экспорт в корпус знаний как первичные данные и зафиксируй происхождение, лицензию и ограничения.",
+      "should_trigger": true,
+      "rationale": "Пользователь просит принять материал как первичные данные."
+    },
+    {
+      "id": "primary-data-intake-positive-public-project",
+      "prompt": "Проект публичный. Нужно понять, можно ли сохранить исходный документ в Git как первичный материал.",
+      "should_trigger": true,
+      "rationale": "Запрос касается приёма первичных данных и ограничений хранения."
+    },
+    {
+      "id": "primary-data-intake-negative-normalization",
+      "prompt": "Подготовь нормализованное Markdown-представление уже принятого источника.",
+      "should_trigger": false,
+      "rationale": "Это нормализация уже принятого материала."
+    },
+    {
+      "id": "primary-data-intake-negative-summary",
+      "prompt": "Сделай краткую сводку состояния первичных данных по стадиям.",
+      "should_trigger": false,
+      "rationale": "Это управленческая сводка, а не приём нового материала."
+    }
+  ]
+}

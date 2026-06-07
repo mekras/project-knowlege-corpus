@@ -1,0 +1,7 @@
+interface:
+  display_name: "primary-data-summary"
+  short_description: "Сводка состояния первичных данных"
+  default_prompt: "Используй $primary-data-summary, чтобы кратко показать состояние первичных данных по стадиям."
+
+policy:
+  allow_implicit_invocation: true

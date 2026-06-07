@@ -1,0 +1,29 @@
+{
+  "skill_name": "knowledge-analysis",
+  "cases": [
+    {
+      "id": "knowledge-analysis-positive-statements",
+      "prompt": "Сопоставь извлечённые утверждения из нескольких источников и покажи выводы, противоречия и открытые вопросы.",
+      "should_trigger": true,
+      "rationale": "Пользователь просит аналитический разбор утверждений корпуса знаний."
+    },
+    {
+      "id": "knowledge-analysis-positive-next-actions",
+      "prompt": "На основе корпуса знаний подготовь кандидаты в проектные правила и отметь, где нужен человек.",
+      "should_trigger": true,
+      "rationale": "Нужен переход от утверждений к кандидатам в проектные действия."
+    },
+    {
+      "id": "knowledge-analysis-negative-extraction",
+      "prompt": "Выдели утверждения из исходной стенограммы и назначь им идентификаторы.",
+      "should_trigger": false,
+      "rationale": "Это извлечение утверждений, а не анализ уже собранного основания."
+    },
+    {
+      "id": "knowledge-analysis-negative-writing",
+      "prompt": "Оформи утверждённые выводы в раздел документации.",
+      "should_trigger": false,
+      "rationale": "Это техническое письмо или обновление документации."
+    }
+  ]
+}

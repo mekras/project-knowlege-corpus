@@ -1,0 +1,47 @@
+{
+  "skill_name": "primary-data-summary",
+  "cases": [
+    {
+      "id": "primary-data-summary-positive-stage-counts",
+      "prompt": "Дай сводку по первичным данным: сколько материалов на каком этапе и где очередь.",
+      "should_trigger": true,
+      "rationale": "Нужна сводка состояния по стадиям обработки."
+    },
+    {
+      "id": "primary-data-summary-positive-backlog",
+      "prompt": "Покажи, что уже обработано, что ждёт стенограммы и что заблокировано.",
+      "should_trigger": true,
+      "rationale": "Запрос касается очередей и блокеров первичных данных."
+    },
+    {
+      "id": "primary-data-summary-positive-bottlenecks",
+      "prompt": "Найди узкие места в движении первичных данных без изменения файлов.",
+      "should_trigger": true,
+      "rationale": "Нужен обзор проблем движения данных без правок."
+    },
+    {
+      "id": "primary-data-summary-positive-current-package",
+      "prompt": "Скажи, в каком состоянии текущий пакет источника и какие предупреждения относятся к нему.",
+      "should_trigger": true,
+      "rationale": "Нужна сводка состояния текущего пакета."
+    },
+    {
+      "id": "primary-data-summary-negative-sync",
+      "prompt": "Подтяни обновления источников и пересчитай хэши.",
+      "should_trigger": false,
+      "rationale": "Это техническая синхронизация, не сводка."
+    },
+    {
+      "id": "primary-data-summary-negative-extract",
+      "prompt": "Извлеки факты из этих стенограмм и подготовь кандидаты для документации.",
+      "should_trigger": false,
+      "rationale": "Это извлечение фактов, а не сводка состояния."
+    },
+    {
+      "id": "primary-data-summary-negative-impact",
+      "prompt": "Сравни новые факты с документацией и внеси безопасные правки.",
+      "should_trigger": false,
+      "rationale": "Это анализ влияния и обновление документов."
+    }
+  ]
+}

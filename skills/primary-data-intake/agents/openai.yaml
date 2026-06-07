@@ -1,0 +1,7 @@
+interface:
+  display_name: "primary-data-intake"
+  short_description: "Приём первичных данных с происхождением и ограничениями"
+  default_prompt: "Используй $primary-data-intake, чтобы принять материал в корпус знаний как первичные данные."
+
+policy:
+  allow_implicit_invocation: true

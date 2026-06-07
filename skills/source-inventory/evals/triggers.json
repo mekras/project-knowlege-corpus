@@ -1,0 +1,65 @@
+{
+  "skill_name": "source-inventory",
+  "cases": [
+    {
+      "id": "source-inventory-positive-create-registry",
+      "prompt": "Нужно завести единый реестр внешних источников требований и аналитики для проекта.",
+      "should_trigger": true,
+      "rationale": "Пользователь просит создать учёт внешних источников проекта."
+    },
+    {
+      "id": "source-inventory-positive-sync-snapshots",
+      "prompt": "Обнови снимки источников по проектному манифесту и скажи, какие данные изменились технически.",
+      "should_trigger": true,
+      "rationale": "Нужна техническая синхронизация и сравнение источников."
+    },
+    {
+      "id": "source-inventory-positive-adapter-contract",
+      "prompt": "Опиши, как в нашем проекте добавить новый тип источника через адаптер, не меняя навык.",
+      "should_trigger": true,
+      "rationale": "Запрос касается расширяемого контракта источников и адаптеров."
+    },
+    {
+      "id": "source-inventory-positive-fetch-error",
+      "prompt": "Синхронизация источников упала на одном URL, проверь отчёт получения и статус источников.",
+      "should_trigger": true,
+      "rationale": "Нужна диагностика технического получения источников."
+    },
+    {
+      "id": "source-inventory-positive-primary-data-layer",
+      "prompt": "Предложи, как завести в проекте слой первичных данных для индексов, снимков, расшифровок и метаданных источников.",
+      "should_trigger": true,
+      "rationale": "Запрос касается проектного учёта первичных данных и источников."
+    },
+    {
+      "id": "source-inventory-positive-primary-contract",
+      "prompt": "Проверь контракт индекса источника: обязательные поля, репо-относительные пути, хэш и политику чувствительных данных.",
+      "should_trigger": true,
+      "rationale": "Нужна техническая проверка слоя первичных данных."
+    },
+    {
+      "id": "source-inventory-negative-doc-impact",
+      "prompt": "По изменившимся источникам обнови требования и пользовательские сценарии в документации.",
+      "should_trigger": false,
+      "rationale": "Это смысловое обновление документации, а не технический учёт источников."
+    },
+    {
+      "id": "source-inventory-negative-fact-extraction",
+      "prompt": "Извлеки из готовой стенограммы факты, фрагменты источника и область применения для дальнейшего аудита.",
+      "should_trigger": false,
+      "rationale": "Это извлечение фактов из нормализованного артефакта, а не инвентаризация источника."
+    },
+    {
+      "id": "source-inventory-negative-ordinary-api-client",
+      "prompt": "Реализуй клиент API для загрузки профиля пользователя в приложении.",
+      "should_trigger": false,
+      "rationale": "Это задача разработки функции, не учёт первичных источников проекта."
+    },
+    {
+      "id": "source-inventory-negative-markdown-style",
+      "prompt": "Проверь оформление Markdown в проектной документации.",
+      "should_trigger": false,
+      "rationale": "Проверка оформления не требует синхронизации внешних источников."
+    }
+  ]
+}

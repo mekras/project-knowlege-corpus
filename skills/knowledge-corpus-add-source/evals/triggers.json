@@ -1,0 +1,29 @@
+{
+  "skill_name": "knowledge-corpus-add-source",
+  "cases": [
+    {
+      "id": "knowledge-corpus-add-source-positive-new-source",
+      "prompt": "Добавь новый сайт как источник в корпус знаний проекта: нужно понять, где его учитывать и как получать данные.",
+      "should_trigger": true,
+      "rationale": "Пользователь просит технически добавить новый внешний источник в корпус знаний."
+    },
+    {
+      "id": "knowledge-corpus-add-source-positive-api-source",
+      "prompt": "Нужно завести API как новый источник первичных данных и описать контракт нормализации.",
+      "should_trigger": true,
+      "rationale": "Запрос касается добавления нового источника и технического способа получения."
+    },
+    {
+      "id": "knowledge-corpus-add-source-negative-facts",
+      "prompt": "Извлеки утверждения из уже нормализованного источника и подготовь их для анализа.",
+      "should_trigger": false,
+      "rationale": "Это извлечение утверждений, а не техническое добавление нового источника."
+    },
+    {
+      "id": "knowledge-corpus-add-source-negative-impact",
+      "prompt": "Проверь, какие документы нужно обновить после изменения источника.",
+      "should_trigger": false,
+      "rationale": "Это анализ влияния источника на производные материалы."
+    }
+  ]
+}

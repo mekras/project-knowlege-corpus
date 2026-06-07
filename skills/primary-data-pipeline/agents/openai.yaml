@@ -1,0 +1,7 @@
+interface:
+  display_name: "primary-data-pipeline"
+  short_description: "Конвейер первичных данных от источников до документов"
+  default_prompt: "Используй $primary-data-pipeline, чтобы организовать или продолжить конвейер первичных данных проекта."
+
+policy:
+  allow_implicit_invocation: true

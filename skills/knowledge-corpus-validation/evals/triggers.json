@@ -1,0 +1,29 @@
+{
+  "skill_name": "knowledge-corpus-validation",
+  "cases": [
+    {
+      "id": "knowledge-corpus-validation-positive-full-check",
+      "prompt": "Проверь корпус знаний на целостность, полноту обработки источников и противоречия между утверждениями.",
+      "should_trigger": true,
+      "rationale": "Пользователь просит комплексную проверку корпуса знаний."
+    },
+    {
+      "id": "knowledge-corpus-validation-positive-after-change",
+      "prompt": "После добавления источника проверь, все ли слои корпуса знаний связаны и нет ли формальных ошибок.",
+      "should_trigger": true,
+      "rationale": "Проверка корпуса после изменения входит в область навыка."
+    },
+    {
+      "id": "knowledge-corpus-validation-negative-one-file",
+      "prompt": "Проверь синтаксис одного файла JSON в primary-слое.",
+      "should_trigger": false,
+      "rationale": "Единичная техническая проверка файла не является комплексной проверкой корпуса."
+    },
+    {
+      "id": "knowledge-corpus-validation-negative-intake",
+      "prompt": "Прими новый документ в корпус знаний и зафиксируй его происхождение.",
+      "should_trigger": false,
+      "rationale": "Это приём первичных данных."
+    }
+  ]
+}

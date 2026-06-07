@@ -1,0 +1,29 @@
+{
+  "skill_name": "primary-data-normalization",
+  "cases": [
+    {
+      "id": "primary-data-normalization-positive-markdown",
+      "prompt": "Нормализуй сохранённый HTML-снимок в Markdown, сохрани связь с первичным материалом и отметь сомнительные места.",
+      "should_trigger": true,
+      "rationale": "Пользователь просит создать нормализованное представление первичных данных."
+    },
+    {
+      "id": "primary-data-normalization-positive-transcript",
+      "prompt": "Подготовь нормализованный текст из сырой расшифровки для последующего извлечения утверждений.",
+      "should_trigger": true,
+      "rationale": "Запрос касается подготовки первичного материала к следующему этапу."
+    },
+    {
+      "id": "primary-data-normalization-negative-intake",
+      "prompt": "Сначала реши, можно ли принять этот файл в корпус знаний и хранить его в Git.",
+      "should_trigger": false,
+      "rationale": "Это приём первичных данных и проверка ограничений хранения."
+    },
+    {
+      "id": "primary-data-normalization-negative-extraction",
+      "prompt": "Извлеки проверяемые утверждения из нормализованного текста.",
+      "should_trigger": false,
+      "rationale": "Это следующий этап извлечения утверждений."
+    }
+  ]
+}

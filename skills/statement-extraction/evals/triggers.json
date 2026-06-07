@@ -1,0 +1,29 @@
+{
+  "skill_name": "statement-extraction",
+  "cases": [
+    {
+      "id": "statement-extraction-positive-normalized-source",
+      "prompt": "Извлеки утверждения из нормализованного источника, назначь стабильные идентификаторы и укажи ограничения.",
+      "should_trigger": true,
+      "rationale": "Пользователь просит извлечь проверяемые утверждения из данных корпуса."
+    },
+    {
+      "id": "statement-extraction-positive-primary-material",
+      "prompt": "По этому первичному материалу выдели факты, наблюдения и спорные фрагменты для дальнейшего анализа.",
+      "should_trigger": true,
+      "rationale": "Нужно отделить утверждения и статусы от исходного материала."
+    },
+    {
+      "id": "statement-extraction-negative-analysis",
+      "prompt": "Сопоставь уже извлечённые утверждения и предложи выводы для следующего проектного решения.",
+      "should_trigger": false,
+      "rationale": "Это аналитический разбор уже извлечённых утверждений."
+    },
+    {
+      "id": "statement-extraction-negative-doc-update",
+      "prompt": "Обнови README по уже проверенным фактам из источника.",
+      "should_trigger": false,
+      "rationale": "Это перенос в производную документацию."
+    }
+  ]
+}

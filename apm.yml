@@ -1,0 +1,15 @@
+name: project-knowledge-corpus
+version: 0.1.0
+description: "Коллекция навыков для создания, сопровождения и применения корпуса знаний проекта"
+author: "mekras"
+license: "MIT"
+target:
+  - claude
+  - codex
+type: "skill"
+dependencies:
+  apm: []
+  mcp: []
+scripts:
+  start: "python3 tools/validate-trigger-evals.py --require-all"
+  validate-triggers: "python3 tools/validate-trigger-evals.py --require-all"

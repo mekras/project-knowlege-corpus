@@ -1,0 +1,7 @@
+interface:
+  display_name: "source-inventory"
+  short_description: "Учёт и техническая синхронизация внешних источников проекта"
+  default_prompt: "Используй $source-inventory, чтобы проверить или обновить учёт внешних источников проекта."
+
+policy:
+  allow_implicit_invocation: true

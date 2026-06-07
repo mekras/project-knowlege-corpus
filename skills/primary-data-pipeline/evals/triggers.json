@@ -1,0 +1,53 @@
+{
+  "skill_name": "primary-data-pipeline",
+  "cases": [
+    {
+      "id": "primary-data-pipeline-positive-run",
+      "prompt": "Запусти автономный проход конвейера первичных данных: проверь источники, извлеки факты и доведи безопасные изменения до документации.",
+      "should_trigger": true,
+      "rationale": "Пользователь просит организовать полный путь первичных данных через несколько этапов."
+    },
+    {
+      "id": "primary-data-pipeline-positive-continue",
+      "prompt": "Продолжи конвейер по текущему пакету источника и сам выбери следующий безопасный шаг.",
+      "should_trigger": true,
+      "rationale": "Нужно продолжить пакетную обработку первичных данных."
+    },
+    {
+      "id": "primary-data-pipeline-positive-plan",
+      "prompt": "Составь next-run для нового источника: 5 элементов, разрешённые файлы, запреты и критерии остановки.",
+      "should_trigger": true,
+      "rationale": "Запрос касается плана малого запуска конвейера."
+    },
+    {
+      "id": "primary-data-pipeline-positive-coordinate",
+      "prompt": "Организуй работу агентов: один проверяет источник, второй извлекает факты, третий проверяет влияние на документы.",
+      "should_trigger": true,
+      "rationale": "Нужна координация ролей конвейера первичных данных."
+    },
+    {
+      "id": "primary-data-pipeline-positive-blockers",
+      "prompt": "Разбери предупреждения конвейера по текущему пакету и зафиксируй блокеры, которые требуют решения человека.",
+      "should_trigger": true,
+      "rationale": "Нужно управлять стадиями, предупреждениями и блокерами конвейера."
+    },
+    {
+      "id": "primary-data-pipeline-negative-only-sync",
+      "prompt": "Обнови снимки источников и подготовь технический отчёт без анализа документации.",
+      "should_trigger": false,
+      "rationale": "Это только техническая инвентаризация источников, её покрывает source-inventory."
+    },
+    {
+      "id": "primary-data-pipeline-negative-only-impact",
+      "prompt": "По готовому отчёту синхронизации проверь, какие требования устарели.",
+      "should_trigger": false,
+      "rationale": "Это только анализ влияния уже подготовленных источников."
+    },
+    {
+      "id": "primary-data-pipeline-negative-summary",
+      "prompt": "Дай короткую сводку: сколько материалов на каждом этапе и где очередь.",
+      "should_trigger": false,
+      "rationale": "Это управленческая сводка без движения артефактов."
+    }
+  ]
+}

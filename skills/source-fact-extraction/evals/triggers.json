@@ -1,0 +1,53 @@
+{
+  "skill_name": "source-fact-extraction",
+  "cases": [
+    {
+      "id": "source-fact-extraction-positive-transcript",
+      "prompt": "Извлеки из очищенной стенограммы проверяемые факты для дальнейшего сравнения с документацией.",
+      "should_trigger": true,
+      "rationale": "Нужно извлечь кандидаты из нормализованного первичного артефакта."
+    },
+    {
+      "id": "source-fact-extraction-positive-facts-file",
+      "prompt": "Заполни файл extracted-facts.md по этим снимкам источника: утверждение, фрагмент, область применения и статус.",
+      "should_trigger": true,
+      "rationale": "Запрос прямо касается файла извлечённых фактов."
+    },
+    {
+      "id": "source-fact-extraction-positive-blocked",
+      "prompt": "Проверь кандидаты без стенограммы и пометь, какие нужно заблокировать до появления артефакта.",
+      "should_trigger": true,
+      "rationale": "Нужно проверить опору кандидатов на первичные артефакты."
+    },
+    {
+      "id": "source-fact-extraction-positive-scope",
+      "prompt": "Из этих интервью выдели факты и не сужай область применения только по теме интервью.",
+      "should_trigger": true,
+      "rationale": "Нужно извлечение фактов с проверкой области применения."
+    },
+    {
+      "id": "source-fact-extraction-positive-validate",
+      "prompt": "Проверь таблицу кандидатов: ID, фрагменты источника, статусы и ссылки на артефакты.",
+      "should_trigger": true,
+      "rationale": "Запрос касается качества промежуточного файла фактов."
+    },
+    {
+      "id": "source-fact-extraction-negative-sync",
+      "prompt": "Синхронизируй внешний источник, обнови индекс и посчитай хэш нормализованного снимка.",
+      "should_trigger": false,
+      "rationale": "Это техническая инвентаризация источника."
+    },
+    {
+      "id": "source-fact-extraction-negative-impact",
+      "prompt": "Сравни готовые факты с документацией и внеси безопасные правки.",
+      "should_trigger": false,
+      "rationale": "Это анализ влияния и обновление производных документов."
+    },
+    {
+      "id": "source-fact-extraction-negative-summary",
+      "prompt": "Скажи, сколько материалов уже дошло до извлечения фактов.",
+      "should_trigger": false,
+      "rationale": "Это сводка состояния, а не извлечение фактов."
+    }
+  ]
+}
