@@ -13,3 +13,4 @@ dependencies:
 scripts:
   start: "python3 tools/validate-trigger-evals.py --require-all"
   validate-triggers: "python3 tools/validate-trigger-evals.py --require-all"
+  validate-corpus-layout: "python3 skills/source-inventory/scripts/validate-corpus-layout.py"

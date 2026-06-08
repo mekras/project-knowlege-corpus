@@ -14,6 +14,12 @@
       "rationale": "Нужно отделить утверждения и статусы от исходного материала."
     },
     {
+      "id": "statement-extraction-positive-impact-candidates",
+      "prompt": "Подготовь промежуточную таблицу кандидатов для source-impact-audit: утверждение, фрагмент источника, область применения, статус и открытые вопросы.",
+      "should_trigger": true,
+      "rationale": "После удаления отдельного навыка фактов промежуточные кандидаты извлекаются через statement-extraction."
+    },
+    {
       "id": "statement-extraction-negative-analysis",
       "prompt": "Сопоставь уже извлечённые утверждения и предложи выводы для следующего проектного решения.",
       "should_trigger": false,

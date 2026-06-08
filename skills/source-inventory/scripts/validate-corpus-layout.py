@@ -48,8 +48,10 @@ STATEMENT_REQUIRED = {
     "status",
     "text",
     "excerpt",
+    "artifact",
     "checked_at",
     "scope",
+    "open_questions",
 }
 
 DEFAULT_ALLOWED_STAGES = {
@@ -263,19 +265,41 @@ class Validator:
 
         expected_ids: set[str] = set()
         for source_dir in source_dirs:
+            source = load_yaml(source_dir / "source.yml")
+            source_id = source.get("id") if isinstance(source, dict) else None
             source_items_path = source_dir / "items.yml"
             if not source_items_path.exists():
                 continue
             source_items = load_yaml(source_items_path)
             source_list = source_items.get("items") if isinstance(source_items, dict) else None
-            if not isinstance(source_list, list):
+            if not isinstance(source_id, str) or not isinstance(source_list, list):
                 continue
             for source_item in source_list:
                 if not isinstance(source_item, dict):
                     continue
                 item_id = source_item.get("id")
-                if isinstance(item_id, str):
-                    expected_ids.add(item_id)
+                if not isinstance(item_id, str):
+                    continue
+                expected_ids.add(item_id)
+                global_item = global_by_id.get(item_id)
+                if global_item is None:
+                    self.errors.append(f"{rel}: missing source item: {item_id}")
+                    continue
+
+                item_path = source_item.get("path")
+                expected_path = None
+                if isinstance(item_path, str):
+                    expected_path = (source_dir / item_path).relative_to(self.root).as_posix()
+                expected_fields = {
+                    "source_id": source_id,
+                    "path": expected_path,
+                    "title": source_item.get("title"),
+                    "workflow_stage": source_item.get("workflow_stage"),
+                    "access": source_item.get("access"),
+                }
+                for field, expected in expected_fields.items():
+                    if global_item.get(field) != expected:
+                        self.errors.append(f"{rel}: {item_id} field {field} is out of sync")
 
         extra_ids = sorted(set(global_by_id) - expected_ids)
         if extra_ids:
@@ -390,6 +414,12 @@ class Validator:
             self.errors.append(f"{rel}: source_id does not match {source_id}")
         if not nonempty_string(item.get("access")):
             self.errors.append(f"{rel}: access must be non-empty text")
+
+        stage = item.get("workflow_stage")
+        if stage and stage not in self.allowed_stages:
+            self.errors.append(f"{rel}: unknown workflow_stage: {stage}")
+
+        self.add_value_errors(rel, item)
 
         files = item.get("files", {})
         if files and not isinstance(files, dict):

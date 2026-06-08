@@ -4,7 +4,7 @@
 source_id: SOURCE-ID
 item_id: SOURCE-ID-ITEM
 statements:
-  - id: SOURCE-ID-ITEM-S001
+  - id: SOURCE-ID-001
     source_id: SOURCE-ID
     item_id: SOURCE-ID-ITEM
     status: candidate # candidate | confirmed | blocked | rejected
