@@ -8,7 +8,8 @@ target:
   - codex
 type: "skill"
 dependencies:
-  apm: []
+  apm:
+    - github.com/mekras/ai-russian-language#master
   mcp: []
 scripts:
   start: "python3 tools/validate-trigger-evals.py --require-all"
