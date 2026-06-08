@@ -1,7 +1,0 @@
-interface:
-  display_name: "knowledge-corpus-add-source"
-  short_description: "Техническое добавление нового источника в корпус знаний"
-  default_prompt: "Используй $knowledge-corpus-add-source, чтобы добавить новый внешний источник в корпус знаний проекта."
-
-policy:
-  allow_implicit_invocation: true
