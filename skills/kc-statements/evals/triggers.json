@@ -20,6 +20,12 @@
       "rationale": "После удаления отдельного навыка фактов промежуточные кандидаты извлекаются через kc-statements."
     },
     {
+      "id": "kc-statements-negative-pipeline-unready-normalization",
+      "prompt": "В рамках конвейера создай statements-файл по источнику, у которого normalized/source.md пишет, что нормализация ожидается, а страницы отсутствуют.",
+      "should_trigger": false,
+      "rationale": "В конвейере такой источник должен вернуться на нормализацию, а не переходить к конечным утверждениям."
+    },
+    {
       "id": "kc-statements-negative-analysis",
       "prompt": "Сопоставь уже извлечённые утверждения и предложи выводы для следующего проектного решения.",
       "should_trigger": false,
