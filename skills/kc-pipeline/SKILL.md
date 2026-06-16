@@ -9,7 +9,7 @@ description: >
   планов следующего запуска, критериев остановки и передачи задач между
   `kc-inventory`, `kc-normalization`, `kc-statements` и `kc-impact-audit`.
   Не используй для простой сводки состояния без движения артефактов; это
-  задача `ks-status`.
+  задача `kc-status`.
 ---
 
 # kc-pipeline

@@ -133,8 +133,8 @@ apm deps update --global
 - [kc-pipeline](skills/kc-pipeline/README.md)
 - [kc-sources-add](skills/kc-sources-add/README.md)
 - [kc-statements](skills/kc-statements/README.md)
+- [kc-status](skills/kc-status/README.md)
 - [kc-validation](skills/kc-validation/README.md)
-- [ks-status](skills/transcript-analysis/README.md)
 - [transcript-analysis](skills/transcript-analysis/README.md)
 
 ## Лицензия

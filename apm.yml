@@ -1,17 +1,19 @@
 name: project-knowledge-corpus
 version: 0.1.0
-description: "Коллекция навыков для создания, сопровождения и применения корпуса знаний проекта"
-author: "mekras"
-license: "MIT"
+description: Коллекция навыков для создания, сопровождения и применения корпуса знаний
+  проекта
+author: mekras
+license: MIT
 target:
-  - claude
-  - codex
-type: "skill"
+- claude
+- codex
+type: skill
 dependencies:
   apm:
-    - github.com/mekras/ai-russian-language#master
+  - mekras/ai-russian-language#^1.1.0
+  - mekras/ai-agent-supervisor#^0.2.0
   mcp: []
 scripts:
-  start: "python3 tools/validate-trigger-evals.py --require-all"
-  validate-triggers: "python3 tools/validate-trigger-evals.py --require-all"
-  validate-corpus-layout: "python3 skills/kc-inventory/scripts/validate-corpus-layout.py"
+  start: python3 tools/validate-trigger-evals.py --require-all
+  validate-triggers: python3 tools/validate-trigger-evals.py --require-all
+  validate-corpus-layout: python3 skills/kc-inventory/scripts/validate-corpus-layout.py

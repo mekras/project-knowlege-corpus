@@ -1,0 +1,7 @@
+interface:
+  display_name: "ru-lang"
+  short_description: "Правила использования русского языка"
+  default_prompt: "Используй $ru-lang для проверки русского текста."
+
+policy:
+  allow_implicit_invocation: true

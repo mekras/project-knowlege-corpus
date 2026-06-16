@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 import sys
 from pathlib import Path
 from typing import Any
@@ -39,15 +40,31 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def is_git_ignored(path: Path) -> bool:
+    try:
+        git_path = str(path.resolve().relative_to(Path.cwd().resolve()))
+    except ValueError:
+        git_path = str(path)
+    result = subprocess.run(
+        ["git", "check-ignore", "-q", git_path],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        check=False,
+    )
+    return result.returncode == 0
+
+
 def find_skill_dirs(paths: list[Path]) -> list[Path]:
     skill_dirs: set[Path] = set()
     for path in paths:
         path = path.resolve()
+        if is_git_ignored(path):
+            continue
         if (path / "SKILL.md").is_file():
             skill_dirs.add(path)
             continue
         for skill_file in path.rglob("SKILL.md"):
-            if ".git" in skill_file.parts:
+            if ".git" in skill_file.parts or is_git_ignored(skill_file.parent):
                 continue
             skill_dirs.add(skill_file.parent)
     return sorted(skill_dirs)
