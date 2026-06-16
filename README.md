@@ -28,6 +28,17 @@ apm deps update --global
 
 ## Использование
 
+### Настройка целевого проекта
+
+Чтобы агенты в целевом проекте использовали корпус знаний при разработке,
+настройте проект через навык
+[kc-setup](skills/kc-setup/README.md).
+
+Если корпуса ещё нет, навык спросит имя папки и предложит `knowledge` как
+вариант по умолчанию. Если корпус уже есть, навык проверит его через
+`kc-validation` и обновит или исправит структуру перед записью правил в
+`AGENTS.md`.
+
 ### Источники
 
 Источники — места, откуда корпус знаний получает новые или обновлённые сведения.
@@ -131,6 +142,7 @@ apm deps update --global
 - [kc-inventory](skills/kc-inventory/README.md)
 - [kc-normalization](skills/kc-normalization/README.md)
 - [kc-pipeline](skills/kc-pipeline/README.md)
+- [kc-setup](skills/kc-setup/README.md)
 - [kc-sources-add](skills/kc-sources-add/README.md)
 - [kc-statements](skills/kc-statements/README.md)
 - [kc-status](skills/kc-status/README.md)

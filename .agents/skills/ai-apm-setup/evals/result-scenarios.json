@@ -1,0 +1,220 @@
+{
+  "skill_name": "ai-apm-setup",
+  "source_basis": [
+    {
+      "claim_id": "APMP-001",
+      "statement_path": "knowledge/statements/APMP.md"
+    },
+    {
+      "claim_id": "APMP-002",
+      "statement_path": "knowledge/statements/APMP.md"
+    },
+    {
+      "claim_id": "APMP-003",
+      "statement_path": "knowledge/statements/APMP.md"
+    },
+    {
+      "claim_id": "APMP-004",
+      "statement_path": "knowledge/statements/APMP.md"
+    },
+    {
+      "claim_id": "ASKL-006",
+      "statement_path": "knowledge/statements/ASKL.md"
+    },
+    {
+      "claim_id": "ASKL-009",
+      "statement_path": "knowledge/statements/ASKL.md"
+    },
+    {
+      "claim_id": "ASKL-010",
+      "statement_path": "knowledge/statements/ASKL.md"
+    },
+    {
+      "claim_id": "PPRX-001",
+      "statement_path": "knowledge/statements/PPRX.md"
+    }
+  ],
+  "cases": [
+    {
+      "id": "ai-apm-setup-result-create-manifest-with-tests",
+      "prompt": "В репозитории есть каталог skills/ и валидаторы tools/validate-trigger-evals.py, tools/validate-skill-result-evals.py, tools/run-skill-evals.py, но нет apm.yml. Настрой проект как коллекцию APM и добавь apm run tests.",
+      "input_files": [
+        {
+          "path": "skills/example-skill/SKILL.md",
+          "purpose": "пример публикуемого навыка"
+        },
+        {
+          "path": "tools/validate-trigger-evals.py",
+          "purpose": "валидатор проверок срабатывания"
+        },
+        {
+          "path": "tools/validate-skill-result-evals.py",
+          "purpose": "валидатор сценариев результата"
+        },
+        {
+          "path": "tools/run-skill-evals.py",
+          "purpose": "запуск тестов навыков"
+        }
+      ],
+      "required_corpus_claims": [
+        "APMP-001",
+        "APMP-003",
+        "APMP-004",
+        "ASKL-009",
+        "ASKL-010",
+        "PPRX-001"
+      ],
+      "expected_output": {
+        "report_structure": [
+          "назван созданный apm.yml",
+          "показано, что type выбран для коллекции skills",
+          "названа команда scripts.tests для apm run tests",
+          "перечислены выполненные проверки или причины, почему часть проверок не запускалась"
+        ],
+        "findings": [
+          {
+            "severity": "high",
+            "corpus_claims": [
+              "APMP-001",
+              "PPRX-001"
+            ],
+            "observed_problem": "репозиторий с skills не имеет манифеста APM и поэтому не оформлен как пакет коллекции.",
+            "expected_conclusion": "нужно создать минимальный apm.yml для публикации коллекции навыков",
+            "acceptable_fix_direction": "создать манифест с именем, версией, type skill, target, dependencies и scripts.tests"
+          },
+          {
+            "severity": "high",
+            "corpus_claims": [
+              "APMP-003",
+              "ASKL-009",
+              "ASKL-010"
+            ],
+            "observed_problem": "команда apm run tests не настроена и не может служить повторяемой проверкой коллекции.",
+            "expected_conclusion": "scripts.tests должен запускать реальные тесты коллекции, а не заглушку или несуществующие файлы",
+            "acceptable_fix_direction": "записать команду, которая вызывает найденные валидаторы и средство запуска проверок"
+          }
+        ]
+      },
+      "negative_control": {
+        "description": "Сравнить с ответом без применения навыка, где агент ограничился README или общими советами по APM.",
+        "expected_failure": "Такой ответ не создаёт apm.yml с scripts.tests и не доказывает, что apm run tests связан с реальными проверками коллекции."
+      },
+      "oracle": {
+        "success_criteria": [
+          "создан или обновлён apm.yml",
+          "scripts.tests содержит команду для существующих тестов коллекции",
+          "результат объясняет, какие проверки подтвердили настройку"
+        ],
+        "failure_indicators": [
+          "ответ ограничен описанием APM без изменения настроек",
+          "scripts.tests отсутствует или указывает на несуществующую команду",
+          "результат навязывает hooks или commands как основной переносимый путь без причины"
+        ]
+      },
+      "application_evidence": [
+        "diff содержит apm.yml или изменение его scripts.tests",
+        "отчёт называет итоговую команду apm run tests",
+        "отчёт связывает проверку с существующими валидаторами или явно созданным тестовым скриптом"
+      ],
+      "evaluation_surface": "изменение артефактов APM и качество результата настройки",
+      "assertions": [
+        "Результат создаёт или обновляет манифест APM в корне проекта.",
+        "Команда scripts.tests запускает тесты коллекции, а не пустую заглушку.",
+        "Отчёт отделяет выполненные проверки от проверок, которые остались недоступны."
+      ],
+      "must_not": [
+        "не считать README заменой apm.yml",
+        "не записывать команду tests на отсутствующие файлы",
+        "не добавлять конкретные модели в переносимый манифест"
+      ]
+    },
+    {
+      "id": "ai-apm-setup-result-update-existing-manifest-preserve-metadata",
+      "prompt": "В проекте уже есть apm.yml с name, version, author, license и dependencies, но scripts.tests нет. Обнови его для коллекции skills/**, не перезаписывая метаданные пакета.",
+      "input_files": [
+        {
+          "path": "apm.yml",
+          "purpose": "существующий манифест APM"
+        },
+        {
+          "path": "skills/example-skill/SKILL.md",
+          "purpose": "пример публикуемого навыка"
+        },
+        {
+          "path": "tools/run-skill-evals.py",
+          "purpose": "существующая команда тестов коллекции"
+        }
+      ],
+      "required_corpus_claims": [
+        "APMP-001",
+        "APMP-002",
+        "APMP-003",
+        "APMP-004",
+        "ASKL-006",
+        "ASKL-010"
+      ],
+      "expected_output": {
+        "report_structure": [
+          "названы сохранённые поля существующего apm.yml",
+          "показано добавление или обновление scripts.tests",
+          "объяснено, почему apm compile не стал обязательным для пакета только из skills",
+          "перечислены проверки манифеста и тестовой команды"
+        ],
+        "findings": [
+          {
+            "severity": "high",
+            "corpus_claims": [
+              "APMP-003",
+              "ASKL-010"
+            ],
+            "observed_problem": "существующий манифест APM не содержит scripts.tests, поэтому стандартная команда проверки коллекции отсутствует.",
+            "expected_conclusion": "нужно добавить scripts.tests, сохранив существующие метаданные",
+            "acceptable_fix_direction": "обновить только недостающую секцию scripts или поле tests"
+          },
+          {
+            "severity": "medium",
+            "corpus_claims": [
+              "APMP-002",
+              "APMP-004"
+            ],
+            "observed_problem": "пакет только из skills ошибочно получает обязательный шаг apm compile или commands, зависящие от целевой среды, вместо переносимой настройки scripts.tests.",
+            "expected_conclusion": "для коллекции только из skills compile не является обязательным, а scripts.tests достаточно для apm run tests",
+            "acceptable_fix_direction": "не добавлять compile в обязательный тестовый цикл без instructions и не подменять переносимую настройку hooks/commands"
+          }
+        ]
+      },
+      "negative_control": {
+        "description": "Сравнить с ответом, где агент перегенерировал весь манифест по шаблону.",
+        "expected_failure": "Такой ответ теряет существующие name, version, author, license или dependencies и не соблюдает ограничение сохранения метаданных."
+      },
+      "oracle": {
+        "success_criteria": [
+          "существующие метаданные apm.yml сохранены",
+          "scripts.tests добавлен или обновлён",
+          "результат не требует apm compile для коллекции только из skills без причины"
+        ],
+        "failure_indicators": [
+          "манифест перезаписан целиком без сохранения полей",
+          "compile добавлен как обязательный шаг для пакета только со skills",
+          "результат не проверяет, существует ли команда тестов"
+        ]
+      },
+      "application_evidence": [
+        "diff apm.yml ограничен нужными полями",
+        "отчёт явно перечисляет сохранённые метаданные",
+        "результат содержит проверяемую команду scripts.tests"
+      ],
+      "evaluation_surface": "ограниченное обновление существующего манифеста APM",
+      "assertions": [
+        "Обновление сохраняет существующие метаданные пакета.",
+        "scripts.tests появляется в apm.yml.",
+        "Навык различает коллекцию только из skills и пакет с instructions."
+      ],
+      "must_not": [
+        "не перезаписывать name, version, author, license и dependencies без запроса",
+        "не делать apm compile обязательным для пакета только из skills",
+        "не использовать hooks или commands как основной переносимый механизм без явной причины"
+      ]
+    }
+  ]
+}

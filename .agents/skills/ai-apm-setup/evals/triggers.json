@@ -1,0 +1,59 @@
+{
+  "skill_name": "ai-apm-setup",
+  "cases": [
+    {
+      "id": "ai-apm-setup-positive-new-collection",
+      "prompt": "Настрой этот репозиторий как коллекцию APM для skills и добавь команду apm run tests.",
+      "should_trigger": true,
+      "rationale": "Запрос прямо требует настроить проект как коллекцию APM и добавить запуск тестов через apm run tests."
+    },
+    {
+      "id": "ai-apm-setup-positive-update-manifest-tests",
+      "prompt": "В apm.yml уже есть name и version, но нет scripts.tests. Обнови настройки так, чтобы apm run tests запускал проверки коллекции навыков.",
+      "should_trigger": true,
+      "rationale": "Нужно обновить существующий манифест APM и добавить команду tests."
+    },
+    {
+      "id": "ai-apm-setup-positive-audit-package",
+      "prompt": "Проверь, готов ли наш пакет skills к публикации через APM: манифест, audit, pack и тесты.",
+      "should_trigger": true,
+      "rationale": "Запрос касается проверки пакета APM с коллекцией навыков и процесса выпуска."
+    },
+    {
+      "id": "ai-apm-setup-positive-fix-apm-run-tests",
+      "prompt": "apm run tests не запускает проверки навыков. Найди причину и исправь настройки APM.",
+      "should_trigger": true,
+      "rationale": "Нужно диагностировать и исправить команду tests в настройках APM для коллекции."
+    },
+    {
+      "id": "ai-apm-setup-positive-skills-only-compile-question",
+      "prompt": "У нас пакет только со skills. Нужно ли добавлять apm compile в обязательный тестовый цикл?",
+      "should_trigger": true,
+      "rationale": "Вопрос касается выбора проверок APM для коллекции только из skills."
+    },
+    {
+      "id": "ai-apm-setup-negative-install-package",
+      "prompt": "Установи пакет github.com/example/team-skills через apm install и проверь, что навыки доступны.",
+      "should_trigger": false,
+      "rationale": "Это потребительская установка чужого пакета APM, а не настройка проекта как коллекции."
+    },
+    {
+      "id": "ai-apm-setup-negative-ordinary-tests",
+      "prompt": "Запусти тесты проекта и кратко перескажи результат.",
+      "should_trigger": false,
+      "rationale": "Нужно выполнить тесты, а не настраивать манифест APM или коллекцию навыков."
+    },
+    {
+      "id": "ai-apm-setup-negative-skill-authoring",
+      "prompt": "Создай новый навык для проверки договоров и добавь evals/triggers.json.",
+      "should_trigger": false,
+      "rationale": "Это разработка отдельного навыка, а не настройка проекта как коллекции APM."
+    },
+    {
+      "id": "ai-apm-setup-negative-subagent-routing",
+      "prompt": "Настрой дешёвых подагентов для поиска по репозиторию и сильного ревьюера для правил.",
+      "should_trigger": false,
+      "rationale": "Это маршрутизация подагентов и моделей, а не упаковка коллекции через APM."
+    }
+  ]
+}

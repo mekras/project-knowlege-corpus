@@ -1,0 +1,4 @@
+interface:
+  display_name: "Настройка коллекции APM"
+  short_description: "apm.yml, apm run tests и compile-границы для коллекции навыков"
+  default_prompt: "Используй $ai-apm-setup, чтобы настроить проект как коллекцию APM и добавить команду apm run tests."

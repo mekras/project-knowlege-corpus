@@ -29,15 +29,18 @@
       "input_files": [
         {
           "path": "AGENTS.md",
-          "purpose": "корневые машинные инструкции"
+          "purpose": "корневые машинные инструкции",
+          "content": "Проект API Platform.\n\nФункции: REST API, админка, интеграции с платежами. Установка: npm install, npm run dev. Архитектура описана в README.\n\nПравила агента:\n- Всегда запускай npm test из корня.\n- Для packages/api запускай npm run test:api и npm run lint:api.\n- Если меняешь миграции packages/api, используй DATABASE_URL из локального .env.\n- Пиши аккуратный код и проверяй всё важное.\n\npackages/api/AGENTS.md применяй, если работаешь в API."
         },
         {
           "path": "packages/api/AGENTS.md",
-          "purpose": "локальные инструкции, которые должны уточнять область"
+          "purpose": "локальные инструкции, которые должны уточнять область",
+          "content": "Область действия: packages/api/**.\n\n- Для API запускай npm test.\n- Миграции проверяй командой npm run db:migrate:check.\n- Не меняй OpenAPI без обновления generated client."
         },
         {
           "path": "README.md",
-          "purpose": "человеческая документация для отделения дублей"
+          "purpose": "человеческая документация для отделения дублей",
+          "content": "# API Platform\n\nREST API, админка, интеграции с платежами.\n\n## Установка\n\nnpm install\nnpm run dev\n\n## Архитектура\n\nОписание модулей и сценариев разработки."
         }
       ],
       "required_corpus_claims": [
@@ -49,7 +52,7 @@
       ],
       "expected_output": {
         "report_structure": [
-          "названы созданные или изменённые instruction-файлы",
+          "названы созданные или изменённые файлы инструкций",
           "объяснено, какие фрагменты перенесены или удалены",
           "указана иерархия корневых и вложенных правил",
           "названа необходимость независимой проверки через ai-audit-agents-md"

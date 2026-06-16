@@ -10,10 +10,8 @@ target:
 type: skill
 dependencies:
   apm:
-  - mekras/ai-russian-language#^1.1.0
-  - mekras/ai-agent-supervisor#^0.2.0
+  - mekras/ai-russian-language#^1.1.1
+  - mekras/ai-agent-supervisor#^0.3.1
   mcp: []
 scripts:
-  start: python3 tools/validate-trigger-evals.py --require-all
-  validate-triggers: python3 tools/validate-trigger-evals.py --require-all
-  validate-corpus-layout: python3 skills/kc-inventory/scripts/validate-corpus-layout.py
+  tests: python3 tools/validate-trigger-evals.py skills --require-all && python3 tools/validate-skill-result-evals.py skills --require-all
