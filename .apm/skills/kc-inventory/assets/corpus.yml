@@ -1,0 +1,75 @@
+contract_version: 1
+
+tracked_data:
+  root: data
+  source_pattern: data/<source>/source.yml
+  source_unit_pattern: data/<source>/<units>/<unit>/item.yml
+  statement_pattern: data/<source>/<units>/<unit>/statements.yml
+
+local_data:
+  raw: .local/raw
+  private: .local/private
+  cache: .local/cache
+  temporary_file_pattern: "*.tmp.*"
+
+artifact_storage:
+  tracked:
+    - "Нормализованные тексты и стенограммы, если их можно хранить в проекте."
+    - "Небольшие полезные вложения источника, если они нужны в исходном виде."
+  local_or_temporary:
+    - "Тяжёлые медиафайлы."
+    - "Файлы с неясными правами или режимом доступа."
+    - "Временные загрузки и промежуточные технические файлы."
+
+access_policy:
+  source_default_field: access.default
+  item_field: access
+  format: free_text
+  rules:
+    - "У источника должен быть текст доступа по умолчанию."
+    - "У каждой единицы источника должен быть текстовый доступ."
+    - "Не заменять текст доступа кодами вроде public/private."
+
+source_units:
+  website:
+    unit: page
+    path_pattern: data/<source>/pages/<slug>
+  forum:
+    unit: topic_or_message
+    path_pattern: data/<source>/threads/<id>
+  document:
+    unit: file_or_section
+    path_pattern: data/<source>/documents/<slug>
+  channel:
+    unit: post
+    path_pattern: data/<source>/posts/post-<number>
+  interview:
+    unit: recording_or_fragment
+    path_pattern: data/<source>/records/<slug>
+  other:
+    unit: item
+    path_pattern: data/<source>/items/<slug>
+
+indexes:
+  sources: catalog.yml
+  items: index/items.yml
+  statements: index/statements.yml
+
+workflow_stages:
+  - indexed
+  - needs_fetch
+  - fetched
+  - needs_transcript
+  - raw_transcribed
+  - normalized
+  - statements_extracted
+  - source_checked
+  - blocked
+  - rejected
+
+sensitive_data_policy:
+  rules:
+    - "Не добавлять в Git токены, cookies, сессии, пароли и закрытые ссылки."
+    - "Хранить пути в отслеживаемых файлах только в репо-относительном виде."
+    - "Тяжёлые медиа и другие рабочие файлы хранить как *.tmp.* или в .local/."
+    - "Не переносить сведения в проект-потребитель без проверки источника, области применения, актуальности и режима доступа."

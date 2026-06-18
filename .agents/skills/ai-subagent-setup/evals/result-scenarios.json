@@ -28,7 +28,7 @@
           "purpose": "эксплуатационные правила проекта"
         },
         {
-          "path": "skills/ai-subagent-setup/references/routing-patterns.md",
+          "path": ".apm/skills/ai-subagent-setup/references/routing-patterns.md",
           "purpose": "шаблоны маршрутизации и конфигурации"
         }
       ],
@@ -109,7 +109,7 @@
           "purpose": "проектные правила, которые можно учитывать только как контекст"
         },
         {
-          "path": "skills/ai-subagent-setup/SKILL.md",
+          "path": ".apm/skills/ai-subagent-setup/SKILL.md",
           "purpose": "границы режима policy и implementation"
         }
       ],
@@ -194,11 +194,11 @@
           "purpose": "проектная политика подагентов, если AGENTS.md перегружен"
         },
         {
-          "path": "skills/ai-subagent-setup/SKILL.md",
+          "path": ".apm/skills/ai-subagent-setup/SKILL.md",
           "purpose": "границы применения навыка"
         },
         {
-          "path": "skills/ai-subagent-setup/references/routing-patterns.md",
+          "path": ".apm/skills/ai-subagent-setup/references/routing-patterns.md",
           "purpose": "шаблоны и критерии настройки политики подагентов"
         }
       ],

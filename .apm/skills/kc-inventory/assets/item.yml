@@ -1,0 +1,21 @@
+# Шаблон единицы источника.
+# Скопируйте файл в data/<source>/<units>/<unit>/item.yml.
+
+id: SOURCE-ID-ITEM
+title: "Название или краткая тема"
+url: "https://example.org/item"
+date_published: YYYY-MM-DD
+access: "Текстовое описание доступа к этой единице источника."
+
+status: candidate # candidate | confirmed | rejected | archived
+workflow_stage: indexed
+processing_scope: metadata_only # metadata_only | selected_fragments | full | full_redacted
+
+files:
+  tracked:
+    - message.md
+  local:
+    - attachment.tmp.bin
+
+known_limitations: []
+processing_notes: []

@@ -32,7 +32,7 @@ apm deps update --global
 
 Чтобы агенты в целевом проекте использовали корпус знаний при разработке,
 настройте проект через навык
-[kc-setup](skills/kc-setup/README.md).
+[kc-setup](.apm/skills/kc-setup/README.md).
 
 Если корпуса ещё нет, навык спросит имя папки и предложит `knowledge` как
 вариант по умолчанию. Если корпус уже есть, навык проверит его через
@@ -46,7 +46,7 @@ apm deps update --global
 агенты могут извлекать данные.
 
 Для добавления источников применяется навык
-[kc-sources-add](skills/kc-sources-add/README.md). Пример добавления источника:
+[kc-sources-add](.apm/skills/kc-sources-add/README.md). Пример добавления источника:
 
 ```text
 Добавь в корпус знаний источник: https://example.com/foo/bar.html
@@ -75,7 +75,7 @@ apm deps update --global
 ```
 
 Движение по конвейеру координирует навык
-[kc-pipeline](skills/kc-pipeline/README.md). Он выбирает
+[kc-pipeline](.apm/skills/kc-pipeline/README.md). Он выбирает
 следующий этап и подключает подходящие навыки для обработки данных.
 
 #### Извлечение первичных данных
@@ -104,7 +104,7 @@ apm deps update --global
 материала пересказом агента.
 
 Для нормализации применяется навык
-[kc-normalization](skills/kc-normalization/README.md). Он
+[kc-normalization](.apm/skills/kc-normalization/README.md). Он
 готовит проверяемый артефакт для дальнейшего анализа: очищенный текст,
 структурированный экспорт, расшифровку или другое представление, которое можно
 сопоставить с первичным материалом.
@@ -114,7 +114,7 @@ apm deps update --global
 Утверждения — проверяемые факты, наблюдения и спорные фрагменты, извлечённые из
 первичных или нормализованных данных.
 
-[kc-statements](skills/kc-statements/README.md) применяется для извлечения утверждений. Он отделяет
+[kc-statements](.apm/skills/kc-statements/README.md) применяется для извлечения утверждений. Он отделяет
 подтверждаемое источником содержание от интерпретации, назначает устойчивые
 идентификаторы и готовит материал для анализа влияния.
 
@@ -125,7 +125,7 @@ apm deps update --global
 решениях и других файлах проекта.
 
 Для проверки влияния применяется навык
-[kc-impact-audit](skills/kc-impact-audit/README.md). Он сопоставляет
+[kc-impact-audit](.apm/skills/kc-impact-audit/README.md). Он сопоставляет
 проверяемые данные корпуса с файлами проекта, классифицирует расхождения и
 отделяет безопасные правки от вопросов, где нужно решение человека.
 
@@ -137,17 +137,17 @@ apm deps update --global
 
 ## Навыки
 
-- [kc-analysis](skills/kc-analysis/README.md)
-- [kc-impact-audit](skills/kc-impact-audit/README.md)
-- [kc-inventory](skills/kc-inventory/README.md)
-- [kc-normalization](skills/kc-normalization/README.md)
-- [kc-pipeline](skills/kc-pipeline/README.md)
-- [kc-setup](skills/kc-setup/README.md)
-- [kc-sources-add](skills/kc-sources-add/README.md)
-- [kc-statements](skills/kc-statements/README.md)
-- [kc-status](skills/kc-status/README.md)
-- [kc-validation](skills/kc-validation/README.md)
-- [transcript-analysis](skills/transcript-analysis/README.md)
+- [kc-analysis](.apm/skills/kc-analysis/README.md)
+- [kc-impact-audit](.apm/skills/kc-impact-audit/README.md)
+- [kc-inventory](.apm/skills/kc-inventory/README.md)
+- [kc-normalization](.apm/skills/kc-normalization/README.md)
+- [kc-pipeline](.apm/skills/kc-pipeline/README.md)
+- [kc-setup](.apm/skills/kc-setup/README.md)
+- [kc-sources-add](.apm/skills/kc-sources-add/README.md)
+- [kc-statements](.apm/skills/kc-statements/README.md)
+- [kc-status](.apm/skills/kc-status/README.md)
+- [kc-validation](.apm/skills/kc-validation/README.md)
+- [transcript-analysis](.apm/skills/transcript-analysis/README.md)
 
 ## Лицензия
 

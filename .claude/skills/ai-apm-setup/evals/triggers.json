@@ -3,9 +3,15 @@
   "cases": [
     {
       "id": "ai-apm-setup-positive-new-collection",
-      "prompt": "Настрой этот репозиторий как коллекцию APM для skills и добавь команду apm run tests.",
+      "prompt": "Настрой этот репозиторий как коллекцию APM с исходниками в .apm/skills и добавь команду apm run tests.",
       "should_trigger": true,
       "rationale": "Запрос прямо требует настроить проект как коллекцию APM и добавить запуск тестов через apm run tests."
+    },
+    {
+      "id": "ai-apm-setup-positive-fix-root-skills-layout",
+      "prompt": "Похоже, пакет APM хранит навыки в корневом skills/, а документация требует .apm/skills. Разберись и исправь структуру.",
+      "should_trigger": true,
+      "rationale": "Нужно проверить и исправить структуру исходников пакета APM для коллекции навыков."
     },
     {
       "id": "ai-apm-setup-positive-update-manifest-tests",
@@ -24,6 +30,18 @@
       "prompt": "apm run tests не запускает проверки навыков. Найди причину и исправь настройки APM.",
       "should_trigger": true,
       "rationale": "Нужно диагностировать и исправить команду tests в настройках APM для коллекции."
+    },
+    {
+      "id": "ai-apm-setup-positive-fix-project-broad-request",
+      "prompt": "Исправь этот проект, используя .apm/skills/ai-apm-setup.",
+      "should_trigger": true,
+      "rationale": "Широкий запрос всё равно требует полного применения навыка настройки коллекции APM, а не локальной правки первого найденного симптома."
+    },
+    {
+      "id": "ai-apm-setup-positive-selective-apm-tests",
+      "prompt": "Тесты коллекции APM идут слишком долго. Обнови scripts.tests так, чтобы можно было запускать один навык или один сценарий без потери полного запуска по умолчанию.",
+      "should_trigger": true,
+      "rationale": "Нужно изменить настройку scripts.tests и тестовый цикл APM для коллекции навыков."
     },
     {
       "id": "ai-apm-setup-positive-skills-only-compile-question",

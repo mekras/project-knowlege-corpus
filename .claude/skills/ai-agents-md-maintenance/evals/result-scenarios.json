@@ -122,7 +122,7 @@
           "purpose": "проверяемые машинные инструкции"
         },
         {
-          "path": "skills/ai-audit-agents-md/SKILL.md",
+          "path": ".apm/skills/ai-audit-agents-md/SKILL.md",
           "purpose": "соседний навык для чистой проверки"
         }
       ],

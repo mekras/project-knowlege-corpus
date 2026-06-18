@@ -9,9 +9,10 @@ from pathlib import Path
 
 
 DEFAULT_TESTS = (
-    "python3 tools/validate-trigger-evals.py skills --require-all && "
-    "python3 tools/validate-skill-result-evals.py skills && "
-    "python3 tools/run-skill-evals.py skills"
+    "sh -c 'set -e; target=\"${APM_EVAL_PATH:-.apm/skills}\"; "
+    "python3 tools/validate-trigger-evals.py \"$target\" --require-all; "
+    "python3 tools/validate-skill-result-evals.py \"$target\"; "
+    "python3 tools/run-skill-evals.py \"$target\"'"
 )
 
 
@@ -41,6 +42,11 @@ def parse_args() -> argparse.Namespace:
         help="Target harness for a newly created manifest. May be repeated.",
     )
     parser.add_argument(
+        "--skills-source",
+        default=".apm/skills",
+        help="Source directory for APM skills. Defaults to .apm/skills.",
+    )
+    parser.add_argument(
         "--test-command",
         help="Command stored in scripts.tests. Auto-detected when omitted.",
     )
@@ -56,6 +62,11 @@ def detect_test_command(root: Path) -> str | None:
     if all(path.is_file() for path in required):
         return DEFAULT_TESTS
     return None
+
+
+def ensure_source_tree(root: Path, skills_source: Path) -> None:
+    source = skills_source if skills_source.is_absolute() else root / skills_source
+    source.mkdir(parents=True, exist_ok=True)
 
 
 def block_bounds(lines: list[str], key: str) -> tuple[int, int] | None:
@@ -88,12 +99,12 @@ def ensure_block(lines: list[str], key: str, block: list[str]) -> list[str]:
     return lines[:start] + block + lines[end:]
 
 
-def ensure_target(text: str, targets: list[str]) -> str:
+def ensure_targets(text: str, targets: list[str]) -> str:
     lines = text.splitlines()
-    if block_bounds(lines, "target") is not None:
+    if block_bounds(lines, "target") is not None or block_bounds(lines, "targets") is not None:
         return text
-    block = ["target:", *(f"  - {target}" for target in targets)]
-    return "\n".join(ensure_block(lines, "target", block)).rstrip() + "\n"
+    block = ["targets:", *(f"  - {target}" for target in targets)]
+    return "\n".join(ensure_block(lines, "targets", block)).rstrip() + "\n"
 
 
 def ensure_type(text: str) -> str:
@@ -120,6 +131,14 @@ def ensure_dependencies(text: str) -> str:
     if not any(re.match(r"^  mcp:\s*", line) for line in block):
         block.append("  mcp: []")
     lines = lines[:start] + block + lines[end:]
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def ensure_includes(text: str) -> str:
+    lines = text.splitlines()
+    if block_bounds(lines, "includes") is not None:
+        return text
+    lines = ensure_block(lines, "includes", ["includes: auto"])
     return "\n".join(lines).rstrip() + "\n"
 
 
@@ -150,9 +169,10 @@ def create_manifest(root: Path, args: argparse.Namespace, command: str) -> str:
         f"name: {name}\n"
         "version: 0.1.0\n"
         f'description: "{args.description}"\n'
-        "target:\n"
+        "targets:\n"
         f"{target_lines}\n"
         'type: "skill"\n'
+        "includes: auto\n"
         "dependencies:\n"
         "  apm: []\n"
         "  mcp: []\n"
@@ -170,18 +190,23 @@ def main() -> int:
         raise SystemExit(
             "No test command detected. Pass --test-command or create collection tests first.",
         )
+    ensure_source_tree(root, Path(args.skills_source))
 
     if manifest.exists():
         text = ensure_script_tests(manifest.read_text(encoding="utf-8"), command)
         text = ensure_type(text)
-        text = ensure_target(text, args.target or ["codex"])
+        text = ensure_targets(text, args.target or ["codex"])
+        text = ensure_includes(text)
         text = ensure_dependencies(text)
     else:
         text = create_manifest(root, args, command)
 
     manifest.write_text(text, encoding="utf-8")
     print(f"manifest={manifest}")
+    print(f"skills_source={(root / args.skills_source).resolve()}")
     print(f"tests={command}")
+    if (root / "skills").exists() and not any((root / ".apm" / "skills").iterdir()):
+        print("warning=root skills/ exists, but .apm/skills is empty")
     return 0
 
 
