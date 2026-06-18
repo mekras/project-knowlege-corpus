@@ -1,4 +1,0 @@
-interface:
-  display_name: "ai-work-control"
-  short_description: "Пусковой контроллер перед существенным применением ИИ"
-  default_prompt: "Используй ai-work-control для проверки порядка запуска и границ самостоятельной работы ИИ."

@@ -17,13 +17,13 @@
 Установка:
 
 ```bash
-apm install --global github.com/mekras/project-knowlege-corpus#master
+apm install github.com/mekras/project-knowlege-corpus#^0.3.1
 ```
 
 Обновление:
 
 ```bash
-apm deps update --global
+apm update
 ```
 
 ## Использование

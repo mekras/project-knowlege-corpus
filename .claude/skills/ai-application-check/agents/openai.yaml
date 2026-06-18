@@ -1,4 +1,0 @@
-interface:
-  display_name: "ai-application-check"
-  short_description: "Предварительная проверка задачи перед применением ИИ"
-  default_prompt: "Используй ai-application-check для быстрого скрининга задачи и рисков до выполнения."
