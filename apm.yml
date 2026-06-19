@@ -4,9 +4,6 @@ description: Коллекция навыков для создания, сопр
   проекта
 author: mekras
 license: MIT
-target:
-- claude
-- codex
 type: skill
 includes: auto
 dependencies:

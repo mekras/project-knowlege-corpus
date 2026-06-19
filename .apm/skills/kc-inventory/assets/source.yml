@@ -11,6 +11,10 @@ kind: external_source
 adapter: manual
 storage_strategy: index_only # full_copy | local_only | index_only | external_reference
 processing_scope: metadata_only # metadata_only | selected_fragments | full | full_redacted
+retrieval_mode: on_demand # synced | on_demand | external_reference | blocked
+copy_policy: no_bulk_copy # full_copy_allowed | fragments_only | metadata_only | no_bulk_copy | local_only
+allowed_use: "Точечная проверка с ссылкой на первоисточник."
+requires_access_check: true
 
 url: "https://example.org/"
 locator: "https://example.org/"

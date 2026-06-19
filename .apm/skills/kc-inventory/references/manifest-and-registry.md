@@ -54,6 +54,10 @@
   понятное адаптеру;
 - `storage_strategy` — как хранится и обрабатывается источник: `full_copy`,
   `local_only`, `index_only` или `external_reference`;
+- `retrieval_mode` — как агент получает материал: синхронизация, точечное
+  обращение по запросу, ручная проверка или только внешняя ссылка;
+- `copy_policy` — можно ли хранить копию, только фрагменты, только метаданные
+  или нельзя делать массовую копию;
 - `affects` — документы, разделы, модули или предметные области, на которые
   источник может влиять;
 - `sensitivity` — уровень чувствительности данных;
@@ -99,6 +103,8 @@
   производной документации;
 - какие источники поддерживаются только индексом и как точечно получать их
   единицы;
+- какие источники доступны только через первоисточник и как проверять доступ,
+  условия использования и допустимый объём переноса;
 - правило записи путей, например репо-относительные пути для переносимых
   артефактов.
 
@@ -107,6 +113,7 @@
 - `source_id`, `title`, `status`, `priority`, `kind`, `adapter`, `locator`;
 - `access`, `publication_safety`, `sensitivity`, `reliability`, `stability`;
 - `storage_strategy`, `processing_scope`;
+- `retrieval_mode`, `copy_policy`, `allowed_use`, `requires_access_check`;
 - `retrieved_at`, `last_checked_at`, `checked_by`, `content_hash`;
 - `scope.includes`, `scope.excludes`;
 - `known_limitations`, `processing_notes`, `affects`, `related_content`,
