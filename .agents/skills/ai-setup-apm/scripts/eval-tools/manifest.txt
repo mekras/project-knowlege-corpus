@@ -1,0 +1,11 @@
+# Манифест оснастки модельных прогонов: источник в пакете -> назначение в целевом проекте.
+# Поля через '|': путь в пакете | путь от корня проекта | режим.
+# Единый источник отображения для install-eval-tools и check-eval-tools-drift.py.
+# Строки-комментарии начинаются с '#', пустые строки игнорируются.
+run-skill-evals.py|tools/run-skill-evals.py|644
+validate-skill-descriptions.py|tools/validate-skill-descriptions.py|644
+validate-trigger-evals.py|tools/validate-trigger-evals.py|644
+validate-skill-result-evals.py|tools/validate-skill-result-evals.py|644
+adapters/codex|tools/adapters/codex|755
+adapters/claude|tools/adapters/claude|755
+evals.local.yml.sample|evals.local.yml.sample|644

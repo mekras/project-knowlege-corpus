@@ -1,0 +1,59 @@
+{
+  "skill_name": "requirements-validation",
+  "cases": [
+    {
+      "id": "requirements-validation-positive-review-quality",
+      "prompt": "Проверь требования на полноту, корректность, осуществимость, необходимость, недвусмысленность и проверяемость.",
+      "should_trigger": true,
+      "rationale": "Нужна проверка качества требований."
+    },
+    {
+      "id": "requirements-validation-positive-acceptance-criteria",
+      "prompt": "Проверь критерии приёмки: не повторяют ли они требования и можно ли по ним принять результат.",
+      "should_trigger": true,
+      "rationale": "Запрос касается проверки критериев приёмки."
+    },
+    {
+      "id": "requirements-validation-positive-conceptual-tests",
+      "prompt": "Составь концептуальные тесты по этим требованиям, чтобы найти пропущенные сценарии и неоднозначности.",
+      "should_trigger": true,
+      "rationale": "Концептуальные тесты применяются для проверки требований."
+    },
+    {
+      "id": "requirements-validation-positive-defect-list",
+      "prompt": "Сделай список дефектов спецификации требований: вопрос, пропуск, дубль, конфликт, непроверяемость.",
+      "should_trigger": true,
+      "rationale": "Нужно классифицировать дефекты требований."
+    },
+    {
+      "id": "requirements-validation-positive-ready-for-approval",
+      "prompt": "Проверь, можно ли отдавать этот набор требований на утверждение заказчику.",
+      "should_trigger": true,
+      "rationale": "Подготовка к утверждению требований относится к requirements-validation."
+    },
+    {
+      "id": "requirements-validation-negative-write-requirements",
+      "prompt": "Напиши функциональные требования для сценария восстановления пароля.",
+      "should_trigger": false,
+      "rationale": "Написание требований относится к requirements-specification."
+    },
+    {
+      "id": "requirements-validation-negative-product-testing",
+      "prompt": "Протестируй готовую форму регистрации и найди ошибки в интерфейсе.",
+      "should_trigger": false,
+      "rationale": "Тестирование готового продукта не является проверкой требований."
+    },
+    {
+      "id": "requirements-validation-negative-change-control",
+      "prompt": "Зарегистрируй запрос на изменение требования и оцени влияние на релиз.",
+      "should_trigger": false,
+      "rationale": "Запросы на изменение относятся к requirements-management."
+    },
+    {
+      "id": "requirements-validation-negative-source-sync",
+      "prompt": "Синхронизируй внешний источник требований и подготовь технический отчёт по изменениям.",
+      "should_trigger": false,
+      "rationale": "Техническая синхронизация источников относится к специализированному навыку учёта источников, а не к проверке требований."
+    }
+  ]
+}

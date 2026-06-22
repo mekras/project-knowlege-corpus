@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Установщик по общим правилам установщиков оснастки (навык ai-setup-apm,
+# references/tooling-installers.md): install-* [project-root], копирование в
+# tools/, строка installed= в конце.
+
+usage() {
+  cat <<'EOF'
+Usage:
+  install-codex-tools [project-root]
+
+Copies portable Codex subagent tools from this skill into <project-root>/tools.
+If project-root is omitted, uses the current Git repository root.
+EOF
+}
+
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+  usage
+  exit 0
+fi
+
+script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+project_root="${1:-$(git rev-parse --show-toplevel)}"
+target_dir="$project_root/tools"
+
+mkdir -p "$target_dir"
+
+for name in codex-model-subagent codex-usage-report; do
+  install -m 0755 "$script_dir/$name" "$target_dir/$name"
+done
+
+printf 'installed=%s\n' "$target_dir"
