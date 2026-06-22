@@ -32,6 +32,17 @@ retrieved_at: YYYY-MM-DD
 last_checked_at: YYYY-MM-DD
 checked_by:
 content_hash:
+content_hash_algorithm:
+
+# Для локальных книг и длинных документов.
+original_filename:
+format: # pdf | djvu | epub | scan | other
+file_size_bytes:
+page_count:
+metadata_source:
+extraction_tool:
+extraction_status: # not_started | unavailable | local_text_ready | normalized_fragments_ready | blocked
+publication_safety:
 
 scope:
   includes: []

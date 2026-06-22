@@ -1,0 +1,13 @@
+#!/bin/sh
+# Контроль целостности APM-коллекции перед коммитом.
+# Тонкая обёртка над каноничной проверкой проекта (скрипт `tests` в apm.yml).
+# Активация в любом клоне: git config core.hooksPath .githooks
+set -e
+
+if ! command -v apm >/dev/null 2>&1; then
+	echo "pre-commit: команда 'apm' не найдена в PATH — проверка коллекции пропущена" >&2
+	exit 0
+fi
+
+echo "pre-commit: проверка коллекции (apm run tests)…" >&2
+apm run tests

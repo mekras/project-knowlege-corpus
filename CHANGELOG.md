@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+- Added a local-book source profile for PDF, DjVu, EPUB, scans, and extracted
+  text: source intake, inventory, normalization, pipeline, statement extraction,
+  validation, and impact audit now share one contract for `local_only` books.
+- Added trigger and result-scenario coverage for local books stored outside Git
+  with tracked metadata, indexes, normalized fragments, and derived claims.
+
 ## 0.5.0
 
 - Added the `external_reference` retrieval mode for sources that cannot or

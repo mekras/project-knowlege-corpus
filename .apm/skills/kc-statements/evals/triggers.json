@@ -20,6 +20,12 @@
       "rationale": "После удаления отдельного навыка фактов промежуточные кандидаты извлекаются через kc-statements."
     },
     {
+      "id": "kc-statements-positive-local-book-normalized-fragment",
+      "prompt": "Из нормализованного фрагмента локальной книги выдели проверяемые утверждения со ссылками на страницы и ограничениями OCR.",
+      "should_trigger": true,
+      "rationale": "Запрос касается извлечения утверждений из уже подготовленного фрагмента локальной книги."
+    },
+    {
       "id": "kc-statements-negative-pipeline-unready-normalization",
       "prompt": "В рамках конвейера создай statements-файл по источнику, у которого normalized/source.md пишет, что нормализация ожидается, а страницы отсутствуют.",
       "should_trigger": false,
