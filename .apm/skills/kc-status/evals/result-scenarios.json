@@ -1,6 +1,11 @@
 {
   "skill_name": "kc-status",
-  "source_basis": [],
+  "source_basis": [
+    {
+      "claim_id": "KCSTATUS-1",
+      "statement_path": ".apm/evals/result-scenario-source-basis.md"
+    }
+  ],
   "cases": [
     {
       "id": "kc-status-result-stage-summary",
@@ -17,6 +22,17 @@
           "очереди",
           "блокеры",
           "узкие места"
+        ],
+        "findings": [
+          {
+            "severity": "medium",
+            "observed_problem": "Сценарий проверяет применение навыка к заявленному запросу и входным материалам.",
+            "expected_conclusion": "Ответ должен выполнить ожидаемую структуру, явно показать основание и соблюсти ограничения сценария.",
+            "acceptable_fix_direction": "Применить процедуру навыка, связать выводы с входными материалами и не выходить за границы сценария.",
+            "corpus_claims": [
+              "KCSTATUS-1"
+            ]
+          }
         ]
       },
       "negative_control": {
@@ -47,6 +63,9 @@
       "must_not": [
         "не запускать синхронизацию, извлечение или аудит влияния вместо сводки",
         "не скрывать блокеры за общей оценкой"
+      ],
+      "required_corpus_claims": [
+        "KCSTATUS-1"
       ]
     }
   ]

@@ -1,6 +1,11 @@
 {
   "skill_name": "transcript-analysis",
-  "source_basis": [],
+  "source_basis": [
+    {
+      "claim_id": "TRANSCRIPT-1",
+      "statement_path": ".apm/evals/result-scenario-source-basis.md"
+    }
+  ],
   "cases": [
     {
       "id": "transcript-analysis-result-clean-text",
@@ -16,6 +21,17 @@
           "очищенный текст",
           "смысловые разделы",
           "явные метки сомнительных мест"
+        ],
+        "findings": [
+          {
+            "severity": "medium",
+            "observed_problem": "Сценарий проверяет применение навыка к заявленному запросу и входным материалам.",
+            "expected_conclusion": "Ответ должен выполнить ожидаемую структуру, явно показать основание и соблюсти ограничения сценария.",
+            "acceptable_fix_direction": "Применить процедуру навыка, связать выводы с входными материалами и не выходить за границы сценария.",
+            "corpus_claims": [
+              "TRANSCRIPT-1"
+            ]
+          }
         ]
       },
       "negative_control": {
@@ -46,6 +62,9 @@
       "must_not": [
         "не добавлять новые факты, ссылки или атрибуты",
         "не превращать стенограмму в резюме без явного запроса"
+      ],
+      "required_corpus_claims": [
+        "TRANSCRIPT-1"
       ]
     }
   ]
