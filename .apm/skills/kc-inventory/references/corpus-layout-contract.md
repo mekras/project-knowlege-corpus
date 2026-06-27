@@ -63,8 +63,8 @@ sources:
 - `slug`;
 - `title`;
 - `status`;
-- `platform`;
-- `kind`;
+- `carrier_type`;
+- `source_kind`;
 - `adapter`;
 - `access.default`;
 - `reliability`;

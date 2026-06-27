@@ -6,8 +6,8 @@ slug: source-slug
 title: "Название источника"
 status: draft # approved | draft | deprecated | blocked
 priority: normal # high | normal | low
-platform: other # website | forum | document | channel | interview | api | export | other
-kind: external_source
+carrier_type: other # см. assets/source-carrier-types.yml
+source_kind: other # см. assets/source-kinds.yml
 adapter: manual
 storage_strategy: index_only # full_copy | local_only | index_only | external_reference
 processing_scope: metadata_only # metadata_only | selected_fragments | full | full_redacted

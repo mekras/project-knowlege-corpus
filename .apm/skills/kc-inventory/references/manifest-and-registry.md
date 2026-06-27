@@ -48,7 +48,9 @@
 - `title` — человекочитаемое название;
 - `status` — например `approved`, `draft`, `deprecated`, `blocked`;
 - `priority` — порядок обработки или разрешения конфликтов;
-- `type` — смысловая группа источника для отчётов;
+- `carrier_type` — технический тип носителя по
+  `assets/source-carrier-types.yml`;
+- `source_kind` — смысловой вид источника по `assets/source-kinds.yml`;
 - `adapter` — способ получения данных;
 - `locator` — адрес, путь, идентификатор, запрос или другое значение,
   понятное адаптеру;
@@ -115,7 +117,8 @@
 
 Для индекса отдельного источника полезны поля:
 
-- `source_id`, `title`, `status`, `priority`, `kind`, `adapter`, `locator`;
+- `source_id`, `title`, `status`, `priority`, `carrier_type`, `source_kind`,
+  `adapter`, `locator`;
 - `access`, `publication_safety`, `sensitivity`, `reliability`, `stability`;
 - `storage_strategy`, `processing_scope`;
 - `retrieval_mode`, `copy_policy`, `allowed_use`, `requires_access_check`;

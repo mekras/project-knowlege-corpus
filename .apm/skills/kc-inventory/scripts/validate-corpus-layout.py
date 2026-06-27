@@ -26,8 +26,8 @@ SOURCE_REQUIRED = {
     "title",
     "access",
     "status",
-    "platform",
-    "kind",
+    "carrier_type",
+    "source_kind",
     "adapter",
     "reliability",
     "refresh_policy",
@@ -66,6 +66,19 @@ DEFAULT_ALLOWED_STAGES = {
     "blocked",
     "rejected",
 }
+
+
+def load_classifier_values(filename: str) -> set[str]:
+    if yaml is None:
+        return set()
+    path = Path(__file__).resolve().parents[1] / "assets" / filename
+    if not path.exists():
+        return set()
+    data = load_yaml(path)
+    values = data.get("values") if isinstance(data, dict) else None
+    if not isinstance(values, dict):
+        return set()
+    return {key for key in values if isinstance(key, str)}
 
 STATEMENT_TEXT_FORBIDDEN_PREFIXES = (
     "в посте сказано",
@@ -141,6 +154,8 @@ class Validator:
         self.catalog_path = self.root / "catalog.yml"
         self.errors: list[str] = []
         self.allowed_stages = set(DEFAULT_ALLOWED_STAGES)
+        self.allowed_carrier_types = load_classifier_values("source-carrier-types.yml")
+        self.allowed_source_kinds = load_classifier_values("source-kinds.yml")
         self.source_ids: set[str] = set()
         self.item_ids: set[str] = set()
 
@@ -330,6 +345,14 @@ class Validator:
             self.errors.append(f"{rel}: access must be a mapping")
         elif not nonempty_string(access.get("default")):
             self.errors.append(f"{rel}: access.default must be non-empty text")
+
+        carrier_type = source.get("carrier_type")
+        if self.allowed_carrier_types and carrier_type not in self.allowed_carrier_types:
+            self.errors.append(f"{rel}: unknown carrier_type: {carrier_type}")
+
+        source_kind = source.get("source_kind")
+        if self.allowed_source_kinds and source_kind not in self.allowed_source_kinds:
+            self.errors.append(f"{rel}: unknown source_kind: {source_kind}")
 
         self.add_value_errors(rel, source)
         self.validate_items(source_dir, source_id)
