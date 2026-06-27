@@ -12,4 +12,13 @@
 ## Источники
 
 1. [Типы носителя источника](20-sources/01-source-types.md)
-2. [Как выбирать способ работы с источником](20-sources/02-source-decisions.md)
+2. [Смысловые виды источников](20-sources/02-source-kinds.md)
+3. [Как выбирать способ работы с источником](20-sources/03-source-decisions.md)
+
+## Типовые задачи
+
+1. [Как добавить в корпус файл без добавления в Git](50-how-to/01-add-local-file-outside-git.md)
+
+## Справочник
+
+1. [Файловая структура корпуса](40-reference/01-corpus-file-structure.md)
