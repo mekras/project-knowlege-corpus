@@ -1,3 +1,6 @@
+/.agents
+/.claude
+/.codex
 /.idea
 __pycache__/
 apm_modules/
