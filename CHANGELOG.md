@@ -1,31 +1,37 @@
-# Changelog
+# Журнал изменений
 
-All notable changes to this project will be documented in this file.
+Все заметные изменения проекта документируются в этом файле.
 
-## Unreleased
+## Невыпущено
 
-- Added a local-book source profile for PDF, DjVu, EPUB, scans, and extracted
-  text: source intake, inventory, normalization, pipeline, statement extraction,
-  validation, and impact audit now share one contract for `local_only` books.
-- Added trigger and result-scenario coverage for local books stored outside Git
-  with tracked metadata, indexes, normalized fragments, and derived claims.
+- Обновлено состояние настройки проекта под `ai-dev-team` 0.10.0 и закреплено
+  правило сопровождать этот журнал через `ait-changelog`.
+- Добавлен профиль локального книжного источника для PDF, DjVu, EPUB, сканов и
+  извлечённого текста: добавление источника, учёт, нормализация, конвейер,
+  извлечение утверждений, проверка и аудит влияния теперь используют общий
+  контракт для книг с режимом `local_only`.
+- Добавлено покрытие проверок срабатывания и сценариев результата для локальных
+  книг вне Git с отслеживаемыми метаданными, индексами, нормализованными
+  фрагментами и производными утверждениями.
 
 ## 0.5.0
 
-- Added the `external_reference` retrieval mode for sources that cannot or
-  should not be copied into the corpus: direct, on-demand access to the
-  primary source with locator, copy policy, and access checks instead of a
-  local copy.
-- Documented copy policies and retrieval modes across the inventory,
-  source-add, and pipeline skills and references.
-- Added trigger and result-scenario coverage for direct source access.
-- Clarified agent instructions: changes are confined to the project folder and
-  Git rules.
+- Добавлен режим получения `external_reference` для источников, которые нельзя
+  или не нужно копировать в корпус: прямой доступ к первичному источнику по
+  запросу, с локатором, политикой копирования и проверкой доступа вместо
+  локальной копии.
+- Описаны политики копирования и режимы получения в навыках и справках по
+  учёту, добавлению источников и конвейеру.
+- Добавлено покрытие проверок срабатывания и сценариев результата для прямого
+  доступа к источникам.
+- Уточнены инструкции для агента: изменения ограничены папкой проекта и
+  правилами Git.
 
 ## 0.4.0
 
-- Added `index_only` and `on_demand` source handling across the inventory,
-  source-add, and pipeline skills.
-- Documented storage strategies for large, expensive, and license-restricted
-  sources.
-- Added trigger and result-scenario coverage for the new source handling mode.
+- Добавлена обработка источников в режимах `index_only` и `on_demand` в навыках
+  учёта, добавления источников и конвейера.
+- Описаны стратегии хранения для крупных, дорогих и лицензионно ограниченных
+  источников.
+- Добавлено покрытие проверок срабатывания и сценариев результата для нового
+  режима обработки источников.
