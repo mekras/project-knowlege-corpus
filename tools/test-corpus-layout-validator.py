@@ -323,6 +323,30 @@ def write_statement_v2(root: Path, *, include_legacy_status: bool = False) -> No
     )
 
 
+def write_concepts(root: Path, *, relationships: str = "[]") -> None:
+    write_text(
+        root / "concepts.yml",
+        f"""
+        concept_contract_version: 1
+        concepts:
+          - id: persona
+            primary: персонаж
+            definition: "A model of a group of users with shared goals and context."
+            boundaries:
+              includes:
+                - "A model of a user group."
+              excludes:
+                - "A specific user."
+            authority:
+              type: project_decision
+              ref: ADR-0001
+            defined_by:
+              - TEST-001
+            relationships: {relationships}
+        """,
+    )
+
+
 def write_derived_statement(
     root: Path,
     *,
@@ -382,12 +406,15 @@ def run_validator(
     root: Path,
     *,
     strict_statements: bool = False,
+    strict_concepts: bool = False,
     operational: bool = False,
     operational_policy: Path | None = None,
 ) -> subprocess.CompletedProcess[str]:
     command = [sys.executable, str(VALIDATOR)]
     if strict_statements:
         command.append("--strict-statements")
+    if strict_concepts:
+        command.append("--strict-concepts")
     if operational:
         command.append("--operational")
     if operational_policy is not None:
@@ -409,8 +436,18 @@ def assert_passes(root: Path) -> None:
         raise AssertionError(f"expected validator to pass, got:\n{result.stdout}")
 
 
-def assert_fails_with(root: Path, expected: str, *, strict_statements: bool = False) -> None:
-    result = run_validator(root, strict_statements=strict_statements)
+def assert_fails_with(
+    root: Path,
+    expected: str,
+    *,
+    strict_statements: bool = False,
+    strict_concepts: bool = False,
+) -> None:
+    result = run_validator(
+        root,
+        strict_statements=strict_statements,
+        strict_concepts=strict_concepts,
+    )
     if result.returncode == 0:
         raise AssertionError("expected validator to fail")
     if expected not in result.stdout:
@@ -427,6 +464,54 @@ def main() -> int:
         root = Path(tmp)
         write_minimal_corpus(root)
         assert_passes(root)
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        write_minimal_corpus(root)
+        assert_fails_with(
+            root,
+            "missing concepts.yml required by strict concept validation",
+            strict_concepts=True,
+        )
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        write_minimal_corpus(root)
+        write_statement(root, kind="fact")
+        write_concepts(root)
+        result = run_validator(root, strict_concepts=True)
+        if result.returncode != 0:
+            raise AssertionError(f"expected strict concept validation to pass, got:\n{result.stdout}")
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        write_minimal_corpus(root)
+        write_statement(root, kind="fact")
+        write_concepts(root)
+        concepts_path = root / "concepts.yml"
+        concepts_path.write_text(
+            concepts_path.read_text(encoding="utf-8").replace(
+                'definition: "A model of a group of users with shared goals and context."',
+                'definition: ""',
+            ),
+            encoding="utf-8",
+        )
+        assert_fails_with(
+            root,
+            "definition must be non-empty text",
+            strict_concepts=True,
+        )
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        write_minimal_corpus(root)
+        write_statement(root, kind="fact")
+        write_concepts(root, relationships="[{type: applies_to, target: unknown-concept}]")
+        assert_fails_with(
+            root,
+            "target references unknown concept: unknown-concept",
+            strict_concepts=True,
+        )
 
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)

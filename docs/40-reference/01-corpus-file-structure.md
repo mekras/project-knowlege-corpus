@@ -149,7 +149,8 @@ data/<source>/<units>/<unit>/
 Для полной проверки готовности корпуса используйте строгую проверку утверждений:
 
 ```bash
-python3 .apm/skills/kc-inventory/scripts/validate-corpus-layout.py knowledge --strict-statements
+python3 .apm/skills/kc-inventory/scripts/validate-corpus-layout.py knowledge \
+  --strict-statements --strict-concepts
 ```
 
 Что именно ловит строгий режим, см. в договоре раскладки.

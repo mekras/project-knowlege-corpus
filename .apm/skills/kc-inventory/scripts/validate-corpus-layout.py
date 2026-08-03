@@ -94,6 +94,15 @@ DERIVED_STATEMENT_REQUIRED = {
     "open_questions",
 }
 
+CONCEPT_RECORD_REQUIRED = {
+    "id",
+    "primary",
+    "definition",
+    "boundaries",
+    "authority",
+    "defined_by",
+}
+
 DEFAULT_ALLOWED_STAGES = {
     "indexed",
     "needs_fetch",
@@ -206,6 +215,7 @@ DERIVATION_TYPES = {
 }
 
 ANALYSIS_ID_PATTERN = re.compile(r"^[A-Z][A-Z0-9]{1,11}$")
+CONCEPT_ID_PATTERN = re.compile(r"^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$")
 
 PEER_EXTERNAL_CORPUS_USE_AS = {"peer"}
 
@@ -398,11 +408,13 @@ class Validator:
         root: Path,
         *,
         strict_statements: bool = False,
+        strict_concepts: bool = False,
         operational: bool = False,
         operational_policy: Path | None = None,
     ) -> None:
         self.root = root.resolve()
         self.strict_statements = strict_statements
+        self.strict_concepts = strict_concepts
         self.operational = operational
         self.operational_policy = operational_policy
         self.contract_path = self.root / "corpus.yml"
@@ -440,6 +452,7 @@ class Validator:
                 self.validate_source(source_dir)
             self.validate_catalog(source_dirs)
             self.validate_global_items_index(source_dirs)
+            self.validate_concepts()
             self.validate_derived_statements()
             if self.operational:
                 self.validate_operational_safety()
@@ -870,6 +883,107 @@ class Validator:
         extra_ids = sorted(set(global_by_id) - expected_ids)
         if extra_ids:
             self.errors.append(f"{rel}: references unknown items: {', '.join(extra_ids)}")
+
+    def validate_concepts(self) -> None:
+        path = self.root / "concepts.yml"
+        if not path.exists():
+            if self.strict_concepts:
+                self.errors.append("missing concepts.yml required by strict concept validation")
+            return
+
+        rel = self.rel(path)
+        data = load_yaml(path)
+        if not isinstance(data, dict):
+            self.errors.append(f"{rel}: must be a mapping")
+            return
+        if data.get("concept_contract_version") != 1:
+            self.errors.append(f"{rel}: concept_contract_version must be 1")
+        concepts = data.get("concepts")
+        if not isinstance(concepts, list) or not concepts:
+            self.errors.append(f"{rel}: concepts must be a non-empty list")
+            return
+
+        concept_ids: set[str] = set()
+        relationships: list[tuple[str, str]] = []
+        for index, concept in enumerate(concepts, start=1):
+            prefix = f"{rel}: concept #{index}"
+            if not isinstance(concept, dict):
+                self.errors.append(f"{prefix}: must be a mapping")
+                continue
+            missing = sorted(CONCEPT_RECORD_REQUIRED - concept.keys())
+            if missing:
+                self.errors.append(f"{prefix}: missing concept fields: {', '.join(missing)}")
+
+            concept_id = concept.get("id")
+            if not isinstance(concept_id, str) or not CONCEPT_ID_PATTERN.fullmatch(concept_id):
+                self.errors.append(f"{prefix}: id must be lowercase kebab-case")
+            elif concept_id in concept_ids:
+                self.errors.append(f"{prefix}: duplicate concept id: {concept_id}")
+            else:
+                concept_ids.add(concept_id)
+
+            primary = concept.get("primary")
+            primary_forms = [primary] if isinstance(primary, str) else primary
+            if (
+                not isinstance(primary_forms, list)
+                or not primary_forms
+                or not all(nonempty_string(item) for item in primary_forms)
+            ):
+                self.errors.append(f"{prefix}: primary must be non-empty text or a list of non-empty texts")
+            if not nonempty_string(concept.get("definition")):
+                self.errors.append(f"{prefix}: definition must be non-empty text")
+
+            boundaries = concept.get("boundaries")
+            if not isinstance(boundaries, dict):
+                self.errors.append(f"{prefix}: boundaries must be a mapping")
+            else:
+                for field in ("includes", "excludes"):
+                    values = boundaries.get(field)
+                    if (
+                        not isinstance(values, list)
+                        or not values
+                        or not all(nonempty_string(item) for item in values)
+                    ):
+                        self.errors.append(
+                            f"{prefix}: boundaries.{field} must be a non-empty list of texts"
+                        )
+
+            authority = concept.get("authority")
+            if not isinstance(authority, dict) or not all(
+                nonempty_string(authority.get(field)) for field in ("type", "ref")
+            ):
+                self.errors.append(f"{prefix}: authority must contain non-empty type and ref")
+
+            defined_by = concept.get("defined_by")
+            if (
+                not isinstance(defined_by, list)
+                or not defined_by
+                or not all(nonempty_string(item) for item in defined_by)
+            ):
+                self.errors.append(f"{prefix}: defined_by must be a non-empty list of statement ids")
+            elif invalid_ids := sorted(set(defined_by) - self.statement_ids):
+                self.errors.append(
+                    f"{prefix}: defined_by references unknown statements: {', '.join(invalid_ids)}"
+                )
+
+            relation_entries = concept.get("relationships", [])
+            if not isinstance(relation_entries, list):
+                self.errors.append(f"{prefix}: relationships must be a list")
+            else:
+                for relation_index, relation in enumerate(relation_entries, start=1):
+                    relation_prefix = f"{prefix}: relationship #{relation_index}"
+                    if not isinstance(relation, dict) or not all(
+                        nonempty_string(relation.get(field)) for field in ("type", "target")
+                    ):
+                        self.errors.append(
+                            f"{relation_prefix}: must contain non-empty type and target"
+                        )
+                    else:
+                        relationships.append((relation_prefix, relation["target"]))
+
+        for prefix, target in relationships:
+            if target not in concept_ids:
+                self.errors.append(f"{prefix}: target references unknown concept: {target}")
 
     def validate_source(self, source_dir: Path) -> None:
         path = source_dir / "source.yml"
@@ -1869,6 +1983,14 @@ def parse_args() -> argparse.Namespace:
         ),
     )
     parser.add_argument(
+        "--strict-concepts",
+        action="store_true",
+        help=(
+            "Require concepts.yml and validate canonical concept definitions, boundaries, "
+            "statement provenance and concept relationships."
+        ),
+    )
+    parser.add_argument(
         "--operational",
         action="store_true",
         help=(
@@ -1897,6 +2019,7 @@ def main() -> int:
     return Validator(
         Path(args.root),
         strict_statements=args.strict_statements,
+        strict_concepts=args.strict_concepts,
         operational=args.operational,
         operational_policy=args.operational_policy,
     ).validate(output=args.output)

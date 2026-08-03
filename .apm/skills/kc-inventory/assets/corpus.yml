@@ -1,4 +1,4 @@
-contract_version: 1
+contract_version: 2
 
 # Профиль помогает выбрать стартовый набор правил, но эффективная политика
 # всегда записывается явно. Для закрытого внутреннего корпуса используйте
@@ -18,6 +18,7 @@ action_policy:
 
 tracked_data:
   root: data
+  concepts: concepts.yml
   source_pattern: data/<source>/source.yml
   source_map_pattern: data/<source>/source-map.yml
   source_unit_pattern: data/<source>/<units>/<unit>/item.yml
