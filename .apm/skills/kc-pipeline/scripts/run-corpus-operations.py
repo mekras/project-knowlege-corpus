@@ -344,10 +344,22 @@ def load_items(corpus_root: Path) -> list[CorpusItem]:
             if isinstance(raw_item_path, str):
                 item_dir = source_dir / relative_path(raw_item_path, "path единицы")
                 item_path = item_dir / "item.yml"
-                if item_path.is_file():
-                    loaded = load_yaml(item_path)
-                    if isinstance(loaded, dict):
-                        item_card = loaded
+                if not item_path.is_file():
+                    item_id = row.get("id") if isinstance(row.get("id"), str) else "<unknown>"
+                    if item_dir.is_file():
+                        raise OperationsError(
+                            f"path единицы {source['id']}/{item_id} указывает на файл "
+                            f"({raw_item_path}), а должен указывать на папку единицы, "
+                            "содержащую item.yml."
+                        )
+                    raise OperationsError(
+                        f"path единицы {source['id']}/{item_id} не находит item.yml: "
+                        f"{item_path}"
+                    )
+                loaded = load_yaml(item_path)
+                if not isinstance(loaded, dict):
+                    raise OperationsError(f"item.yml должен быть словарём YAML: {item_path}")
+                item_card = loaded
             items.append(CorpusItem(source["id"], source_dir, source, row, item_dir, item_card))
     return items
 

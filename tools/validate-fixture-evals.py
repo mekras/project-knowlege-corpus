@@ -60,6 +60,28 @@ def main() -> int:
                 errors.append(f"{label}.oracle.required_diff: должен быть объектом")
             elif not any(isinstance(required_diff.get(key), list) for key in ("paths", "must_include", "must_not_include")):
                 errors.append(f"{label}.oracle.required_diff: нужен хотя бы один список правил")
+        fixture_checks = oracle_data.get("fixture_checks") if isinstance(oracle_data, dict) else None
+        if fixture_checks is not None:
+            if not isinstance(fixture_checks, list) or not fixture_checks:
+                errors.append(f"{label}.oracle.fixture_checks: нужен непустой массив")
+            else:
+                for check_index, check in enumerate(fixture_checks):
+                    check_label = f"{label}.oracle.fixture_checks[{check_index}]"
+                    if not isinstance(check, dict):
+                        errors.append(f"{check_label}: должен быть объектом")
+                        continue
+                    command = check.get("command")
+                    if not isinstance(command, list) or not command or not all(
+                        isinstance(part, str) and part for part in command
+                    ):
+                        errors.append(f"{check_label}.command: нужен непустой массив строк")
+                    if not isinstance(check.get("exit_code"), int):
+                        errors.append(f"{check_label}.exit_code: требуется целое число")
+                    for key in ("stdout_contains", "stderr_contains", "json_file"):
+                        if key in check and (not isinstance(check[key], str) or not check[key]):
+                            errors.append(f"{check_label}.{key}: требуется непустая строка")
+                    if "json_equals" in check and "json_file" not in check:
+                        errors.append(f"{check_label}.json_equals: требуется json_file")
     if not seen:
         errors.append("cases не должен быть пустым")
     if errors:

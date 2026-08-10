@@ -36,7 +36,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 CONFIG_NAME = "evals.local.yml"
-SAMPLE_NAME = "evals.local.yml.sample"
+SAMPLE_NAME = "evals.sample.yml"
 
 
 TRIGGER_SCHEMA = {
@@ -90,6 +90,14 @@ FIXTURE_ANSWER_SCHEMA = {
         "answer": {"type": "string"},
         "selected_skill": {"type": "string"},
     },
+}
+
+
+CATALOG_SELECTION_SCHEMA = {
+    "type": "object",
+    "additionalProperties": False,
+    "required": ["selected_skill"],
+    "properties": {"selected_skill": {"type": "string"}},
 }
 
 
@@ -230,17 +238,9 @@ def load_config(repo_root: Path, config_path: Path) -> dict[str, Any] | None:
         bootstrap_config(repo_root, config_path)
         return None
     try:
-        import yaml
-    except ImportError:
-        print(
-            "Для модельных evals нужен PyYAML (pip install pyyaml). "
-            "Модельные evals пропущены.",
-            file=sys.stderr,
-        )
-        return None
-    data = yaml.safe_load(config_path.read_text(encoding="utf-8")) or {}
-    if not isinstance(data, dict):
-        print(f"Настройки {config_path} должны быть YAML-объектом.", file=sys.stderr)
+        data = parse_evals_yaml(config_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, ValueError) as error:
+        print(f"Не удалось прочитать {config_path}: {error}", file=sys.stderr)
         return None
 
     raw_adapters = data.get("adapters")
@@ -310,6 +310,168 @@ def load_config(repo_root: Path, config_path: Path) -> dict[str, Any] | None:
         "results_dir": str(data.get("results_dir") or "eval-results"),
         "pricing": data.get("pricing") if isinstance(data.get("pricing"), dict) else {},
     }
+
+
+def parse_evals_yaml(source: str) -> dict[str, Any]:
+    """Разобрать документированное подмножество YAML без сторонних пакетов.
+
+    Конфигурация evals намеренно имеет небольшую схему. Поддерживаются корневые
+    скаляры, разделы ``adapters`` и ``pricing``, а также списки ``models`` и
+    ``workspace_models``. Остальной YAML отклоняется с номером строки, чтобы
+    расширение формата не превратилось в неявную зависимость от PyYAML.
+    """
+    result: dict[str, Any] = {}
+    section: str | None = None
+    pricing_model: str | None = None
+
+    for line_number, raw_line in enumerate(source.splitlines(), start=1):
+        line = strip_yaml_comment(raw_line).rstrip()
+        if not line.strip():
+            continue
+        if "\t" in raw_line[: len(raw_line) - len(raw_line.lstrip())]:
+            raise ValueError(f"строка {line_number}: отступы должны состоять из пробелов")
+        indent = len(line) - len(line.lstrip(" "))
+        content = line.lstrip(" ")
+
+        if indent == 0:
+            key, raw_value = split_yaml_pair(content, line_number)
+            pricing_model = None
+            if raw_value:
+                result[key] = parse_yaml_scalar(raw_value, line_number)
+                section = None
+            elif key in {"adapters", "pricing"}:
+                result[key] = {}
+                section = key
+            elif key in {"models", "workspace_models"}:
+                result[key] = []
+                section = key
+            else:
+                raise ValueError(
+                    f"строка {line_number}: для {key!r} требуется значение"
+                )
+            continue
+
+        if indent == 2 and section in {"models", "workspace_models"}:
+            if not content.startswith("- "):
+                raise ValueError(f"строка {line_number}: ожидается элемент списка")
+            result[section].append(parse_yaml_scalar(content[2:].strip(), line_number))
+            continue
+
+        if indent == 2 and section == "adapters":
+            key, raw_value = split_yaml_pair(content, line_number)
+            if not raw_value:
+                raise ValueError(f"строка {line_number}: команда адаптера не задана")
+            result[section][key] = parse_yaml_scalar(raw_value, line_number)
+            continue
+
+        if indent == 2 and section == "pricing":
+            key, raw_value = split_yaml_pair(content, line_number)
+            if raw_value:
+                raise ValueError(
+                    f"строка {line_number}: тариф модели должен быть разделом"
+                )
+            result[section][key] = {}
+            pricing_model = key
+            continue
+
+        if indent == 4 and section == "pricing" and pricing_model:
+            key, raw_value = split_yaml_pair(content, line_number)
+            if not raw_value:
+                raise ValueError(f"строка {line_number}: ставка не задана")
+            result[section][pricing_model][key] = parse_yaml_scalar(
+                raw_value,
+                line_number,
+            )
+            continue
+
+        raise ValueError(
+            f"строка {line_number}: конструкция не входит в поддерживаемую схему evals"
+        )
+
+    return result
+
+
+def strip_yaml_comment(line: str) -> str:
+    """Удалить комментарий YAML, не затрагивая решётку внутри кавычек."""
+    quote: str | None = None
+    escaped = False
+    for index, char in enumerate(line):
+        if escaped:
+            escaped = False
+            continue
+        if char == "\\" and quote == '"':
+            escaped = True
+            continue
+        if char in {'"', "'"}:
+            if quote is None:
+                quote = char
+            elif quote == char:
+                quote = None
+            continue
+        if char == "#" and quote is None and (index == 0 or line[index - 1].isspace()):
+            return line[:index]
+    return line
+
+
+def split_yaml_pair(content: str, line_number: int) -> tuple[str, str]:
+    """Разделить пару YAML по двоеточию перед пробелом или концом строки."""
+    quote: str | None = None
+    escaped = False
+    for index, char in enumerate(content):
+        if escaped:
+            escaped = False
+            continue
+        if char == "\\" and quote == '"':
+            escaped = True
+            continue
+        if char in {'"', "'"}:
+            if quote is None:
+                quote = char
+            elif quote == char:
+                quote = None
+            continue
+        if char == ":" and quote is None and (
+            index + 1 == len(content) or content[index + 1].isspace()
+        ):
+            key = content[:index].strip()
+            value = content[index + 1 :].strip()
+            if not key:
+                raise ValueError(f"строка {line_number}: ключ не задан")
+            return key, value
+    raise ValueError(f"строка {line_number}: ожидается пара ключ: значение")
+
+
+def parse_yaml_scalar(value: str, line_number: int) -> Any:
+    """Разобрать простой скаляр из поддерживаемой схемы evals."""
+    if value == "[]":
+        return []
+    if value == "{}":
+        return {}
+    if value in {"null", "Null", "NULL", "~"}:
+        return None
+    if value.lower() in {"true", "false"}:
+        return value.lower() == "true"
+    if re.fullmatch(r"[-+]?\d+", value):
+        return int(value)
+    if re.fullmatch(r"[-+]?(?:\d+\.\d*|\d*\.\d+)", value):
+        return float(value)
+    if value.startswith('"'):
+        try:
+            parsed = json.loads(value)
+        except json.JSONDecodeError as error:
+            raise ValueError(
+                f"строка {line_number}: неправильная строка в двойных кавычках"
+            ) from error
+        if not isinstance(parsed, str):
+            raise ValueError(f"строка {line_number}: ожидается строка")
+        return parsed
+    if value.startswith("'"):
+        if len(value) < 2 or not value.endswith("'"):
+            raise ValueError(
+                f"строка {line_number}: неправильная строка в одинарных кавычках"
+            )
+        return value[1:-1].replace("''", "'")
+    return value
 
 
 def resolve_run(
@@ -973,6 +1135,7 @@ def fixture_candidate_prompt(
     mode: str,
     skill_dirs: list[Path],
     workspace: bool = False,
+    selected_skill: str | None = None,
 ) -> str:
     fixture = fixture_snapshot(case["fixture_dir"])
     task = {
@@ -982,18 +1145,12 @@ def fixture_candidate_prompt(
     }
     if mode == "baseline":
         context = "Специального навыка нет: реши задачу обычным рабочим способом."
-    elif mode == "skill":
-        target = str(case["target_skill"])
+    elif mode in {"skill", "catalog"}:
+        target = selected_skill or str(case["target_skill"])
         selected = next((item for item in catalog_payload(skill_dirs, True) if item["name"] == target), None)
         if selected is None:
-            raise RuntimeError(f"{case['id']}: не найден target_skill {target!r}.")
+            raise RuntimeError(f"{case['id']}: не найден выбранный навык {target!r}.")
         context = "Примени данный навык:\n" + json.dumps(selected, ensure_ascii=False)
-    else:
-        context = (
-            "Тебе доступен полный каталог навыков. Выбери один наиболее подходящий "
-            "навык, укажи его в selected_skill и примени его.\n"
-            + json.dumps(catalog_payload(skill_dirs, True), ensure_ascii=False)
-        )
     workspace_note = (
         "Копия fixture доступна в рабочей папке APM_EVAL_WORKSPACE. Выполни "
         "нужные изменения в ней; итоговый diff будет проверен. " if workspace else ""
@@ -1007,13 +1164,32 @@ def fixture_candidate_prompt(
     )
 
 
+def fixture_catalog_selection_prompt(case: dict[str, Any], skill_dirs: list[Path]) -> str:
+    task = {
+        "user_prompt": case["prompt"],
+        "project_paths": [item["path"] for item in fixture_snapshot(case["fixture_dir"])],
+    }
+    return (
+        "Выбери один наиболее подходящий навык для задачи. Верни только его имя "
+        "в selected_skill. Выбирай по описаниям; содержимое выбранного навыка "
+        "будет загружено отдельным шагом.\n"
+        f"Каталог:\n{json.dumps(catalog_payload(skill_dirs, False), ensure_ascii=False)}\n"
+        f"Задача:\n{json.dumps(task, ensure_ascii=False)}"
+    )
+
+
 def fixture_judge_prompt(case: dict[str, Any], answer: dict[str, Any], mode: str, workspace_diff: str = "") -> str:
     """Только судье передаётся оракул: кандидат его не видел."""
+    judge_oracle = {
+        key: value
+        for key, value in case["oracle_data"].items()
+        if key != "fixture_checks"
+    }
     payload = {
         "case_id": case["id"],
         "mode": mode,
         "expected_skill": case.get("catalog_skill", case.get("target_skill")),
-        "oracle": case["oracle_data"],
+        "oracle": judge_oracle,
         "answer": answer,
         "workspace_diff": workspace_diff,
     }
@@ -1097,15 +1273,47 @@ def run_fixture_evals(
                         shutil.copytree(case["fixture_dir"], workspace)
                         shutil.copytree(case["fixture_dir"], before)
                     call = make_model_call(run["adapter"], run["model"], timeout, workspace if run.get("workspace") else None)
-                    prompt = fixture_candidate_prompt(case, mode, skill_dirs, bool(run.get("workspace")))
                     started = time.monotonic()
-                    answer = call(prompt, FIXTURE_ANSWER_SCHEMA)
+                    selection_prompt = ""
+                    selected_skill = None
+                    candidate_error = ""
+                    prompt = ""
+                    try:
+                        if mode == "catalog":
+                            selection_prompt = fixture_catalog_selection_prompt(case, skill_dirs)
+                            selection = call(selection_prompt, CATALOG_SELECTION_SCHEMA)
+                            selected_skill = str(selection.get("selected_skill", ""))
+                        known_skills = {item["name"] for item in catalog_payload(skill_dirs, False)}
+                        if mode == "catalog" and selected_skill not in known_skills:
+                            prompt = selection_prompt
+                            answer = {
+                                "answer": f"Выбран неизвестный навык: {selected_skill}",
+                                "selected_skill": selected_skill,
+                            }
+                        else:
+                            prompt = fixture_candidate_prompt(
+                                case,
+                                "skill" if mode == "catalog" else mode,
+                                skill_dirs,
+                                bool(run.get("workspace")),
+                                selected_skill,
+                            )
+                            answer = call(prompt, FIXTURE_ANSWER_SCHEMA)
+                            if mode == "catalog":
+                                answer["selected_skill"] = selected_skill
+                    except RuntimeError as error:
+                        candidate_error = str(error)
+                        answer = {"answer": candidate_error}
+                        if selected_skill:
+                            answer["selected_skill"] = selected_skill
                     elapsed = time.monotonic() - started
-                    candidate_actual = getattr(call, "last_metrics", {})
+                    candidate_actual = {} if mode == "catalog" else getattr(call, "last_metrics", {})
+                    metric_prompt = selection_prompt + prompt
                     workspace_diff = directory_diff(before, workspace) if run.get("workspace") else ""
                 verdicts: list[dict[str, Any]] = []
                 judge_elapsed = 0.0
-                for _ in range(judge_repetitions):
+                verdict = None
+                for _ in range(0 if candidate_error else judge_repetitions):
                     judge_started = time.monotonic()
                     verdict_data = judge_call(fixture_judge_prompt(case, answer, mode, workspace_diff), JUDGE_SCHEMA)
                     judge_elapsed += time.monotonic() - judge_started
@@ -1113,22 +1321,23 @@ def run_fixture_evals(
                     if verdict:
                         verdicts.append(verdict)
                 judge_actual = getattr(judge_call, "last_metrics", {})
-                passed = sum(item.get("passed") is True for item in verdicts) >= judge_repetitions // 2 + 1
+                passed = not candidate_error and sum(item.get("passed") is True for item in verdicts) >= judge_repetitions // 2 + 1
                 diff_errors = check_required_diff(case["oracle_data"], workspace_diff) if mode != "baseline" and run.get("workspace") else []
                 passed = passed and not diff_errors
                 record = {
                     "case_id": case["id"], "mode": mode, "repetition": repetition,
                     "model": run["label"], "judge": judge["label"], "passed": passed,
                     "answer": answer, "judge_results": verdicts, "judge_quorum": judge_repetitions // 2 + 1, "diff_errors": diff_errors,
+                    "candidate_error": candidate_error,
                     "workspace_diff": workspace_diff,
                     "metrics": {
-                        "candidate": estimate_metrics(prompt, str(answer.get("answer", "")), elapsed, pricing, run["label"], candidate_actual),
+                        "candidate": estimate_metrics(metric_prompt, str(answer.get("answer", "")), elapsed, pricing, run["label"], candidate_actual),
                         "judge": estimate_metrics("", json.dumps(verdict or {}, ensure_ascii=False), judge_elapsed, pricing, judge["label"], judge_actual),
                     },
                 }
                 records.append(record)
                 if mode != "baseline" and not passed:
-                    detail = "; ".join(diff_errors)
+                    detail = "; ".join([*diff_errors, *([candidate_error] if candidate_error else [])])
                     errors.append(f"{case['id']} [{mode}, повтор {repetition}]: не пройдено. {detail}")
     for case in cases:
         for mode in ("skill", "catalog"):
@@ -1178,11 +1387,12 @@ def write_fixture_report(repo_root: Path, output: Path, records: list[dict[str, 
 
 def confirm_model_run(*, runs: list[dict[str, Any]], fixture_cases: list[dict[str, Any]], trigger_cases: list[dict[str, Any]], result_groups: list[tuple[Path, dict[str, Any], list[dict[str, Any]]]], repetitions: int, judge_repetitions: int, yes: bool) -> bool:
     run_count = len(runs)
-    fixture_calls = run_count * len(fixture_cases) * 3 * repetitions
+    fixture_runs = run_count * len(fixture_cases) * 3 * repetitions
+    catalog_selection_calls = run_count * len(fixture_cases) * repetitions
     trigger_calls = run_count * len({case["skill_name"] for case in trigger_cases})
     result_calls = run_count * sum(len(cases) for _, _, cases in result_groups)
-    candidate_calls = fixture_calls + trigger_calls + result_calls
-    judge_calls = fixture_calls * judge_repetitions + result_calls
+    candidate_calls = fixture_runs + catalog_selection_calls + trigger_calls + result_calls
+    judge_calls = fixture_runs * judge_repetitions + result_calls
     print(
         "Модельный прогон потребует не менее запросов: "
         f"к кандидату — {candidate_calls}, к судье — {judge_calls}. "

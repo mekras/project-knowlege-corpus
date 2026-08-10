@@ -1118,8 +1118,17 @@ class Validator:
             self.errors.append(f"{prefix}: long_source must be boolean when present")
 
         item_path = item.get("path")
-        if isinstance(item_path, str) and not (source_dir / item_path).exists():
-            self.errors.append(f"{prefix}: item path does not exist: {item_path}")
+        if isinstance(item_path, str):
+            resolved = source_dir / item_path
+            if not resolved.exists():
+                self.errors.append(f"{prefix}: item path does not exist: {item_path}")
+            elif resolved.is_file():
+                self.errors.append(
+                    f"{prefix}: item path must point to the unit folder, not to item.yml "
+                    f"itself: {item_path}"
+                )
+            elif not (resolved / "item.yml").is_file():
+                self.errors.append(f"{prefix}: item path folder has no item.yml: {item_path}")
 
         self.add_value_errors(prefix, item)
 
