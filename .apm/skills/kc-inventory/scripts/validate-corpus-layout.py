@@ -398,6 +398,32 @@ def normalize_text(value: str) -> str:
     return " ".join(value.split()).casefold()
 
 
+ELLIPSIS_SPLIT_RE = re.compile(r"\s*(?:\.{3}|…)\s*")
+
+
+def excerpt_fragments(excerpt: str) -> list[str]:
+    """Split a multi-span excerpt joined by an ellipsis into its verbatim fragments.
+
+    The corpus convention quotes several non-contiguous verbatim spans of a
+    source joined by "…" (or "..."), rather than one contiguous quote.
+    """
+    return [fragment for fragment in ELLIPSIS_SPLIT_RE.split(excerpt) if fragment.strip()]
+
+
+def excerpt_found_in_artifact(excerpt: str, artifact_text: str) -> bool:
+    normalized_artifact = normalize_text(artifact_text)
+    fragments = excerpt_fragments(excerpt)
+    if not fragments:
+        return True
+    search_from = 0
+    for fragment in fragments:
+        position = normalized_artifact.find(normalize_text(fragment), search_from)
+        if position == -1:
+            return False
+        search_from = position + len(normalize_text(fragment))
+    return True
+
+
 def has_any_stage(stages: set[str], allowed: set[str]) -> bool:
     return not stages.isdisjoint(allowed)
 
@@ -1659,7 +1685,7 @@ class Validator:
                 and excerpt.strip()
             ):
                 artifact_text = artifact_path.read_text(encoding="utf-8")
-                if normalize_text(excerpt) not in normalize_text(artifact_text):
+                if not excerpt_found_in_artifact(excerpt, artifact_text):
                     self.errors.append(
                         f"{prefix}: excerpt is not found in referenced text artifact"
                     )

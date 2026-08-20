@@ -671,6 +671,38 @@ action_policy:
         write_statement(
             root,
             kind="fact",
+            text="The corpus joins two non-contiguous verbatim spans for brevity.",
+            excerpt="First verbatim fragment ... second verbatim fragment",
+            artifact_text="First verbatim fragment. Unrelated middle sentence. Second verbatim fragment.",
+        )
+        result = run_validator(root, strict_statements=True)
+        if result.returncode != 0:
+            raise AssertionError(
+                f"expected an ellipsis-joined multi-fragment excerpt to pass, got:\n{result.stdout}"
+            )
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        write_minimal_corpus(root)
+        write_statement(
+            root,
+            kind="fact",
+            text="The corpus must reject a fragment order that does not match the source.",
+            excerpt="Second verbatim fragment ... First verbatim fragment",
+            artifact_text="First verbatim fragment. Unrelated middle sentence. Second verbatim fragment.",
+        )
+        assert_fails_with(
+            root,
+            "excerpt is not found in referenced text artifact",
+            strict_statements=True,
+        )
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        write_minimal_corpus(root)
+        write_statement(
+            root,
+            kind="fact",
             text="The source says section metadata must stay useful.",
             excerpt="section metadata",
             artifact_text="The source says section metadata must stay useful.",
