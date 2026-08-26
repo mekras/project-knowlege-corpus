@@ -16,6 +16,7 @@ from textwrap import dedent
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = REPO_ROOT / ".apm" / "skills" / "kc-pipeline" / "scripts" / "run-corpus-operations.py"
+VALIDATOR = REPO_ROOT / ".apm" / "skills" / "kc-inventory" / "scripts" / "validate-corpus-layout.py"
 
 
 def write(path: Path, text: str) -> None:
@@ -673,6 +674,17 @@ def main() -> int:
             raise AssertionError("Пересобранные индексы не содержат исходные записи.")
         if "# Операционный отчёт корпуса" not in report:
             raise AssertionError("Локальный отчёт не записан.")
+        validation = subprocess.run(
+            [sys.executable, str(VALIDATOR), "knowledge"],
+            cwd=root,
+            capture_output=True,
+            text=True,
+        )
+        if validation.returncode != 0:
+            raise AssertionError(
+                "Пересобранные индексы не проходят проверку структуры корпуса:\n"
+                f"{validation.stdout}{validation.stderr}"
+            )
 
         marker = root / "knowledge" / "data" / "test" / "marker.txt"
         if marker.exists():
@@ -767,7 +779,6 @@ def main() -> int:
             "--operational-check",
             "--operational-policy",
             "knowledge/operational-check.yml",
-            expected=1,
         )
         if "блокеры доступа: 0" not in suppressed.stdout or "подавлено правилом или метаданными: 2" not in suppressed.stdout:
             raise AssertionError("Документированное подавление не применилось.")

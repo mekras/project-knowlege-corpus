@@ -751,7 +751,7 @@ def rebuild_indexes(corpus_root: Path, root: Path) -> tuple[int, int]:
         if item_id in seen_item_ids:
             raise OperationsError(f"Повторяющийся id единицы: {item_id}")
         seen_item_ids.add(item_id)
-        path = repo_relative(root, item.item_dir) if item.item_dir else None
+        path = repo_relative(corpus_root, item.item_dir) if item.item_dir else None
         item_rows.append(
             {
                 "id": item_id,
