@@ -1,12 +1,12 @@
 lockfile_version: '2'
-generated_at: '2026-08-11T12:49:20.291778+00:00'
-apm_version: 0.28.0
+generated_at: '2026-08-31T08:52:51.614457+00:00'
+apm_version: 0.29.0
 dependencies:
 - repo_url: mekras/ai-dev-team
   name: ai-dev-team
   host: github.com
-  resolved_commit: 5b21dea7ffa7c6b2473253c0a5c18ecba79361b5
-  resolved_ref: 0.22.1
+  resolved_commit: d2054be325b942b914ee7f9ee7b491524a343c50
+  resolved_ref: ^0.22.1
   version: 0.22.1
   package_type: apm_package
   deployed_files:
@@ -897,9 +897,6 @@ dependencies:
     .codex/agents/ux-specialist.toml: sha256:fea0935ba6a6c6615ad7119e62af0984030a7b311e8aa95013a7c0dc775da602
   content_hash: sha256:8076d99a3dfbf7dd83b8261130e126f1569d5a79d5828328188532fec3aec06d
   is_dev: true
-  constraint: ^0.22.1
-  resolved_tag: 0.22.1
-  resolved_at: '2026-07-30T19:47:33+00:00'
   declared_license: MIT
 - repo_url: mekras/ai-agent-supervisor
   name: ai-agent-supervisor
@@ -1747,11 +1744,11 @@ dependencies:
     .agents/skills/kc-concepts/evals/triggers.json: sha256:3936463a34b639ea5dfcf188f3cdfc67b369676697f7889b595ca185f09a3cae
     .agents/skills/kc-concepts/references/concept-record.md: sha256:348d972486cb1c7616d258abb78c0618067d823314ec7b0c4ee49a549b26d84a
     .agents/skills/kc-impact-audit/README.md: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-    .agents/skills/kc-impact-audit/SKILL.md: sha256:2d1cc2477aa177237bc6964117b3ae0b8aed31c5bb133f847ff66382eb79a2cb
+    .agents/skills/kc-impact-audit/SKILL.md: sha256:9422482f2bcddd5c18f2239671c955969f9009a8e971791ddbbd619477040cb3
     .agents/skills/kc-impact-audit/agents/openai.yaml: sha256:523f8c63711f3a871e102024d43acf65114103bf185e51c98f01750183f49579
-    .agents/skills/kc-impact-audit/evals/result-scenarios.json: sha256:752f2cc566a3d22c19374c88137f3ee50262c445aa69f6e59ea92c0bab57e936
+    .agents/skills/kc-impact-audit/evals/result-scenarios.json: sha256:46c8b3875eae77a1408c9daaabec11709c91360e60bc91ac40aa3353a22ccbba
     .agents/skills/kc-impact-audit/evals/triggers.json: sha256:34de47add67661dde7033cc1eb87233b5d7764c3a2691a7bd4b1b9f84d89732e
-    .agents/skills/kc-impact-audit/references/impact-report.md: sha256:e1f050aeec80dcb1408181c3d651e64a5526cc51f2e763bfad1420199d56d04e
+    .agents/skills/kc-impact-audit/references/impact-report.md: sha256:f59c945636e0765361a15297e13479077fea45005fddfff01b5dc608a12038ee
     .agents/skills/kc-inventory/README.md: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     .agents/skills/kc-inventory/SKILL.md: sha256:60b259240e0fff064be84451f19302d2331e9401c83b6e36e6915b5df1b2a80e
     .agents/skills/kc-inventory/agents/openai.yaml: sha256:c5616a693609c607ce667d2b3bfd76fa534bd29cc07d7c7665af0b7c3a39dbac
@@ -1773,22 +1770,22 @@ dependencies:
     .agents/skills/kc-inventory/references/manifest-and-registry.md: sha256:e897a2d60e07c1595324630e41c4bce9b9a78530c27475ba46eeee62cf09a8fa
     .agents/skills/kc-inventory/references/primary-data-layer.md: sha256:5c566a89fc99a15116c25fd4ba06dbcba2485a28e4e6dc4a518d1c234ebe3a52
     .agents/skills/kc-inventory/references/technical-report.md: sha256:ab66df0afe7b67a965e19bbd88ae04b494532c3d7e2091e0a64be02b661eedcb
-    .agents/skills/kc-inventory/scripts/validate-corpus-layout.py: sha256:79ac90f0bbe484e9332b3d6bb7738b8d7b93d33aa96cb2b78a24f1b56b35c060
+    .agents/skills/kc-inventory/scripts/validate-corpus-layout.py: sha256:5261071e603a63011d2a01878c734f6c7c9595ec39e95880cb6f81c134b72869
     .agents/skills/kc-normalization/README.md: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     .agents/skills/kc-normalization/SKILL.md: sha256:23b7dff4054ab80d2870cf1138820e026776e5ead7403f36a3753b6c0f5098d0
     .agents/skills/kc-normalization/agents/openai.yaml: sha256:34dbc9ab27ed2c73bd435d36da423c5c4608a656904077fb5a3ba6eaed218e60
     .agents/skills/kc-normalization/evals/result-scenarios.json: sha256:211e8c540a585b2df1a15475f64ad0c0980a257416b14d9c68c00a4ac942b5e6
     .agents/skills/kc-normalization/evals/triggers.json: sha256:0f6da208e3148d33b4f0efbaace94747be2b2052b9e79223aebdad9379cd9e10
     .agents/skills/kc-pipeline/README.md: sha256:3caf71e8b020b442a01a38703d711dff8dc3b39f3577e1801c1cffc84c3a77df
-    .agents/skills/kc-pipeline/SKILL.md: sha256:d5cf0e50423b807cef08fe7e9c6d21c10cf1243878db53cafba27c4839e46303
+    .agents/skills/kc-pipeline/SKILL.md: sha256:de3d97960200943760e6f3efdc94d8a8eb0c3e507c73115ebc5c5558d440e52b
     .agents/skills/kc-pipeline/agents/openai.yaml: sha256:c0a5d03d883075121cd931936d0c0dc8144fb27abc4f69fbc1d5bc80841d4d40
     .agents/skills/kc-pipeline/assets/operations.yml: sha256:23704dd0484cc6248ed806ca6352f70507eb319130df9f0d2bd31f2979bde462
-    .agents/skills/kc-pipeline/evals/result-scenarios.json: sha256:3d9b858f1f34175628202449ff17342b73ecb21ec8478a328e65a8eec4977286
+    .agents/skills/kc-pipeline/evals/result-scenarios.json: sha256:455cb5f833699a7950835b22149032e5a81427fd767ff49d41303bcd06cf1708
     .agents/skills/kc-pipeline/evals/triggers.json: sha256:f1554f245038647b36ba54d60e658038c8f3df7d30d84014086a209bbec0d78e
     .agents/skills/kc-pipeline/references/adapter-contract.md: sha256:2cb475b0af4516380c015699a646227a149daaa8cd8de2a29d80c442ec8e26b9
-    .agents/skills/kc-pipeline/references/operations-contract.md: sha256:18adfa56c99af07831c37ff3560f5d1025057e216ce75b7db4e0dcbac54b6053
-    .agents/skills/kc-pipeline/references/workflow-contract.md: sha256:1c1ab812a27f7eac12aaab835253a812f21d37d1beb17d14009ec10f9a135672
-    .agents/skills/kc-pipeline/scripts/run-corpus-operations.py: sha256:eadd2a140b58983dc97356815a09b9129ff6fae851065a77ee7018e635f77676
+    .agents/skills/kc-pipeline/references/operations-contract.md: sha256:e6a1294bb4f54bea182f1bb5c8eeebba9efbf9bf1209a8b4f6afed78c390296a
+    .agents/skills/kc-pipeline/references/workflow-contract.md: sha256:b3196fb8c2688fbfce6aec5b9d90ba11c4d785974d49d581eeabb98b36679277
+    .agents/skills/kc-pipeline/scripts/run-corpus-operations.py: sha256:46079b4f683fac158517a67f3fe21edc440ca333c4612351b742985b2fceb69d
     .agents/skills/kc-retrieval-evaluation/README.md: sha256:5eeebad995868818f917732970acba27433102ecdcc6e96c85a79a1e0a12f546
     .agents/skills/kc-retrieval-evaluation/SKILL.md: sha256:b7f52e646243d845394abb587279c19e60b8f0d0efc15414d87af4e7ee387ea4
     .agents/skills/kc-retrieval-evaluation/agents/openai.yaml: sha256:381585c695118708ae6efdf6c6b8fe1ddb148948e7d8ab8b4fcbce4bab44a067
@@ -1801,10 +1798,10 @@ dependencies:
     .agents/skills/kc-retrieval-evaluation/scripts/run-evaluation-suite.py: sha256:2ed77378bee3a91928bdd71c491bfa7af16edc9e0b042e61a89682d53328ac47
     .agents/skills/kc-retrieval-evaluation/scripts/sample-source-sections.py: sha256:e86f25d00a8e8ec12008e1104ab8e3902dec81086b7daef801e24389a0d79802
     .agents/skills/kc-retrieval-evaluation/scripts/validate-evaluation-suite.py: sha256:b4c9652578f77c79c3858648197b68f686669959bdc14ddfe1805277ee162d29
-    .agents/skills/kc-setup/README.md: sha256:30a19dac14a9e2da6434306f27ccfa3be6bf732062566abc9648cbcfa213bad4
-    .agents/skills/kc-setup/SKILL.md: sha256:635e2d07210bcd290549bc6fe8a298a7a954ae814e4c44e2d07c7cb05fe23583
+    .agents/skills/kc-setup/README.md: sha256:8507733706ce1a95e851e314728f970852872a00390b8bafd262234245d8329b
+    .agents/skills/kc-setup/SKILL.md: sha256:c18864f6af8327477e33fd7d867cd839b2a2523b69bd4ed97866d020e01d37ce
     .agents/skills/kc-setup/agents/openai.yaml: sha256:ac85735a3278bc36c4fb1dff6674a0d659e435a6e0c6f2e3dc6ac41ebb66b1c7
-    .agents/skills/kc-setup/evals/result-scenarios.json: sha256:bb50c231bac124792f26ac3e643a2601861efde8967810f1d202c1fc3e9fe142
+    .agents/skills/kc-setup/evals/result-scenarios.json: sha256:b1d0af01881cf276c0a205889f00064e70a391230f84edc7d4ca4e587ce2e0b6
     .agents/skills/kc-setup/evals/triggers.json: sha256:42b0c877a79b4678ca9e26e6239c258c97fceea067c688f6258f6b6300da6b15
     .agents/skills/kc-setup/references/agents-instructions.md: sha256:aa314f7b79446c1e1a9cadf2a8dcc1b22fe6564218e0d8a39ab4ec9cae225813
     .agents/skills/kc-sources-add/README.md: sha256:900010106e503f34334df961ccb3f9db58393e74e401c69f290d46e892a783c0
@@ -1857,11 +1854,11 @@ dependencies:
     .claude/skills/kc-concepts/evals/triggers.json: sha256:3936463a34b639ea5dfcf188f3cdfc67b369676697f7889b595ca185f09a3cae
     .claude/skills/kc-concepts/references/concept-record.md: sha256:348d972486cb1c7616d258abb78c0618067d823314ec7b0c4ee49a549b26d84a
     .claude/skills/kc-impact-audit/README.md: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-    .claude/skills/kc-impact-audit/SKILL.md: sha256:2d1cc2477aa177237bc6964117b3ae0b8aed31c5bb133f847ff66382eb79a2cb
+    .claude/skills/kc-impact-audit/SKILL.md: sha256:9422482f2bcddd5c18f2239671c955969f9009a8e971791ddbbd619477040cb3
     .claude/skills/kc-impact-audit/agents/openai.yaml: sha256:523f8c63711f3a871e102024d43acf65114103bf185e51c98f01750183f49579
-    .claude/skills/kc-impact-audit/evals/result-scenarios.json: sha256:752f2cc566a3d22c19374c88137f3ee50262c445aa69f6e59ea92c0bab57e936
+    .claude/skills/kc-impact-audit/evals/result-scenarios.json: sha256:46c8b3875eae77a1408c9daaabec11709c91360e60bc91ac40aa3353a22ccbba
     .claude/skills/kc-impact-audit/evals/triggers.json: sha256:34de47add67661dde7033cc1eb87233b5d7764c3a2691a7bd4b1b9f84d89732e
-    .claude/skills/kc-impact-audit/references/impact-report.md: sha256:e1f050aeec80dcb1408181c3d651e64a5526cc51f2e763bfad1420199d56d04e
+    .claude/skills/kc-impact-audit/references/impact-report.md: sha256:f59c945636e0765361a15297e13479077fea45005fddfff01b5dc608a12038ee
     .claude/skills/kc-inventory/README.md: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     .claude/skills/kc-inventory/SKILL.md: sha256:60b259240e0fff064be84451f19302d2331e9401c83b6e36e6915b5df1b2a80e
     .claude/skills/kc-inventory/agents/openai.yaml: sha256:c5616a693609c607ce667d2b3bfd76fa534bd29cc07d7c7665af0b7c3a39dbac
@@ -1883,22 +1880,22 @@ dependencies:
     .claude/skills/kc-inventory/references/manifest-and-registry.md: sha256:e897a2d60e07c1595324630e41c4bce9b9a78530c27475ba46eeee62cf09a8fa
     .claude/skills/kc-inventory/references/primary-data-layer.md: sha256:5c566a89fc99a15116c25fd4ba06dbcba2485a28e4e6dc4a518d1c234ebe3a52
     .claude/skills/kc-inventory/references/technical-report.md: sha256:ab66df0afe7b67a965e19bbd88ae04b494532c3d7e2091e0a64be02b661eedcb
-    .claude/skills/kc-inventory/scripts/validate-corpus-layout.py: sha256:79ac90f0bbe484e9332b3d6bb7738b8d7b93d33aa96cb2b78a24f1b56b35c060
+    .claude/skills/kc-inventory/scripts/validate-corpus-layout.py: sha256:5261071e603a63011d2a01878c734f6c7c9595ec39e95880cb6f81c134b72869
     .claude/skills/kc-normalization/README.md: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     .claude/skills/kc-normalization/SKILL.md: sha256:23b7dff4054ab80d2870cf1138820e026776e5ead7403f36a3753b6c0f5098d0
     .claude/skills/kc-normalization/agents/openai.yaml: sha256:34dbc9ab27ed2c73bd435d36da423c5c4608a656904077fb5a3ba6eaed218e60
     .claude/skills/kc-normalization/evals/result-scenarios.json: sha256:211e8c540a585b2df1a15475f64ad0c0980a257416b14d9c68c00a4ac942b5e6
     .claude/skills/kc-normalization/evals/triggers.json: sha256:0f6da208e3148d33b4f0efbaace94747be2b2052b9e79223aebdad9379cd9e10
     .claude/skills/kc-pipeline/README.md: sha256:3caf71e8b020b442a01a38703d711dff8dc3b39f3577e1801c1cffc84c3a77df
-    .claude/skills/kc-pipeline/SKILL.md: sha256:d5cf0e50423b807cef08fe7e9c6d21c10cf1243878db53cafba27c4839e46303
+    .claude/skills/kc-pipeline/SKILL.md: sha256:de3d97960200943760e6f3efdc94d8a8eb0c3e507c73115ebc5c5558d440e52b
     .claude/skills/kc-pipeline/agents/openai.yaml: sha256:c0a5d03d883075121cd931936d0c0dc8144fb27abc4f69fbc1d5bc80841d4d40
     .claude/skills/kc-pipeline/assets/operations.yml: sha256:23704dd0484cc6248ed806ca6352f70507eb319130df9f0d2bd31f2979bde462
-    .claude/skills/kc-pipeline/evals/result-scenarios.json: sha256:3d9b858f1f34175628202449ff17342b73ecb21ec8478a328e65a8eec4977286
+    .claude/skills/kc-pipeline/evals/result-scenarios.json: sha256:455cb5f833699a7950835b22149032e5a81427fd767ff49d41303bcd06cf1708
     .claude/skills/kc-pipeline/evals/triggers.json: sha256:f1554f245038647b36ba54d60e658038c8f3df7d30d84014086a209bbec0d78e
     .claude/skills/kc-pipeline/references/adapter-contract.md: sha256:2cb475b0af4516380c015699a646227a149daaa8cd8de2a29d80c442ec8e26b9
-    .claude/skills/kc-pipeline/references/operations-contract.md: sha256:18adfa56c99af07831c37ff3560f5d1025057e216ce75b7db4e0dcbac54b6053
-    .claude/skills/kc-pipeline/references/workflow-contract.md: sha256:1c1ab812a27f7eac12aaab835253a812f21d37d1beb17d14009ec10f9a135672
-    .claude/skills/kc-pipeline/scripts/run-corpus-operations.py: sha256:eadd2a140b58983dc97356815a09b9129ff6fae851065a77ee7018e635f77676
+    .claude/skills/kc-pipeline/references/operations-contract.md: sha256:e6a1294bb4f54bea182f1bb5c8eeebba9efbf9bf1209a8b4f6afed78c390296a
+    .claude/skills/kc-pipeline/references/workflow-contract.md: sha256:b3196fb8c2688fbfce6aec5b9d90ba11c4d785974d49d581eeabb98b36679277
+    .claude/skills/kc-pipeline/scripts/run-corpus-operations.py: sha256:46079b4f683fac158517a67f3fe21edc440ca333c4612351b742985b2fceb69d
     .claude/skills/kc-retrieval-evaluation/README.md: sha256:5eeebad995868818f917732970acba27433102ecdcc6e96c85a79a1e0a12f546
     .claude/skills/kc-retrieval-evaluation/SKILL.md: sha256:b7f52e646243d845394abb587279c19e60b8f0d0efc15414d87af4e7ee387ea4
     .claude/skills/kc-retrieval-evaluation/agents/openai.yaml: sha256:381585c695118708ae6efdf6c6b8fe1ddb148948e7d8ab8b4fcbce4bab44a067
@@ -1911,10 +1908,10 @@ dependencies:
     .claude/skills/kc-retrieval-evaluation/scripts/run-evaluation-suite.py: sha256:2ed77378bee3a91928bdd71c491bfa7af16edc9e0b042e61a89682d53328ac47
     .claude/skills/kc-retrieval-evaluation/scripts/sample-source-sections.py: sha256:e86f25d00a8e8ec12008e1104ab8e3902dec81086b7daef801e24389a0d79802
     .claude/skills/kc-retrieval-evaluation/scripts/validate-evaluation-suite.py: sha256:b4c9652578f77c79c3858648197b68f686669959bdc14ddfe1805277ee162d29
-    .claude/skills/kc-setup/README.md: sha256:30a19dac14a9e2da6434306f27ccfa3be6bf732062566abc9648cbcfa213bad4
-    .claude/skills/kc-setup/SKILL.md: sha256:635e2d07210bcd290549bc6fe8a298a7a954ae814e4c44e2d07c7cb05fe23583
+    .claude/skills/kc-setup/README.md: sha256:8507733706ce1a95e851e314728f970852872a00390b8bafd262234245d8329b
+    .claude/skills/kc-setup/SKILL.md: sha256:c18864f6af8327477e33fd7d867cd839b2a2523b69bd4ed97866d020e01d37ce
     .claude/skills/kc-setup/agents/openai.yaml: sha256:ac85735a3278bc36c4fb1dff6674a0d659e435a6e0c6f2e3dc6ac41ebb66b1c7
-    .claude/skills/kc-setup/evals/result-scenarios.json: sha256:bb50c231bac124792f26ac3e643a2601861efde8967810f1d202c1fc3e9fe142
+    .claude/skills/kc-setup/evals/result-scenarios.json: sha256:b1d0af01881cf276c0a205889f00064e70a391230f84edc7d4ca4e587ce2e0b6
     .claude/skills/kc-setup/evals/triggers.json: sha256:42b0c877a79b4678ca9e26e6239c258c97fceea067c688f6258f6b6300da6b15
     .claude/skills/kc-setup/references/agents-instructions.md: sha256:aa314f7b79446c1e1a9cadf2a8dcc1b22fe6564218e0d8a39ab4ec9cae225813
     .claude/skills/kc-sources-add/README.md: sha256:900010106e503f34334df961ccb3f9db58393e74e401c69f290d46e892a783c0
@@ -1963,9 +1960,9 @@ dependencies:
 - repo_url: talkstream/ru-text
   name: ru-text
   host: github.com
-  resolved_commit: 54a1f43e12e8b22ba28a9bad9d242804b4dbf9a7
-  resolved_ref: v2.1.0
-  version: 2.1.0
+  resolved_commit: 73dc04a492fc0bbeae31bd5374ce90c2d3cad6e7
+  resolved_ref: v2.4.0
+  version: 2.4.0
   depth: 3
   resolved_by: mekras/ai-russian-language
   package_type: marketplace_plugin
@@ -2007,37 +2004,37 @@ dependencies:
   - .claude/skills/ru-text/references/typography.md
   - .claude/skills/ru-text/references/ux-writing.md
   deployed_file_hashes:
-    .agents/skills/ru-check/SKILL.md: sha256:696f422c0a56e84793e8f83ae32e88ee00c2b792082b459dd91ef3467b629d71
-    .agents/skills/ru-score/SKILL.md: sha256:7908db7614e2dcc7a2426f32bc47055edadd0b7f3763253d0f45c261713978ab
-    .agents/skills/ru-text/SKILL.md: sha256:be124cd0e2c665de088148da43f14ec1a280155138b58dec97497fc6de9f5cfb
+    .agents/skills/ru-check/SKILL.md: sha256:b966d4632142b9ca18ba0f9274ff41986880d5d0745b73f63e75131f8cd98a88
+    .agents/skills/ru-score/SKILL.md: sha256:872991c0a09fc23af550b666e60e51706c3b0925dcfaf1298043e3f87b6416ff
+    .agents/skills/ru-text/SKILL.md: sha256:ec1a71ff5a6ac99c1360ab5633b9b199c130d0fc0c86d07e29eebd5314cdbcb6
     .agents/skills/ru-text/agents/gemini.yaml: sha256:806a0fa6a47c6a0e7273951c2ae86c2b7ce388f6281839d5b0159d0dc41b0be0
     .agents/skills/ru-text/agents/openai.yaml: sha256:0679625d13b901b08b459778fbce37d86552132df214b9a1b921f07181c7c205
     .agents/skills/ru-text/references/addenda.md: sha256:f26aa25bb583f5ca46e053558fb5bc139004f738cb7253f00322cb6bfc016fe5
-    .agents/skills/ru-text/references/anti-patterns.md: sha256:5a76cf23a764cb9fdfb5d9f8811ddb427827499123a01c55d3f3fe651fc4bea2
+    .agents/skills/ru-text/references/anti-patterns.md: sha256:5c31b4671ccbe7a4c9c0733e969c915f37e56e9a84a7d0442547cf43db5a9ac7
     .agents/skills/ru-text/references/business-writing.md: sha256:689895e01768e129b38ffebf0dff14f577c32b677040d361d301a561fc97b2ae
     .agents/skills/ru-text/references/editorial-grammar.md: sha256:d82677c051e0ee6890a90806920fdf663ef8b2e2546929fcaa3d64e2b6e20efc
     .agents/skills/ru-text/references/editorial-punctuation.md: sha256:e8ff8979eaed30635b3181482454e94791b9fa86f2e8b28bb22e41bcced6b32b
-    .agents/skills/ru-text/references/info-style.md: sha256:1bf42408a71405024d9f56842d330c17d679b8968166ce1d848f1a354e936aa3
+    .agents/skills/ru-text/references/info-style.md: sha256:fe31d5bb9bf13aee7742bdca830889ed3f716d581651c9e2c5ed29b602d394ce
     .agents/skills/ru-text/references/scoring.md: sha256:2556092becd94f05a5795631f06d506810eb061a85dda0594b8033580fc94bf2
     .agents/skills/ru-text/references/sources.md: sha256:008e6bb32e64877b91d06eeb81e3e369004a29d03627550439215165d795045b
-    .agents/skills/ru-text/references/typography.md: sha256:dae3d64b1e1554a0236c3b1c14ceb6d317445a63ae5683d696beeeebc433ad45
+    .agents/skills/ru-text/references/typography.md: sha256:ec403f92afd13d47c043f0e206f18de8dde3da843451edb98e0af9a8cd698b9a
     .agents/skills/ru-text/references/ux-writing.md: sha256:7802bc126bff4f754e4eeb0f8b986dd967ac876c038d23a0a63b5846248b4cee
-    .claude/skills/ru-check/SKILL.md: sha256:696f422c0a56e84793e8f83ae32e88ee00c2b792082b459dd91ef3467b629d71
-    .claude/skills/ru-score/SKILL.md: sha256:7908db7614e2dcc7a2426f32bc47055edadd0b7f3763253d0f45c261713978ab
-    .claude/skills/ru-text/SKILL.md: sha256:be124cd0e2c665de088148da43f14ec1a280155138b58dec97497fc6de9f5cfb
+    .claude/skills/ru-check/SKILL.md: sha256:b966d4632142b9ca18ba0f9274ff41986880d5d0745b73f63e75131f8cd98a88
+    .claude/skills/ru-score/SKILL.md: sha256:872991c0a09fc23af550b666e60e51706c3b0925dcfaf1298043e3f87b6416ff
+    .claude/skills/ru-text/SKILL.md: sha256:ec1a71ff5a6ac99c1360ab5633b9b199c130d0fc0c86d07e29eebd5314cdbcb6
     .claude/skills/ru-text/agents/gemini.yaml: sha256:806a0fa6a47c6a0e7273951c2ae86c2b7ce388f6281839d5b0159d0dc41b0be0
     .claude/skills/ru-text/agents/openai.yaml: sha256:0679625d13b901b08b459778fbce37d86552132df214b9a1b921f07181c7c205
     .claude/skills/ru-text/references/addenda.md: sha256:f26aa25bb583f5ca46e053558fb5bc139004f738cb7253f00322cb6bfc016fe5
-    .claude/skills/ru-text/references/anti-patterns.md: sha256:5a76cf23a764cb9fdfb5d9f8811ddb427827499123a01c55d3f3fe651fc4bea2
+    .claude/skills/ru-text/references/anti-patterns.md: sha256:5c31b4671ccbe7a4c9c0733e969c915f37e56e9a84a7d0442547cf43db5a9ac7
     .claude/skills/ru-text/references/business-writing.md: sha256:689895e01768e129b38ffebf0dff14f577c32b677040d361d301a561fc97b2ae
     .claude/skills/ru-text/references/editorial-grammar.md: sha256:d82677c051e0ee6890a90806920fdf663ef8b2e2546929fcaa3d64e2b6e20efc
     .claude/skills/ru-text/references/editorial-punctuation.md: sha256:e8ff8979eaed30635b3181482454e94791b9fa86f2e8b28bb22e41bcced6b32b
-    .claude/skills/ru-text/references/info-style.md: sha256:1bf42408a71405024d9f56842d330c17d679b8968166ce1d848f1a354e936aa3
+    .claude/skills/ru-text/references/info-style.md: sha256:fe31d5bb9bf13aee7742bdca830889ed3f716d581651c9e2c5ed29b602d394ce
     .claude/skills/ru-text/references/scoring.md: sha256:2556092becd94f05a5795631f06d506810eb061a85dda0594b8033580fc94bf2
     .claude/skills/ru-text/references/sources.md: sha256:008e6bb32e64877b91d06eeb81e3e369004a29d03627550439215165d795045b
-    .claude/skills/ru-text/references/typography.md: sha256:dae3d64b1e1554a0236c3b1c14ceb6d317445a63ae5683d696beeeebc433ad45
+    .claude/skills/ru-text/references/typography.md: sha256:ec403f92afd13d47c043f0e206f18de8dde3da843451edb98e0af9a8cd698b9a
     .claude/skills/ru-text/references/ux-writing.md: sha256:7802bc126bff4f754e4eeb0f8b986dd967ac876c038d23a0a63b5846248b4cee
-  content_hash: sha256:99cb58d3371f18cf340ed1ad2d676e9202c5c0e2e5c100c06068dfd9ddf71811
+  content_hash: sha256:9804ae9d63df4122c281bbe1123164accb498e6651a47415a372ecf9a57156d9
   is_dev: true
   declared_license: MIT
 deployments:
@@ -5576,7 +5573,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:2d1cc2477aa177237bc6964117b3ae0b8aed31c5bb133f847ff66382eb79a2cb
+  content_hash: sha256:9422482f2bcddd5c18f2239671c955969f9009a8e971791ddbbd619477040cb3
 - kind: project-relative
   target: claude
   value: .claude/skills/kc-impact-audit/agents/openai.yaml
@@ -5596,7 +5593,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:752f2cc566a3d22c19374c88137f3ee50262c445aa69f6e59ea92c0bab57e936
+  content_hash: sha256:46c8b3875eae77a1408c9daaabec11709c91360e60bc91ac40aa3353a22ccbba
 - kind: project-relative
   target: claude
   value: .claude/skills/kc-impact-audit/evals/triggers.json
@@ -5616,7 +5613,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:e1f050aeec80dcb1408181c3d651e64a5526cc51f2e763bfad1420199d56d04e
+  content_hash: sha256:f59c945636e0765361a15297e13479077fea45005fddfff01b5dc608a12038ee
 - kind: project-relative
   target: claude
   value: .claude/skills/kc-inventory
@@ -5846,7 +5843,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:79ac90f0bbe484e9332b3d6bb7738b8d7b93d33aa96cb2b78a24f1b56b35c060
+  content_hash: sha256:5261071e603a63011d2a01878c734f6c7c9595ec39e95880cb6f81c134b72869
 - kind: project-relative
   target: claude
   value: .claude/skills/kc-normalization
@@ -5936,7 +5933,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:d5cf0e50423b807cef08fe7e9c6d21c10cf1243878db53cafba27c4839e46303
+  content_hash: sha256:de3d97960200943760e6f3efdc94d8a8eb0c3e507c73115ebc5c5558d440e52b
 - kind: project-relative
   target: claude
   value: .claude/skills/kc-pipeline/agents/openai.yaml
@@ -5966,7 +5963,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:3d9b858f1f34175628202449ff17342b73ecb21ec8478a328e65a8eec4977286
+  content_hash: sha256:455cb5f833699a7950835b22149032e5a81427fd767ff49d41303bcd06cf1708
 - kind: project-relative
   target: claude
   value: .claude/skills/kc-pipeline/evals/triggers.json
@@ -5996,7 +5993,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:18adfa56c99af07831c37ff3560f5d1025057e216ce75b7db4e0dcbac54b6053
+  content_hash: sha256:e6a1294bb4f54bea182f1bb5c8eeebba9efbf9bf1209a8b4f6afed78c390296a
 - kind: project-relative
   target: claude
   value: .claude/skills/kc-pipeline/references/workflow-contract.md
@@ -6006,7 +6003,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:1c1ab812a27f7eac12aaab835253a812f21d37d1beb17d14009ec10f9a135672
+  content_hash: sha256:b3196fb8c2688fbfce6aec5b9d90ba11c4d785974d49d581eeabb98b36679277
 - kind: project-relative
   target: claude
   value: .claude/skills/kc-pipeline/scripts/run-corpus-operations.py
@@ -6016,7 +6013,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:eadd2a140b58983dc97356815a09b9129ff6fae851065a77ee7018e635f77676
+  content_hash: sha256:46079b4f683fac158517a67f3fe21edc440ca333c4612351b742985b2fceb69d
 - kind: project-relative
   target: claude
   value: .claude/skills/kc-retrieval-evaluation
@@ -6166,7 +6163,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:30a19dac14a9e2da6434306f27ccfa3be6bf732062566abc9648cbcfa213bad4
+  content_hash: sha256:8507733706ce1a95e851e314728f970852872a00390b8bafd262234245d8329b
 - kind: project-relative
   target: claude
   value: .claude/skills/kc-setup/SKILL.md
@@ -6176,7 +6173,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:635e2d07210bcd290549bc6fe8a298a7a954ae814e4c44e2d07c7cb05fe23583
+  content_hash: sha256:c18864f6af8327477e33fd7d867cd839b2a2523b69bd4ed97866d020e01d37ce
 - kind: project-relative
   target: claude
   value: .claude/skills/kc-setup/agents/openai.yaml
@@ -6196,7 +6193,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:bb50c231bac124792f26ac3e643a2601861efde8967810f1d202c1fc3e9fe142
+  content_hash: sha256:b1d0af01881cf276c0a205889f00064e70a391230f84edc7d4ca4e587ce2e0b6
 - kind: project-relative
   target: claude
   value: .claude/skills/kc-setup/evals/triggers.json
@@ -6604,7 +6601,7 @@ deployments:
   owners:
   - talkstream/ru-text
   active_owner: talkstream/ru-text
-  content_hash: sha256:696f422c0a56e84793e8f83ae32e88ee00c2b792082b459dd91ef3467b629d71
+  content_hash: sha256:b966d4632142b9ca18ba0f9274ff41986880d5d0745b73f63e75131f8cd98a88
 - kind: project-relative
   target: claude
   value: .claude/skills/ru-lang
@@ -6721,7 +6718,7 @@ deployments:
   owners:
   - talkstream/ru-text
   active_owner: talkstream/ru-text
-  content_hash: sha256:7908db7614e2dcc7a2426f32bc47055edadd0b7f3763253d0f45c261713978ab
+  content_hash: sha256:872991c0a09fc23af550b666e60e51706c3b0925dcfaf1298043e3f87b6416ff
 - kind: project-relative
   target: claude
   value: .claude/skills/ru-text
@@ -6739,7 +6736,7 @@ deployments:
   owners:
   - talkstream/ru-text
   active_owner: talkstream/ru-text
-  content_hash: sha256:be124cd0e2c665de088148da43f14ec1a280155138b58dec97497fc6de9f5cfb
+  content_hash: sha256:ec1a71ff5a6ac99c1360ab5633b9b199c130d0fc0c86d07e29eebd5314cdbcb6
 - kind: project-relative
   target: claude
   value: .claude/skills/ru-text/agents/gemini.yaml
@@ -6775,7 +6772,7 @@ deployments:
   owners:
   - talkstream/ru-text
   active_owner: talkstream/ru-text
-  content_hash: sha256:5a76cf23a764cb9fdfb5d9f8811ddb427827499123a01c55d3f3fe651fc4bea2
+  content_hash: sha256:5c31b4671ccbe7a4c9c0733e969c915f37e56e9a84a7d0442547cf43db5a9ac7
 - kind: project-relative
   target: claude
   value: .claude/skills/ru-text/references/business-writing.md
@@ -6811,7 +6808,7 @@ deployments:
   owners:
   - talkstream/ru-text
   active_owner: talkstream/ru-text
-  content_hash: sha256:1bf42408a71405024d9f56842d330c17d679b8968166ce1d848f1a354e936aa3
+  content_hash: sha256:fe31d5bb9bf13aee7742bdca830889ed3f716d581651c9e2c5ed29b602d394ce
 - kind: project-relative
   target: claude
   value: .claude/skills/ru-text/references/scoring.md
@@ -6838,7 +6835,7 @@ deployments:
   owners:
   - talkstream/ru-text
   active_owner: talkstream/ru-text
-  content_hash: sha256:dae3d64b1e1554a0236c3b1c14ceb6d317445a63ae5683d696beeeebc433ad45
+  content_hash: sha256:ec403f92afd13d47c043f0e206f18de8dde3da843451edb98e0af9a8cd698b9a
 - kind: project-relative
   target: claude
   value: .claude/skills/ru-text/references/ux-writing.md
@@ -10317,7 +10314,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:2d1cc2477aa177237bc6964117b3ae0b8aed31c5bb133f847ff66382eb79a2cb
+  content_hash: sha256:9422482f2bcddd5c18f2239671c955969f9009a8e971791ddbbd619477040cb3
 - kind: project-relative
   target: codex
   value: .agents/skills/kc-impact-audit/agents/openai.yaml
@@ -10337,7 +10334,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:752f2cc566a3d22c19374c88137f3ee50262c445aa69f6e59ea92c0bab57e936
+  content_hash: sha256:46c8b3875eae77a1408c9daaabec11709c91360e60bc91ac40aa3353a22ccbba
 - kind: project-relative
   target: codex
   value: .agents/skills/kc-impact-audit/evals/triggers.json
@@ -10357,7 +10354,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:e1f050aeec80dcb1408181c3d651e64a5526cc51f2e763bfad1420199d56d04e
+  content_hash: sha256:f59c945636e0765361a15297e13479077fea45005fddfff01b5dc608a12038ee
 - kind: project-relative
   target: codex
   value: .agents/skills/kc-inventory
@@ -10587,7 +10584,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:79ac90f0bbe484e9332b3d6bb7738b8d7b93d33aa96cb2b78a24f1b56b35c060
+  content_hash: sha256:5261071e603a63011d2a01878c734f6c7c9595ec39e95880cb6f81c134b72869
 - kind: project-relative
   target: codex
   value: .agents/skills/kc-normalization
@@ -10677,7 +10674,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:d5cf0e50423b807cef08fe7e9c6d21c10cf1243878db53cafba27c4839e46303
+  content_hash: sha256:de3d97960200943760e6f3efdc94d8a8eb0c3e507c73115ebc5c5558d440e52b
 - kind: project-relative
   target: codex
   value: .agents/skills/kc-pipeline/agents/openai.yaml
@@ -10707,7 +10704,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:3d9b858f1f34175628202449ff17342b73ecb21ec8478a328e65a8eec4977286
+  content_hash: sha256:455cb5f833699a7950835b22149032e5a81427fd767ff49d41303bcd06cf1708
 - kind: project-relative
   target: codex
   value: .agents/skills/kc-pipeline/evals/triggers.json
@@ -10737,7 +10734,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:18adfa56c99af07831c37ff3560f5d1025057e216ce75b7db4e0dcbac54b6053
+  content_hash: sha256:e6a1294bb4f54bea182f1bb5c8eeebba9efbf9bf1209a8b4f6afed78c390296a
 - kind: project-relative
   target: codex
   value: .agents/skills/kc-pipeline/references/workflow-contract.md
@@ -10747,7 +10744,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:1c1ab812a27f7eac12aaab835253a812f21d37d1beb17d14009ec10f9a135672
+  content_hash: sha256:b3196fb8c2688fbfce6aec5b9d90ba11c4d785974d49d581eeabb98b36679277
 - kind: project-relative
   target: codex
   value: .agents/skills/kc-pipeline/scripts/run-corpus-operations.py
@@ -10757,7 +10754,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:eadd2a140b58983dc97356815a09b9129ff6fae851065a77ee7018e635f77676
+  content_hash: sha256:46079b4f683fac158517a67f3fe21edc440ca333c4612351b742985b2fceb69d
 - kind: project-relative
   target: codex
   value: .agents/skills/kc-retrieval-evaluation
@@ -10907,7 +10904,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:30a19dac14a9e2da6434306f27ccfa3be6bf732062566abc9648cbcfa213bad4
+  content_hash: sha256:8507733706ce1a95e851e314728f970852872a00390b8bafd262234245d8329b
 - kind: project-relative
   target: codex
   value: .agents/skills/kc-setup/SKILL.md
@@ -10917,7 +10914,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:635e2d07210bcd290549bc6fe8a298a7a954ae814e4c44e2d07c7cb05fe23583
+  content_hash: sha256:c18864f6af8327477e33fd7d867cd839b2a2523b69bd4ed97866d020e01d37ce
 - kind: project-relative
   target: codex
   value: .agents/skills/kc-setup/agents/openai.yaml
@@ -10937,7 +10934,7 @@ deployments:
   - mekras/project-knowlege-corpus
   - .
   active_owner: mekras/project-knowlege-corpus
-  content_hash: sha256:bb50c231bac124792f26ac3e643a2601861efde8967810f1d202c1fc3e9fe142
+  content_hash: sha256:b1d0af01881cf276c0a205889f00064e70a391230f84edc7d4ca4e587ce2e0b6
 - kind: project-relative
   target: codex
   value: .agents/skills/kc-setup/evals/triggers.json
@@ -11345,7 +11342,7 @@ deployments:
   owners:
   - talkstream/ru-text
   active_owner: talkstream/ru-text
-  content_hash: sha256:696f422c0a56e84793e8f83ae32e88ee00c2b792082b459dd91ef3467b629d71
+  content_hash: sha256:b966d4632142b9ca18ba0f9274ff41986880d5d0745b73f63e75131f8cd98a88
 - kind: project-relative
   target: codex
   value: .agents/skills/ru-lang
@@ -11462,7 +11459,7 @@ deployments:
   owners:
   - talkstream/ru-text
   active_owner: talkstream/ru-text
-  content_hash: sha256:7908db7614e2dcc7a2426f32bc47055edadd0b7f3763253d0f45c261713978ab
+  content_hash: sha256:872991c0a09fc23af550b666e60e51706c3b0925dcfaf1298043e3f87b6416ff
 - kind: project-relative
   target: codex
   value: .agents/skills/ru-text
@@ -11480,7 +11477,7 @@ deployments:
   owners:
   - talkstream/ru-text
   active_owner: talkstream/ru-text
-  content_hash: sha256:be124cd0e2c665de088148da43f14ec1a280155138b58dec97497fc6de9f5cfb
+  content_hash: sha256:ec1a71ff5a6ac99c1360ab5633b9b199c130d0fc0c86d07e29eebd5314cdbcb6
 - kind: project-relative
   target: codex
   value: .agents/skills/ru-text/agents/gemini.yaml
@@ -11516,7 +11513,7 @@ deployments:
   owners:
   - talkstream/ru-text
   active_owner: talkstream/ru-text
-  content_hash: sha256:5a76cf23a764cb9fdfb5d9f8811ddb427827499123a01c55d3f3fe651fc4bea2
+  content_hash: sha256:5c31b4671ccbe7a4c9c0733e969c915f37e56e9a84a7d0442547cf43db5a9ac7
 - kind: project-relative
   target: codex
   value: .agents/skills/ru-text/references/business-writing.md
@@ -11552,7 +11549,7 @@ deployments:
   owners:
   - talkstream/ru-text
   active_owner: talkstream/ru-text
-  content_hash: sha256:1bf42408a71405024d9f56842d330c17d679b8968166ce1d848f1a354e936aa3
+  content_hash: sha256:fe31d5bb9bf13aee7742bdca830889ed3f716d581651c9e2c5ed29b602d394ce
 - kind: project-relative
   target: codex
   value: .agents/skills/ru-text/references/scoring.md
@@ -11579,7 +11576,7 @@ deployments:
   owners:
   - talkstream/ru-text
   active_owner: talkstream/ru-text
-  content_hash: sha256:dae3d64b1e1554a0236c3b1c14ceb6d317445a63ae5683d696beeeebc433ad45
+  content_hash: sha256:ec403f92afd13d47c043f0e206f18de8dde3da843451edb98e0af9a8cd698b9a
 - kind: project-relative
   target: codex
   value: .agents/skills/ru-text/references/ux-writing.md
@@ -12029,11 +12026,11 @@ local_deployed_file_hashes:
   .agents/skills/kc-concepts/evals/triggers.json: sha256:3936463a34b639ea5dfcf188f3cdfc67b369676697f7889b595ca185f09a3cae
   .agents/skills/kc-concepts/references/concept-record.md: sha256:348d972486cb1c7616d258abb78c0618067d823314ec7b0c4ee49a549b26d84a
   .agents/skills/kc-impact-audit/README.md: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-  .agents/skills/kc-impact-audit/SKILL.md: sha256:2d1cc2477aa177237bc6964117b3ae0b8aed31c5bb133f847ff66382eb79a2cb
+  .agents/skills/kc-impact-audit/SKILL.md: sha256:9422482f2bcddd5c18f2239671c955969f9009a8e971791ddbbd619477040cb3
   .agents/skills/kc-impact-audit/agents/openai.yaml: sha256:523f8c63711f3a871e102024d43acf65114103bf185e51c98f01750183f49579
-  .agents/skills/kc-impact-audit/evals/result-scenarios.json: sha256:752f2cc566a3d22c19374c88137f3ee50262c445aa69f6e59ea92c0bab57e936
+  .agents/skills/kc-impact-audit/evals/result-scenarios.json: sha256:46c8b3875eae77a1408c9daaabec11709c91360e60bc91ac40aa3353a22ccbba
   .agents/skills/kc-impact-audit/evals/triggers.json: sha256:34de47add67661dde7033cc1eb87233b5d7764c3a2691a7bd4b1b9f84d89732e
-  .agents/skills/kc-impact-audit/references/impact-report.md: sha256:e1f050aeec80dcb1408181c3d651e64a5526cc51f2e763bfad1420199d56d04e
+  .agents/skills/kc-impact-audit/references/impact-report.md: sha256:f59c945636e0765361a15297e13479077fea45005fddfff01b5dc608a12038ee
   .agents/skills/kc-inventory/README.md: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
   .agents/skills/kc-inventory/SKILL.md: sha256:60b259240e0fff064be84451f19302d2331e9401c83b6e36e6915b5df1b2a80e
   .agents/skills/kc-inventory/agents/openai.yaml: sha256:c5616a693609c607ce667d2b3bfd76fa534bd29cc07d7c7665af0b7c3a39dbac
@@ -12055,22 +12052,22 @@ local_deployed_file_hashes:
   .agents/skills/kc-inventory/references/manifest-and-registry.md: sha256:e897a2d60e07c1595324630e41c4bce9b9a78530c27475ba46eeee62cf09a8fa
   .agents/skills/kc-inventory/references/primary-data-layer.md: sha256:5c566a89fc99a15116c25fd4ba06dbcba2485a28e4e6dc4a518d1c234ebe3a52
   .agents/skills/kc-inventory/references/technical-report.md: sha256:ab66df0afe7b67a965e19bbd88ae04b494532c3d7e2091e0a64be02b661eedcb
-  .agents/skills/kc-inventory/scripts/validate-corpus-layout.py: sha256:79ac90f0bbe484e9332b3d6bb7738b8d7b93d33aa96cb2b78a24f1b56b35c060
+  .agents/skills/kc-inventory/scripts/validate-corpus-layout.py: sha256:5261071e603a63011d2a01878c734f6c7c9595ec39e95880cb6f81c134b72869
   .agents/skills/kc-normalization/README.md: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
   .agents/skills/kc-normalization/SKILL.md: sha256:23b7dff4054ab80d2870cf1138820e026776e5ead7403f36a3753b6c0f5098d0
   .agents/skills/kc-normalization/agents/openai.yaml: sha256:34dbc9ab27ed2c73bd435d36da423c5c4608a656904077fb5a3ba6eaed218e60
   .agents/skills/kc-normalization/evals/result-scenarios.json: sha256:211e8c540a585b2df1a15475f64ad0c0980a257416b14d9c68c00a4ac942b5e6
   .agents/skills/kc-normalization/evals/triggers.json: sha256:0f6da208e3148d33b4f0efbaace94747be2b2052b9e79223aebdad9379cd9e10
   .agents/skills/kc-pipeline/README.md: sha256:3caf71e8b020b442a01a38703d711dff8dc3b39f3577e1801c1cffc84c3a77df
-  .agents/skills/kc-pipeline/SKILL.md: sha256:d5cf0e50423b807cef08fe7e9c6d21c10cf1243878db53cafba27c4839e46303
+  .agents/skills/kc-pipeline/SKILL.md: sha256:de3d97960200943760e6f3efdc94d8a8eb0c3e507c73115ebc5c5558d440e52b
   .agents/skills/kc-pipeline/agents/openai.yaml: sha256:c0a5d03d883075121cd931936d0c0dc8144fb27abc4f69fbc1d5bc80841d4d40
   .agents/skills/kc-pipeline/assets/operations.yml: sha256:23704dd0484cc6248ed806ca6352f70507eb319130df9f0d2bd31f2979bde462
-  .agents/skills/kc-pipeline/evals/result-scenarios.json: sha256:3d9b858f1f34175628202449ff17342b73ecb21ec8478a328e65a8eec4977286
+  .agents/skills/kc-pipeline/evals/result-scenarios.json: sha256:455cb5f833699a7950835b22149032e5a81427fd767ff49d41303bcd06cf1708
   .agents/skills/kc-pipeline/evals/triggers.json: sha256:f1554f245038647b36ba54d60e658038c8f3df7d30d84014086a209bbec0d78e
   .agents/skills/kc-pipeline/references/adapter-contract.md: sha256:2cb475b0af4516380c015699a646227a149daaa8cd8de2a29d80c442ec8e26b9
-  .agents/skills/kc-pipeline/references/operations-contract.md: sha256:18adfa56c99af07831c37ff3560f5d1025057e216ce75b7db4e0dcbac54b6053
-  .agents/skills/kc-pipeline/references/workflow-contract.md: sha256:1c1ab812a27f7eac12aaab835253a812f21d37d1beb17d14009ec10f9a135672
-  .agents/skills/kc-pipeline/scripts/run-corpus-operations.py: sha256:eadd2a140b58983dc97356815a09b9129ff6fae851065a77ee7018e635f77676
+  .agents/skills/kc-pipeline/references/operations-contract.md: sha256:e6a1294bb4f54bea182f1bb5c8eeebba9efbf9bf1209a8b4f6afed78c390296a
+  .agents/skills/kc-pipeline/references/workflow-contract.md: sha256:b3196fb8c2688fbfce6aec5b9d90ba11c4d785974d49d581eeabb98b36679277
+  .agents/skills/kc-pipeline/scripts/run-corpus-operations.py: sha256:46079b4f683fac158517a67f3fe21edc440ca333c4612351b742985b2fceb69d
   .agents/skills/kc-retrieval-evaluation/README.md: sha256:5eeebad995868818f917732970acba27433102ecdcc6e96c85a79a1e0a12f546
   .agents/skills/kc-retrieval-evaluation/SKILL.md: sha256:b7f52e646243d845394abb587279c19e60b8f0d0efc15414d87af4e7ee387ea4
   .agents/skills/kc-retrieval-evaluation/agents/openai.yaml: sha256:381585c695118708ae6efdf6c6b8fe1ddb148948e7d8ab8b4fcbce4bab44a067
@@ -12083,10 +12080,10 @@ local_deployed_file_hashes:
   .agents/skills/kc-retrieval-evaluation/scripts/run-evaluation-suite.py: sha256:2ed77378bee3a91928bdd71c491bfa7af16edc9e0b042e61a89682d53328ac47
   .agents/skills/kc-retrieval-evaluation/scripts/sample-source-sections.py: sha256:e86f25d00a8e8ec12008e1104ab8e3902dec81086b7daef801e24389a0d79802
   .agents/skills/kc-retrieval-evaluation/scripts/validate-evaluation-suite.py: sha256:b4c9652578f77c79c3858648197b68f686669959bdc14ddfe1805277ee162d29
-  .agents/skills/kc-setup/README.md: sha256:30a19dac14a9e2da6434306f27ccfa3be6bf732062566abc9648cbcfa213bad4
-  .agents/skills/kc-setup/SKILL.md: sha256:635e2d07210bcd290549bc6fe8a298a7a954ae814e4c44e2d07c7cb05fe23583
+  .agents/skills/kc-setup/README.md: sha256:8507733706ce1a95e851e314728f970852872a00390b8bafd262234245d8329b
+  .agents/skills/kc-setup/SKILL.md: sha256:c18864f6af8327477e33fd7d867cd839b2a2523b69bd4ed97866d020e01d37ce
   .agents/skills/kc-setup/agents/openai.yaml: sha256:ac85735a3278bc36c4fb1dff6674a0d659e435a6e0c6f2e3dc6ac41ebb66b1c7
-  .agents/skills/kc-setup/evals/result-scenarios.json: sha256:bb50c231bac124792f26ac3e643a2601861efde8967810f1d202c1fc3e9fe142
+  .agents/skills/kc-setup/evals/result-scenarios.json: sha256:b1d0af01881cf276c0a205889f00064e70a391230f84edc7d4ca4e587ce2e0b6
   .agents/skills/kc-setup/evals/triggers.json: sha256:42b0c877a79b4678ca9e26e6239c258c97fceea067c688f6258f6b6300da6b15
   .agents/skills/kc-setup/references/agents-instructions.md: sha256:aa314f7b79446c1e1a9cadf2a8dcc1b22fe6564218e0d8a39ab4ec9cae225813
   .agents/skills/kc-sources-add/README.md: sha256:900010106e503f34334df961ccb3f9db58393e74e401c69f290d46e892a783c0
@@ -12139,11 +12136,11 @@ local_deployed_file_hashes:
   .claude/skills/kc-concepts/evals/triggers.json: sha256:3936463a34b639ea5dfcf188f3cdfc67b369676697f7889b595ca185f09a3cae
   .claude/skills/kc-concepts/references/concept-record.md: sha256:348d972486cb1c7616d258abb78c0618067d823314ec7b0c4ee49a549b26d84a
   .claude/skills/kc-impact-audit/README.md: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-  .claude/skills/kc-impact-audit/SKILL.md: sha256:2d1cc2477aa177237bc6964117b3ae0b8aed31c5bb133f847ff66382eb79a2cb
+  .claude/skills/kc-impact-audit/SKILL.md: sha256:9422482f2bcddd5c18f2239671c955969f9009a8e971791ddbbd619477040cb3
   .claude/skills/kc-impact-audit/agents/openai.yaml: sha256:523f8c63711f3a871e102024d43acf65114103bf185e51c98f01750183f49579
-  .claude/skills/kc-impact-audit/evals/result-scenarios.json: sha256:752f2cc566a3d22c19374c88137f3ee50262c445aa69f6e59ea92c0bab57e936
+  .claude/skills/kc-impact-audit/evals/result-scenarios.json: sha256:46c8b3875eae77a1408c9daaabec11709c91360e60bc91ac40aa3353a22ccbba
   .claude/skills/kc-impact-audit/evals/triggers.json: sha256:34de47add67661dde7033cc1eb87233b5d7764c3a2691a7bd4b1b9f84d89732e
-  .claude/skills/kc-impact-audit/references/impact-report.md: sha256:e1f050aeec80dcb1408181c3d651e64a5526cc51f2e763bfad1420199d56d04e
+  .claude/skills/kc-impact-audit/references/impact-report.md: sha256:f59c945636e0765361a15297e13479077fea45005fddfff01b5dc608a12038ee
   .claude/skills/kc-inventory/README.md: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
   .claude/skills/kc-inventory/SKILL.md: sha256:60b259240e0fff064be84451f19302d2331e9401c83b6e36e6915b5df1b2a80e
   .claude/skills/kc-inventory/agents/openai.yaml: sha256:c5616a693609c607ce667d2b3bfd76fa534bd29cc07d7c7665af0b7c3a39dbac
@@ -12165,22 +12162,22 @@ local_deployed_file_hashes:
   .claude/skills/kc-inventory/references/manifest-and-registry.md: sha256:e897a2d60e07c1595324630e41c4bce9b9a78530c27475ba46eeee62cf09a8fa
   .claude/skills/kc-inventory/references/primary-data-layer.md: sha256:5c566a89fc99a15116c25fd4ba06dbcba2485a28e4e6dc4a518d1c234ebe3a52
   .claude/skills/kc-inventory/references/technical-report.md: sha256:ab66df0afe7b67a965e19bbd88ae04b494532c3d7e2091e0a64be02b661eedcb
-  .claude/skills/kc-inventory/scripts/validate-corpus-layout.py: sha256:79ac90f0bbe484e9332b3d6bb7738b8d7b93d33aa96cb2b78a24f1b56b35c060
+  .claude/skills/kc-inventory/scripts/validate-corpus-layout.py: sha256:5261071e603a63011d2a01878c734f6c7c9595ec39e95880cb6f81c134b72869
   .claude/skills/kc-normalization/README.md: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
   .claude/skills/kc-normalization/SKILL.md: sha256:23b7dff4054ab80d2870cf1138820e026776e5ead7403f36a3753b6c0f5098d0
   .claude/skills/kc-normalization/agents/openai.yaml: sha256:34dbc9ab27ed2c73bd435d36da423c5c4608a656904077fb5a3ba6eaed218e60
   .claude/skills/kc-normalization/evals/result-scenarios.json: sha256:211e8c540a585b2df1a15475f64ad0c0980a257416b14d9c68c00a4ac942b5e6
   .claude/skills/kc-normalization/evals/triggers.json: sha256:0f6da208e3148d33b4f0efbaace94747be2b2052b9e79223aebdad9379cd9e10
   .claude/skills/kc-pipeline/README.md: sha256:3caf71e8b020b442a01a38703d711dff8dc3b39f3577e1801c1cffc84c3a77df
-  .claude/skills/kc-pipeline/SKILL.md: sha256:d5cf0e50423b807cef08fe7e9c6d21c10cf1243878db53cafba27c4839e46303
+  .claude/skills/kc-pipeline/SKILL.md: sha256:de3d97960200943760e6f3efdc94d8a8eb0c3e507c73115ebc5c5558d440e52b
   .claude/skills/kc-pipeline/agents/openai.yaml: sha256:c0a5d03d883075121cd931936d0c0dc8144fb27abc4f69fbc1d5bc80841d4d40
   .claude/skills/kc-pipeline/assets/operations.yml: sha256:23704dd0484cc6248ed806ca6352f70507eb319130df9f0d2bd31f2979bde462
-  .claude/skills/kc-pipeline/evals/result-scenarios.json: sha256:3d9b858f1f34175628202449ff17342b73ecb21ec8478a328e65a8eec4977286
+  .claude/skills/kc-pipeline/evals/result-scenarios.json: sha256:455cb5f833699a7950835b22149032e5a81427fd767ff49d41303bcd06cf1708
   .claude/skills/kc-pipeline/evals/triggers.json: sha256:f1554f245038647b36ba54d60e658038c8f3df7d30d84014086a209bbec0d78e
   .claude/skills/kc-pipeline/references/adapter-contract.md: sha256:2cb475b0af4516380c015699a646227a149daaa8cd8de2a29d80c442ec8e26b9
-  .claude/skills/kc-pipeline/references/operations-contract.md: sha256:18adfa56c99af07831c37ff3560f5d1025057e216ce75b7db4e0dcbac54b6053
-  .claude/skills/kc-pipeline/references/workflow-contract.md: sha256:1c1ab812a27f7eac12aaab835253a812f21d37d1beb17d14009ec10f9a135672
-  .claude/skills/kc-pipeline/scripts/run-corpus-operations.py: sha256:eadd2a140b58983dc97356815a09b9129ff6fae851065a77ee7018e635f77676
+  .claude/skills/kc-pipeline/references/operations-contract.md: sha256:e6a1294bb4f54bea182f1bb5c8eeebba9efbf9bf1209a8b4f6afed78c390296a
+  .claude/skills/kc-pipeline/references/workflow-contract.md: sha256:b3196fb8c2688fbfce6aec5b9d90ba11c4d785974d49d581eeabb98b36679277
+  .claude/skills/kc-pipeline/scripts/run-corpus-operations.py: sha256:46079b4f683fac158517a67f3fe21edc440ca333c4612351b742985b2fceb69d
   .claude/skills/kc-retrieval-evaluation/README.md: sha256:5eeebad995868818f917732970acba27433102ecdcc6e96c85a79a1e0a12f546
   .claude/skills/kc-retrieval-evaluation/SKILL.md: sha256:b7f52e646243d845394abb587279c19e60b8f0d0efc15414d87af4e7ee387ea4
   .claude/skills/kc-retrieval-evaluation/agents/openai.yaml: sha256:381585c695118708ae6efdf6c6b8fe1ddb148948e7d8ab8b4fcbce4bab44a067
@@ -12193,10 +12190,10 @@ local_deployed_file_hashes:
   .claude/skills/kc-retrieval-evaluation/scripts/run-evaluation-suite.py: sha256:2ed77378bee3a91928bdd71c491bfa7af16edc9e0b042e61a89682d53328ac47
   .claude/skills/kc-retrieval-evaluation/scripts/sample-source-sections.py: sha256:e86f25d00a8e8ec12008e1104ab8e3902dec81086b7daef801e24389a0d79802
   .claude/skills/kc-retrieval-evaluation/scripts/validate-evaluation-suite.py: sha256:b4c9652578f77c79c3858648197b68f686669959bdc14ddfe1805277ee162d29
-  .claude/skills/kc-setup/README.md: sha256:30a19dac14a9e2da6434306f27ccfa3be6bf732062566abc9648cbcfa213bad4
-  .claude/skills/kc-setup/SKILL.md: sha256:635e2d07210bcd290549bc6fe8a298a7a954ae814e4c44e2d07c7cb05fe23583
+  .claude/skills/kc-setup/README.md: sha256:8507733706ce1a95e851e314728f970852872a00390b8bafd262234245d8329b
+  .claude/skills/kc-setup/SKILL.md: sha256:c18864f6af8327477e33fd7d867cd839b2a2523b69bd4ed97866d020e01d37ce
   .claude/skills/kc-setup/agents/openai.yaml: sha256:ac85735a3278bc36c4fb1dff6674a0d659e435a6e0c6f2e3dc6ac41ebb66b1c7
-  .claude/skills/kc-setup/evals/result-scenarios.json: sha256:bb50c231bac124792f26ac3e643a2601861efde8967810f1d202c1fc3e9fe142
+  .claude/skills/kc-setup/evals/result-scenarios.json: sha256:b1d0af01881cf276c0a205889f00064e70a391230f84edc7d4ca4e587ce2e0b6
   .claude/skills/kc-setup/evals/triggers.json: sha256:42b0c877a79b4678ca9e26e6239c258c97fceea067c688f6258f6b6300da6b15
   .claude/skills/kc-setup/references/agents-instructions.md: sha256:aa314f7b79446c1e1a9cadf2a8dcc1b22fe6564218e0d8a39ab4ec9cae225813
   .claude/skills/kc-sources-add/README.md: sha256:900010106e503f34334df961ccb3f9db58393e74e401c69f290d46e892a783c0
