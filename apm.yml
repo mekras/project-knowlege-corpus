@@ -27,3 +27,20 @@ scripts:
 devDependencies:
   apm:
   - mekras/ai-dev-team#^0.22.1
+marketplace:
+  name: project-knowledge-corpus
+  description: Реестр навыков для создания, сопровождения и применения корпуса знаний проекта
+  owner:
+    name: mekras
+    url: https://github.com/mekras
+  build:
+    tagPattern: "{version}"
+  outputs:
+    claude: {}
+    codex: {}
+  packages:
+  - name: project-knowledge-corpus
+    description: Коллекция навыков для создания, сопровождения и применения корпуса знаний проекта
+    source: mekras/project-knowlege-corpus
+    version: ^0.19.7
+    category: Productivity

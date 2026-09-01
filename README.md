@@ -17,16 +17,34 @@
 Основной способ использования — установка коллекции через APM
 ([Agent Package Manager](https://github.com/microsoft/apm)).
 
-Установка:
+Подключите реестр:
 
 ```bash
-apm install mekras/project-knowlege-corpus#^0.19.0
+apm marketplace add mekras/project-knowlege-corpus --ref master
+```
+
+Установите коллекцию из реестра для Codex:
+
+```bash
+apm install project-knowledge-corpus@project-knowledge-corpus --target codex
+```
+
+Установите коллекцию из реестра для Claude:
+
+```bash
+apm install project-knowledge-corpus@project-knowledge-corpus --target claude
 ```
 
 Обновление:
 
 ```bash
 apm update
+```
+
+Проверить, есть ли новые версии зависимостей:
+
+```bash
+apm outdated
 ```
 
 ## Первые действия
