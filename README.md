@@ -20,19 +20,19 @@
 Подключите реестр:
 
 ```bash
-apm marketplace add mekras/project-knowlege-corpus --ref master
+apm marketplace add mekras/apm-marketplace --ref master
 ```
 
 Установите коллекцию из реестра для Codex:
 
 ```bash
-apm install project-knowledge-corpus@project-knowledge-corpus --target codex
+apm install project-knowledge-corpus@mekras --target codex
 ```
 
 Установите коллекцию из реестра для Claude:
 
 ```bash
-apm install project-knowledge-corpus@project-knowledge-corpus --target claude
+apm install project-knowledge-corpus@mekras --target claude
 ```
 
 Обновление:
@@ -105,6 +105,20 @@ apm outdated
 
 Для поиска навыка по имени используйте
 [справочник навыков](docs/40-reference/02-skills.md).
+
+## Выпуск
+
+Перед выпуском обновите `version` в `apm.yml`, перенесите изменения из раздела
+«Не выпущено» в раздел этой версии в `CHANGELOG.md` и создайте тег с тем же
+номером версии.
+
+После отправки тега GitHub Actions проверяет коллекцию, переносит её публичный
+состав в `mekras/apm-marketplace`, пересобирает описания реестра и создаёт тег
+пакета `project-knowledge-corpus--v<версия>`.
+
+Для первого автоматического выпуска добавьте в настройках репозитория секрет
+Actions `APM_MARKETPLACE_TOKEN`. Это должен быть personal access token с правом
+на запись в содержимое репозитория `mekras/apm-marketplace`.
 
 ## Лицензия
 

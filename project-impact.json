@@ -105,7 +105,7 @@
       "id": "quality-tooling",
       "title": "Проверки и инструменты",
       "kind": "test",
-      "paths": ["tools/**", ".githooks/**", ".apm/evals/**", "evals.local.yml.sample"],
+      "paths": ["tools/**", ".githooks/**", ".github/workflows/**", ".apm/evals/**", "evals.local.yml.sample"],
       "checks": ["ait-code-testing", "apm run tests"],
       "review_stages": ["tests", "assurance"]
     }
