@@ -615,6 +615,40 @@ def main() -> int:
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)
         write_minimal_corpus(root)
+        unit = root / "data" / "test-source" / "documents" / "legacy-item"
+        write_text(
+            root / "data" / "test-source" / "items.yml",
+            """
+            items:
+              - id: TEST-ITEM-001
+                title: "Legacy item"
+                access: "Same as source."
+                status: active
+                workflow_stage: source_checked
+                path: documents/legacy-item
+            """,
+        )
+        write_text(
+            unit / "item.yml",
+            """
+            id: TEST-ITEM-001
+            title: "Legacy item"
+            access: "Same as source."
+            status: active
+            workflow_stage: source_checked
+            """,
+        )
+        result = run_validator(root, strict_verification=True)
+        expected = "legacy item has no verification.yml; external verification and freshness are not recorded"
+        if result.returncode != 0 or expected not in result.stdout:
+            raise AssertionError(
+                "strict verification must report an unverified legacy item without failing:\n"
+                f"{result.stdout}{result.stderr}"
+            )
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        write_minimal_corpus(root)
         unit = root / "data" / "test-source" / "documents" / "recorded"
         write_text(
             root / "data" / "test-source" / "items.yml",
