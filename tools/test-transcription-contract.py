@@ -47,6 +47,25 @@ def main() -> int:
         if json.loads(cleanup.stdout)["removed"] != [temporary_media.name] or temporary_media.exists():
             raise AssertionError("Явная очистка не удалила проверенное временное медиа.")
 
+        temporary_transcript = item_dir / "2026-09-02.tmp.txt"
+        temporary_transcript.write_text("Временная сырая расшифровка.\n", encoding="utf-8")
+        transcript_cleanup = run(
+            item_dir,
+            "--transcript",
+            temporary_transcript.name,
+            "--media",
+            temporary_transcript.name,
+            "--cleanup",
+        )
+        transcript_cleanup_data = json.loads(transcript_cleanup.stdout)
+        if (
+            transcript_cleanup_data["status"] != "temporary_transcript_cleaned"
+            or transcript_cleanup_data["transcript"] != temporary_transcript.name
+            or transcript_cleanup_data["removed"] != [temporary_transcript.name]
+            or temporary_transcript.exists()
+        ):
+            raise AssertionError("Временная расшифровка с проектным именем не очистилась.")
+
         persistent = run(item_dir, "--media", persistent_media.name, "--cleanup", expected=2)
         if "*.tmp.*" not in persistent.stderr or not persistent_media.exists():
             raise AssertionError("Постоянное локальное медиа не должно удаляться.")
