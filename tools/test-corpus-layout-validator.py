@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import subprocess
 import sys
 import tempfile
@@ -12,6 +13,7 @@ from textwrap import dedent
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 VALIDATOR = REPO_ROOT / ".apm" / "skills" / "kc-inventory" / "scripts" / "validate-corpus-layout.py"
+RECORDER = REPO_ROOT / ".apm" / "skills" / "kc-inventory" / "scripts" / "record-snapshot-verification.py"
 
 
 def write_text(path: Path, text: str) -> None:
@@ -407,6 +409,7 @@ def run_validator(
     *,
     strict_statements: bool = False,
     strict_concepts: bool = False,
+    strict_verification: bool = False,
     operational: bool = False,
     operational_policy: Path | None = None,
 ) -> subprocess.CompletedProcess[str]:
@@ -415,6 +418,8 @@ def run_validator(
         command.append("--strict-statements")
     if strict_concepts:
         command.append("--strict-concepts")
+    if strict_verification:
+        command.append("--strict-verification")
     if operational:
         command.append("--operational")
     if operational_policy is not None:
@@ -460,6 +465,239 @@ def initialize_git(root: Path) -> None:
 
 
 def main() -> int:
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        write_minimal_corpus(root)
+        corpus_path = root / "corpus.yml"
+        corpus_path.write_text(
+            corpus_path.read_text(encoding="utf-8").replace(
+                "  - source_checked\n",
+                "  - source_checked\n  - verification_assessed\n",
+            ),
+            encoding="utf-8",
+        )
+        unit = root / "data" / "test-source" / "documents" / "snapshot"
+        write_text(
+            root / "data" / "test-source" / "items.yml",
+            """
+            items:
+              - id: TEST-ITEM-001
+                item_contract_version: 2
+                title: "Test item"
+                access: "Same as source."
+                status: active
+                workflow_stage: verification_assessed
+                path: documents/snapshot
+            """,
+        )
+        write_text(
+            unit / "item.yml",
+            """
+            id: TEST-ITEM-001
+            item_contract_version: 2
+            title: "Test item"
+            access: "Same as source."
+            status: active
+            workflow_stage: verification_assessed
+            """,
+        )
+        artifact = unit / "message.md"
+        write_text(artifact, "User-provided snapshot.\n")
+        digest = hashlib.sha256(artifact.read_bytes()).hexdigest()
+        write_text(
+            unit / "verification.yml",
+            f"""
+            verification_contract_version: 1
+            artifact: message.md
+            hash:
+              algorithm: sha256
+              value: {digest}
+            acquisition:
+              method: user_provided
+              recorded_at: 2026-09-02
+            verification:
+              method: no_source_comparison
+              checked_at: 2026-09-02
+              checked_by:
+                role: corpus_maintainer
+              scope:
+                content: full_text
+                metadata: []
+              result:
+                overall: unverified
+                content_match: unverified
+                scope_completeness: complete
+                metadata:
+                  locator: unverified
+                  author: unverified
+                  publication_date: unverified
+              limitations:
+                - Not compared with the external source.
+            """,
+        )
+        assert_passes(root)
+
+        artifact.write_text("Changed snapshot.\n", encoding="utf-8")
+        assert_fails_with(root, "artifact hash does not match verification.yml")
+        artifact.write_text("User-provided snapshot.\n", encoding="utf-8")
+
+        verification_path = unit / "verification.yml"
+        original = verification_path.read_text(encoding="utf-8")
+        verification_path.write_text(
+            original.replace("verification_contract_version: 1", "verification_contract_version: 9"),
+            encoding="utf-8",
+        )
+        assert_fails_with(root, "unsupported verification_contract_version: 9")
+        verification_path.write_text(original, encoding="utf-8")
+
+        verification_path.write_text(
+            original.replace("metadata: []", "metadata: []\n    profile_name: local-reader"),
+            encoding="utf-8",
+        )
+        assert_fails_with(root, "forbidden verification field: profile_name")
+        verification_path.write_text(original, encoding="utf-8")
+
+        verification_path.write_text(
+            original.replace("artifact: message.md", "artifact: /tmp/message.md"),
+            encoding="utf-8",
+        )
+        assert_fails_with(root, "artifact must be relative to the unit")
+        verification_path.write_text(original, encoding="utf-8")
+
+        verification_path.write_text(
+            original.replace(
+                "method: no_source_comparison",
+                "method: manual_confirmation",
+            ).replace("content: full_text", "content: fragment"),
+            encoding="utf-8",
+        )
+        assert_fails_with(root, "fragment content scope requires scope.fragment")
+        verification_path.write_text(original, encoding="utf-8")
+
+        artifact.unlink()
+        assert_fails_with(root, "verified artifact does not exist")
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        write_minimal_corpus(root)
+        unit = root / "data" / "test-source" / "documents" / "test-item"
+        write_text(
+            root / "data" / "test-source" / "items.yml",
+            """
+            items:
+              - id: TEST-ITEM-001
+                item_contract_version: 2
+                title: "Test item"
+                access: "Same as source."
+                status: active
+                workflow_stage: indexed
+                path: documents/test-item
+            """,
+        )
+        write_text(
+            unit / "item.yml",
+            """
+            id: TEST-ITEM-001
+            item_contract_version: 2
+            title: "Test item"
+            access: "Same as source."
+            status: active
+            workflow_stage: indexed
+            """,
+        )
+        result = run_validator(root, strict_verification=True)
+        if result.returncode != 0 or "item contract version 2 has no verification.yml" not in result.stdout:
+            raise AssertionError(
+                "strict verification must warn, but not fail, before verification_assessed:\n"
+                f"{result.stdout}{result.stderr}"
+            )
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        write_minimal_corpus(root)
+        unit = root / "data" / "test-source" / "documents" / "recorded"
+        write_text(
+            root / "data" / "test-source" / "items.yml",
+            """
+            items:
+              - id: TEST-ITEM-001
+                title: "Test item"
+                access: "Same as source."
+                status: active
+                workflow_stage: normalized
+                path: documents/recorded
+            """,
+        )
+        write_text(
+            unit / "item.yml",
+            """
+            id: TEST-ITEM-001
+            title: "Test item"
+            access: "Same as source."
+            status: active
+            workflow_stage: normalized
+            """,
+        )
+        artifact = unit / "message.md"
+        write_text(artifact, "Provided text.\n")
+        recorded = subprocess.run(
+            [
+                sys.executable,
+                str(RECORDER),
+                str(unit),
+                str(artifact),
+                "--acquisition-method",
+                "user_provided",
+                "--verification-method",
+                "no_source_comparison",
+                "--content-scope",
+                "full_text",
+                "--content-match",
+                "unverified",
+                "--scope-completeness",
+                "complete",
+                "--overall-result",
+                "unverified",
+                "--checked-by-role",
+                "corpus_maintainer",
+            ],
+            text=True,
+            capture_output=True,
+        )
+        if recorded.returncode != 0:
+            raise AssertionError(f"snapshot recorder failed:\n{recorded.stdout}{recorded.stderr}")
+        assert_passes(root)
+        item_text = (unit / "item.yml").read_text(encoding="utf-8")
+        if "item_contract_version: 2" not in item_text or "verification_assessed" not in item_text:
+            raise AssertionError("single-unit migration did not update item.yml")
+
+        repeated = subprocess.run(
+            [
+                sys.executable,
+                str(RECORDER),
+                str(unit),
+                str(artifact),
+                "--acquisition-method",
+                "user_provided",
+                "--verification-method",
+                "no_source_comparison",
+                "--content-scope",
+                "full_text",
+                "--content-match",
+                "unverified",
+                "--scope-completeness",
+                "complete",
+                "--overall-result",
+                "unverified",
+                "--checked-by-role",
+                "corpus_maintainer",
+            ],
+            text=True,
+            capture_output=True,
+        )
+        if repeated.returncode != 0:
+            raise AssertionError("safe repeat of snapshot recorder failed")
+
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)
         write_minimal_corpus(root)

@@ -25,8 +25,12 @@ def main() -> int:
     root = Path.cwd()
     tools = root / "tools"
     checks = [
+        [tools / "validate-python-artifacts.py"],
+        [tools / "validate-python-syntax.py"],
+        [tools / "test-validate-python-artifacts.py"],
+        [tools / "test-validate-python-syntax.py"],
+        [tools / "test-run-apm-safe.py"],
         [tools / "validate-hidden-unicode.py"],
-        [tools / "validate-python-artifacts.py", Path(".apm")],
         [tools / "validate-skill-descriptions.py", Path(args.skills_path)],
         [tools / "validate-trigger-evals.py", Path(args.skills_path), "--require-all"],
         [tools / "validate-skill-result-evals.py", Path(args.skills_path)],
@@ -35,6 +39,7 @@ def main() -> int:
     if (root / "evals" / "fixtures" / "registry.json").is_file():
         checks.append([tools / "validate-fixture-evals.py"])
         checks.append([tools / "run-fixture-checks.py"])
+    checks.append([tools / "validate-python-artifacts.py"])
     for command in checks:
         script = command[0]
         if not script.is_file():

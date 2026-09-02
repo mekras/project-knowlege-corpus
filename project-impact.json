@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "graph": {
     "name": "project-knowledge-corpus",
     "description": "Направления возможного влияния между частями коллекции навыков для корпуса знаний.",
@@ -19,7 +19,11 @@
       "id": "concept",
       "title": "Концепция проекта",
       "kind": "concept",
-      "paths": ["README.md"],
+      "semantic_type": "концепция продукта",
+      "authority": "canonical",
+      "representations": [
+        {"path": "README.md", "role": "canonical"}
+      ],
       "checks": ["ait-docs-concept", "ait-readme"],
       "review_stages": ["requirements"]
     },
@@ -27,7 +31,11 @@
       "id": "product-principles",
       "title": "Принципы продукта",
       "kind": "other",
-      "paths": ["docs/product-principles.md"],
+      "semantic_type": "принципы продукта",
+      "authority": "canonical",
+      "representations": [
+        {"path": "docs/product-principles.md", "role": "canonical"}
+      ],
       "checks": ["ait-req-analysis", "ait-writing"],
       "review_stages": ["requirements"]
     },
@@ -35,7 +43,11 @@
       "id": "requirements",
       "title": "Требования проекта",
       "kind": "requirements",
-      "paths": ["docs/requirements.md"],
+      "semantic_type": "набор требований",
+      "authority": "canonical",
+      "representations": [
+        {"path": "docs/requirements.md", "role": "canonical"}
+      ],
       "checks": [
         "ait-req-analysis",
         "ait-req-management",
@@ -47,7 +59,11 @@
       "id": "architecture",
       "title": "Архитектура проекта",
       "kind": "architecture",
-      "paths": ["docs/architecture.md"],
+      "semantic_type": "описание архитектуры",
+      "authority": "canonical",
+      "representations": [
+        {"path": "docs/architecture.md", "role": "canonical"}
+      ],
       "checks": [
         "ait-arch-revalidation",
         "ait-architecture",
@@ -59,7 +75,11 @@
       "id": "published-skills",
       "title": "Публикуемые навыки",
       "kind": "implementation",
-      "paths": [".apm/skills/**"],
+      "semantic_type": "реализация навыков корпуса знаний",
+      "authority": "canonical",
+      "representations": [
+        {"path": ".apm/skills/**", "role": "canonical"}
+      ],
       "checks": ["ai-skill-development", "apm run tests"],
       "review_stages": ["code", "tests"]
     },
@@ -67,12 +87,14 @@
       "id": "user-documentation",
       "title": "Пользовательская документация",
       "kind": "documentation",
-      "paths": [
-        "docs/00-index.md",
-        "docs/10-user-guide/**",
-        "docs/20-sources/**",
-        "docs/40-reference/**",
-        "docs/50-how-to/**"
+      "semantic_type": "пользовательское представление договоров проекта",
+      "authority": "supporting",
+      "representations": [
+        {"path": "docs/00-index.md", "role": "navigation"},
+        {"path": "docs/10-user-guide/**", "role": "supporting"},
+        {"path": "docs/20-sources/**", "role": "supporting"},
+        {"path": "docs/40-reference/**", "role": "supporting"},
+        {"path": "docs/50-how-to/**", "role": "supporting"}
       ],
       "checks": ["ait-writing", "ait-docs-structure-audit"],
       "review_stages": ["requirements"]
@@ -81,14 +103,16 @@
       "id": "governance",
       "title": "Решения и процесс",
       "kind": "process",
-      "paths": [
-        "AGENTS.md",
-        "CLAUDE.md",
-        ".ai-dev-team-state.yml",
-        "docs/ADR/**",
-        "BACKLOG.md",
-        "CHANGELOG.md",
-        "project-impact.json"
+      "semantic_type": "правила, решения и управление изменениями",
+      "authority": "canonical",
+      "representations": [
+        {"path": "AGENTS.md", "role": "canonical"},
+        {"path": "CLAUDE.md", "role": "supporting"},
+        {"path": ".ai-dev-team-state.yml", "role": "implementation"},
+        {"path": "docs/ADR/**", "role": "canonical"},
+        {"path": "BACKLOG.md", "role": "supporting"},
+        {"path": "CHANGELOG.md", "role": "supporting"},
+        {"path": "project-impact.json", "role": "implementation"}
       ],
       "checks": ["ai-agents-md-maintenance", "ait-decisions", "ait-changelog", "ait-impact-analysis"],
       "review_stages": ["repository", "impact"]
@@ -97,7 +121,14 @@
       "id": "delivery",
       "title": "Поставка",
       "kind": "delivery",
-      "paths": ["apm.yml", "apm.lock.yaml", "LICENSE", ".gitignore"],
+      "semantic_type": "конфигурация и состав поставки APM",
+      "authority": "canonical",
+      "representations": [
+        {"path": "apm.yml", "role": "canonical"},
+        {"path": "apm.lock.yaml", "role": "implementation"},
+        {"path": "LICENSE", "role": "canonical"},
+        {"path": ".gitignore", "role": "implementation"}
+      ],
       "checks": ["ai-setup-apm", "apm audit --ci"],
       "review_stages": ["repository", "assurance"]
     },
@@ -105,7 +136,16 @@
       "id": "quality-tooling",
       "title": "Проверки и инструменты",
       "kind": "test",
-      "paths": ["tools/**", ".githooks/**", ".github/workflows/**", ".apm/evals/**", "evals.local.yml.sample"],
+      "semantic_type": "реализация проверок качества",
+      "authority": "derived",
+      "representations": [
+        {"path": "tools/**", "role": "verification"},
+        {"path": ".githooks/**", "role": "verification"},
+        {"path": ".github/workflows/**", "role": "verification"},
+        {"path": ".apm/evals/**", "role": "verification"},
+        {"path": "evals.local.yml.sample", "role": "supporting"},
+        {"path": "evals.sample.yml", "role": "supporting"}
+      ],
       "checks": ["ait-code-testing", "apm run tests"],
       "review_stages": ["tests", "assurance"]
     }

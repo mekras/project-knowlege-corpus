@@ -22,6 +22,21 @@
 apm run tests
 ```
 
+## Самоприменение APM
+
+При изменении `.apm/skills/**` вместо прямых `apm install` и `apm audit --ci`
+запускай безопасный цикл:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 python3 tools/run-apm-safe.py \
+  --audit-runner tools/apm-audit-ci
+```
+
+Локальный запускатель сохраняет полный аудит и принимает только подтверждённое
+совпадение развёрнутого файла с текущим `.apm`-источником при самоприменении.
+Для повторного аудита без установки запускай
+`PYTHONDONTWRITEBYTECODE=1 python3 tools/apm-audit-ci`.
+
 Если изменение заметно пользователям или сопровождающим проекта, проверяй
 необходимость записи в `CHANGELOG.md` через навык `ait-changelog`.
 

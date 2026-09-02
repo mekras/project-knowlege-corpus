@@ -392,6 +392,93 @@ def build_corpus(root: Path) -> None:
     write(root / ".private" / "source.txt", "original ignored material\n")
 
 
+def configure_v2_adapter(root: Path) -> None:
+    source_path = root / "knowledge" / "data" / "test" / "source.yml"
+    source_path.write_text(
+        source_path.read_text(encoding="utf-8").replace(
+            "adapter: builtin.local-file",
+            "adapter: project.v2\n"
+            "access_requirements:\n"
+            "  authorization_kind: account_session\n"
+            "  required_capabilities: [read_item]\n"
+            "  profile_name: test-reader\n"
+            "  interactive_setup: allowed",
+        ),
+        encoding="utf-8",
+    )
+    write(
+        root / "adapter-v2.py",
+        """
+        import json
+        import sys
+        from pathlib import Path
+
+        operation, source_id, profile_name = sys.argv[1:]
+        if Path(".local/leak-secret").exists():
+            print("token=TOP-SECRET", file=sys.stderr)
+            raise SystemExit(1)
+        if operation == "probe":
+            status = "ready" if Path(".local/profile-ready").exists() else "profile-missing"
+            message = "Профиль готов." if status == "ready" else "Локальный профиль отсутствует."
+            artifacts = []
+        elif operation == "fetch":
+            Path("knowledge/data/test/v2-fetch.yml").write_text("profile: " + profile_name + "\\n", encoding="utf-8")
+            status = "changed"
+            message = "Снимок получен."
+            artifacts = ["knowledge/data/test/v2-fetch.yml"]
+        elif operation == "verify":
+            status = "unverified" if Path(".local/verify-success").exists() else "access-limited"
+            message = "Проверка завершена." if status == "unverified" else "Новая сверка недоступна."
+            artifacts = []
+        elif operation == "authorize":
+            Path(".local/authorize-called").parent.mkdir(parents=True, exist_ok=True)
+            Path(".local/authorize-called").write_text("called", encoding="utf-8")
+            status = "ready"
+            message = "Интерактивная авторизация завершена."
+            artifacts = []
+        else:
+            raise SystemExit(3)
+        print(json.dumps({
+            "contract_version": 2,
+            "operation": operation,
+            "source_id": source_id,
+            "adapter": "project.v2",
+            "status": status,
+            "message": message,
+            "artifacts": artifacts,
+        }))
+        """,
+    )
+    operations_path = root / "operations.yml"
+    operations_path.write_text(
+        operations_path.read_text(encoding="utf-8")
+        + f"""
+  project.v2:
+    contract_version: 2
+    operations:
+      probe:
+        argv: [{sys.executable}, adapter-v2.py, probe, "{{source_id}}", "{{profile_name}}"]
+        working_directory: .
+        write_paths: []
+      fetch:
+        argv: [{sys.executable}, adapter-v2.py, fetch, "{{source_id}}", "{{profile_name}}"]
+        working_directory: .
+        write_paths: [knowledge/data/test]
+      verify:
+        argv: [{sys.executable}, adapter-v2.py, verify, "{{source_id}}", "{{profile_name}}"]
+        working_directory: .
+        write_paths: [knowledge/data/test]
+      authorize:
+        argv: [{sys.executable}, adapter-v2.py, authorize, "{{source_id}}", "{{profile_name}}"]
+        working_directory: .
+        write_paths: []
+""",
+        encoding="utf-8",
+    )
+    gitignore = root / ".gitignore"
+    gitignore.write_text(gitignore.read_text(encoding="utf-8") + ".local/\n", encoding="utf-8")
+
+
 def reject_automated_work(root: Path, *, keep_blocked: bool) -> None:
     stage_names = (
         "needs_fetch",
@@ -1064,6 +1151,90 @@ def main() -> int:
             raise AssertionError("Повреждённое состояние прохода не было отклонено.")
 
     print("Проверки операционного контура корпуса прошли.")
+    with tempfile.TemporaryDirectory() as temporary:
+        root = Path(temporary)
+        build_corpus(root)
+        configure_v2_adapter(root)
+        subprocess.run(["git", "init", "--quiet"], cwd=root, check=True)
+        subprocess.run(["git", "add", "-A"], cwd=root, check=True)
+
+        missing_profile = run(root, "--run-adapters", "--source", "TEST")
+        if "project.v2, probe): profile-missing" not in missing_profile.stdout:
+            raise AssertionError("probe did not report the missing local profile precisely")
+        if (root / "knowledge" / "data" / "test" / "v2-fetch.yml").exists():
+            raise AssertionError("fetch ran despite a failed probe")
+        if (root / ".local" / "authorize-called").exists():
+            raise AssertionError("interactive authorization started automatically")
+
+        (root / ".local").mkdir(parents=True, exist_ok=True)
+        (root / ".local" / "profile-ready").write_text("ready", encoding="utf-8")
+        fetched = run(root, "--run-adapters", "--source", "TEST")
+        if "project.v2, probe): ready" not in fetched.stdout or "project.v2): changed" not in fetched.stdout:
+            raise AssertionError("ready probe did not permit the version 2 fetch")
+        if not (root / "knowledge" / "data" / "test" / "v2-fetch.yml").is_file():
+            raise AssertionError("version 2 fetch did not create its declared artifact")
+
+        verification_path = root / "knowledge" / "data" / "test" / "documents" / "statements" / "verification.yml"
+        write(verification_path, "preserved: true\n")
+        before = verification_path.read_text(encoding="utf-8")
+        unavailable = run(
+            root,
+            "--run-adapters",
+            "--adapter-operation",
+            "verify",
+            "--source",
+            "TEST",
+        )
+        if "project.v2, verify): access-limited" not in unavailable.stdout:
+            raise AssertionError("verify did not preserve the precise access-limited result")
+        if verification_path.read_text(encoding="utf-8") != before:
+            raise AssertionError("failed verification changed the saved snapshot verification")
+
+        explicit_authorize = run(
+            root,
+            "--run-adapters",
+            "--adapter-operation",
+            "authorize",
+            "--source",
+            "TEST",
+        )
+        if "project.v2, authorize): ready" not in explicit_authorize.stdout:
+            raise AssertionError("explicit interactive authorization did not run")
+        if not (root / ".local" / "authorize-called").is_file():
+            raise AssertionError("authorize operation did not leave its local marker")
+
+        (root / ".local" / "leak-secret").write_text("on", encoding="utf-8")
+        sanitized = run(
+            root,
+            "--run-adapters",
+            "--adapter-operation",
+            "probe",
+            "--source",
+            "TEST",
+        )
+        if "TOP-SECRET" in sanitized.stdout or "TOP-SECRET" in sanitized.stderr:
+            raise AssertionError("adapter secret leaked into the report")
+        if "token=[скрыто]" not in sanitized.stdout:
+            raise AssertionError("adapter secret was not replaced with a safe marker")
+
+        operations_path = root / "operations.yml"
+        operations_path.write_text(
+            operations_path.read_text(encoding="utf-8").replace(
+                "project.v2:\n    contract_version: 2",
+                "project.v2:\n    contract_version: 9",
+            ),
+            encoding="utf-8",
+        )
+        unsupported_version = run(
+            root,
+            "--run-adapters",
+            "--source",
+            "TEST",
+            expected=2,
+        )
+        if "Неподдерживаемая версия договора адаптера" not in unsupported_version.stderr:
+            raise AssertionError("unknown adapter contract version was not rejected")
+
     return 0
 
 
